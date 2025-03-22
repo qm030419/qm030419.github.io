@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-//所有卡选项
+
   const cardArray = [
     {
       name: 'cat1',
@@ -62,27 +62,27 @@ document.addEventListener('DOMContentLoaded', () => {
   //游戏指令(借鉴网上的）
 
   function createBoard() {
-    // 循环遍历卡牌数组
+   
     for (let i = 0; i < cardArray.length; i++) {
-      // 创建卡牌元素
+   
       const card = document.createElement('img')
-      // 设置默认背面图片
+   
       card.setAttribute('src', 'images/blank.png')
 
-      // 绑定索引标识
+   
       card.setAttribute('data-id', i)
 
-      // 添加点击事件监听
+   
       card.addEventListener('click', flipCard)
 
-      // 将卡牌添加到游戏面板
+   
       grid.appendChild(card)
     }
   }
 
   //check for matches
   function checkForMatch() {
-     // 获取所有卡牌元素
+ 
     const cards = document.querySelectorAll('img')
     const optionOneId = cardsChosenId[0]
     const optionTwoId = cardsChosenId[1]
