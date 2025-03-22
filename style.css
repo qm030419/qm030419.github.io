@@ -1,0 +1,9 @@
+.grid {
+  display: grid;
+  flex-wrap: wrap;
+  width: 400px;
+  height: 300px;
+  grid-template-columns: repeat(4, 1fr); /* 4列布局 */
+  justify-content: center;
+  padding-top: 137px;
+}
