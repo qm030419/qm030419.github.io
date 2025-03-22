@@ -1,29 +1,37 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang='en'>
   <head>
     <meta charset="utf-8">
-    <title>My frist style page</title>
-    <link rel="stylesheet"href="mystyle.css">
-       <!-- 子网站描述->
+    <title>Cat Game</title>
+          <link rel="stylesheet" href="style.css">
+    <style>
+      body {
+        background-image: url('1.jpg'); 
+        background-size: cover;                 
+        background-repeat: no-repeat;           
+        background-position: center;         
+        background-attachment: fixed;           
+        display: flex;
+        flex-direction: column;
+        align-items: center;           
+      }
+    </style>
   </head>
-      <body>
-        <!- 网站导航菜单-->
-        <ul class="navbar">
-          <li><a href="index.html">Home page</a></li>
-          <li><a href="musings.html">Musings</a></li>
-          <li><a href="town.html">My town</a></li>
-          <li><a href="links.html">Links</a></li>
-        </ul>
-        <!-- Main content -->
-        <h1>My first styled page</h1>
-        <p>Welcome to my styled page!
-        <p>It lacks images, but at least it has style.
-            And it has links, even if they don't go
-            anywhere&hellip;
-        <p>There should be more here, but I don't know
-            what yet.
-        <!-- Sign and date the page, it's only polite! -->
-        <address>Made 5 April 2004<br>
-                  by myself.</address>
+
   <body>
+    <h1 style="color: white; text-align: center;">
+        <div style="padding-top: 20px">
+        Please find the same cat！
+    </h1>
+
+    <h3 style="color: white; text-align: center;">
+        Score:
+        <span id="result"></span>
+    </h3>
+
+    <div class="grid"></div>
+
+    <script src="app.js">
+    </script>
+  </body>
 </html>
