@@ -1,0 +1,196 @@
+@charset "utf-8";
+/* CSS Document */
+
+* {
+	box-sizing:border-box;
+	margin:0;
+	padding:0;
+}
+body{
+	color:#222;
+		padding-bottom:0px;
+}
+.bigbox{
+	background-image:url("cool-background (4).png");
+	
+	height:100vh;
+	position: relative;
+/*	z-index:-2; 这个如果设置为负数，那么body这个标签会盖在上面，你的鼠标其实是在body盒子上活动*/	
+}
+.box1{
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	margin: auto;
+	width: 600px;
+	height:600px;
+	display:flex;
+	flex-direction: column;
+}
+.movie{
+	margin-top: 40px;
+	margin-bottom: 50px;
+	border:black solid 3px;
+	flex:1;
+	display: flex;
+	flex-direction: column;
+}
+.title{
+	-webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border: none;
+  font: normal 40px/1 "Comic Sans MS", cursive, sans-serif;
+  color: #0096ff;
+  text-align: center;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+	flex:1;
+}
+.notitle{
+	flex:1.9;
+	display: flex;
+}
+.words{
+	
+	padding-top: 10px;
+	padding-left: 40px;
+	flex:2;
+	background-repeat: no-repeat;
+}
+.b1{
+	position: relative;
+	top: 30px;
+	left: 100px;
+	width: 150px;
+	background-color: #fff;
+	border-radius: 30px;
+	text-align: center;
+	transition: all 0.3s;
+}
+.b1 a{
+	background-color: #000000;
+	display: block;
+	height: 48px;
+	line-height: 48px;
+	border-radius: 30px;
+	text-decoration: none;
+	color: #FFFFFF;
+	transition: all 0.3s;
+}
+.b1 a:hover{
+	background-color:#2B2278 ;
+}
+.b2{
+	position: relative;
+	top: 30px;
+	left: 100px;
+	width: 150px;
+	background-color: #fff;
+	border-radius: 30px;
+	text-align: center;
+	transition: all 0.3s;
+}
+.b2 a{
+	background-color: #000000;
+	display: block;
+	height: 48px;
+	line-height: 48px;
+	border-radius: 30px;
+	text-decoration: none;
+	color: #FFFFFF;
+	transition: all 0.3s;
+}
+.b2 a:hover{
+	background-color:#2B2278 ;
+}
+.photo{
+	flex:1;
+}
+.music{
+	margin-top: 50px;
+	flex:1;
+	border:black solid 3px;
+	display: flex;
+	flex-direction: column;
+}
+.cute{
+	top:200px;
+	width:190px;
+	height:180px;
+	position:fixed;
+	/*浏览器的绝对定位*/
+	background-color:#25B5EE
+	
+}
+.cute img{
+	width:190px;
+	height:180px;	
+}
+.cute p{
+	margin-top:0px;
+	text-align: center;
+ display: inline-block;
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border: none;
+  font: normal 26px/1 "Aladin", Helvetica, sans-serif;
+  color: rgba(48,48,48,1);
+  text-transform: normal;
+  -o-text-overflow: clip;
+  text-overflow: clip;
+  white-space: pre;
+  text-shadow: 1px 1px 0 rgba(140,140,140,0.6) , -1px -1px 1px rgba(0,0,0,0.67) ;
+}
+.container{
+	max-width:1200px;
+	margin: 0 auto;
+	
+}
+.nav{
+/*	遇到这种情况可以选择把你想要置上的元素z-index写大*/
+	z-index:2;	
+	position:fixed;
+	background-color: #222;
+	top:0;
+	left:0;
+	right:0;
+	transition:all 0.3s ease-in-out;
+}
+.nav .container{
+	display:flex;
+	justify-content:space-between;
+	align-items: center;
+	padding:20px 0;
+	transition: all 0.3s ease-in-out;
+}
+.nav u1{
+	display:flex;
+	list-style-type:none;
+	align-items:center;
+	justify-content:center;
+}
+.nav a{
+	color:#fff;
+	text-decoration: none;
+	padding:7px 15px;
+	transition:all 0.3s ease-in-out;
+}
+.nav.active{
+	background-color: #FFF;
+	box-shadow:0 2px 10px rgba(0,0,0,0.3);
+}
+.nav.active a{
+	color:#000;
+}
+.nav.active.container{
+	padding:10px 0;
+}
+.nav a.current,
+.nav a:hover{
+	color:#F40509;
+	font-weight:bold;
+}

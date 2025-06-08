@@ -1,0 +1,161 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("cool-background.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+	background-size: cover; 
+}
+
+li {
+    /* 取消无须列表的点 */
+    list-style: none;
+}
+.container{
+	max-width:1200px;
+	margin: 0 auto;
+	
+}
+.nav{
+	position:fixed;
+	background-color: #222;
+	top:0;
+	left:0;
+	right:0;
+	transition:all 0.3s ease-in-out;
+}
+.nav .container{
+	display:flex;
+	justify-content:space-between;
+	align-items: center;
+	padding:20px 0;
+	transition: all 0.3s ease-in-out;
+}
+.nav u1{
+	display:flex;
+	list-style-type:none;
+	align-items:center;
+	justify-content:center;
+}
+.nav a{
+	color:#fff;
+	text-decoration: none;
+	padding:7px 15px;
+	transition:all 0.3s ease-in-out;
+}
+.nav.active{
+	background-color: #FFF;
+	box-shadow:0 2px 10px rgba(0,0,0,0.3);
+}
+.nav.active a{
+	color:#000;
+}
+.nav.active.container{
+	padding:10px 0;
+}
+.nav a.current,
+.nav a:hover{
+	color:#F40509;
+	font-weight:bold;
+}
+.box {
+    width: 1000px;
+    height: 320px;
+    margin: 0px auto;
+    /* 溢出隐藏 */
+    overflow: hidden;
+    transition: all 0.3s;
+    border: 1px solid #fff;
+    box-shadow: 0 10px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.box li {
+    float: left;
+    position: relative;
+    width: 199px;
+    height: 320px;
+    transition: all 0.3s;
+}
+
+.box li .text {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.box:hover li {
+    width: 64px;
+}
+
+.box li:hover {
+    width: 640px;
+}
+
+.start {
+    font-size: 25px;
+    color: black;
+    /*设置背景的线性渐变，（左上到右下）*/
+    background: linear-gradient(to right bottom,
+            rgba(255, 255, 255, 0.6),
+            rgba(255, 255, 255, 0.1));
+    border-radius: 10px;
+    height: 20px;
+    line-height: 0px;
+    width: 90px;
+    text-align: center;
+    margin: 40px auto;
+    padding: 20px;
+    box-shadow: 0px 3px 3px 4px;
+    position: relative;
+}
+
+.start a {
+    text-decoration: none;
+    color: #fff;
+}
+.b{
+	position: relative;
+	top: 120px;
+	left: 250px;
+	width: 150px;
+	background-color: #fff;
+	border-radius: 30px;
+	text-align: center;
+	transition: all 0.3s;
+}
+.b a{
+	background-color: #000000;
+	display: block;
+	height: 48px;
+	line-height: 48px;
+	border-radius: 30px;
+	text-decoration: none;
+	color: #FFFFFF;
+	transition: all 0.3s;
+}
+.b a:hover{
+	background-color:#2B2278 ;
+	}
+/* 页头 */
+.header {
+    height: 115px;
+    width: 1000px;
+    margin: 110px auto;
+    margin-bottom: 20px;
+	
+}
+
+.header img {
+    height: 100%;
+    margin-left: -50px;
+}

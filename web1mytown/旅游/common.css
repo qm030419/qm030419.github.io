@@ -1,0 +1,218 @@
+/* 公共 */
+
+/* 右侧滚动条不可见 */
+body::-webkit-scrollbar {
+    display: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+ul {
+    list-style: none;
+}
+
+.pink {
+    background-color: pink;
+}
+
+.w {
+    width: 1190px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+/* 内外边距消除 */
+* {
+    margin: 0;
+    padding: 0;
+    /* border: 1px solid red; */
+    box-sizing: border-box;
+}
+
+/* 清除浮动 */
+.clearfix:bafore,
+.clearfix:after {
+    content: "";
+    display: table;
+}
+
+.clearfix:after {
+    clear: both;
+}
+
+.clearfix {
+    /* IE6~7专有 */
+    *zoom: 1;
+
+}
+
+/* 页头  start*/
+header {
+    /*将导航条位置固定*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    z-index: 10;
+    padding: 20px 100px;
+    box-sizing: border-box;
+    display: flex;
+    /*元素在上下两端或者左右两端开始排列*/
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    overflow: hidden;
+    border-bottom: double white 1px;
+    /*导航条整体背景*/
+    background-color: rgba(0, 0, 0, 0.167);
+}
+
+header img {
+    margin-left: -20px;
+}
+
+.nav-header {
+    display: flex;
+    /*垂直放置*/
+    flex-direction: column;
+
+    margin: -20px;
+    margin-left: 80px;
+}
+
+.nav-header img {
+    height: 100px;
+    /* z-index: ; */
+}
+
+.navbar-brand {
+    font-family: "宋体";
+    font-size: 30px;
+    font-weight: bold;
+    height: 30px;
+    color: #FFF;
+}
+
+.navbar-brandE {
+    font-family: "Times New Roman";
+    font-size: 15px;
+    font-weight: 700;
+    /*color:#FFF;*/
+    text-align: center;
+}
+
+.font-special {
+    font-family: 宋体, 新宋体, sans-serif;
+}
+
+header ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header ul li {
+    font-weight: 400;
+    margin-left: 15px;
+    transition: all .5s linear;
+    padding: 5px 10px;
+    border-radius: 20px;
+    margin-right: 5px;
+}
+
+header ul li:hover {
+    background: #497271;
+    color: #2b1055;
+}
+
+header ul li.active {
+    background: #497271;
+    color: #2b1055;
+}
+
+a:link,
+a:visited {
+    color: #FFF;
+    text-decoration: none;
+}
+
+/* 页头  end*/
+
+/* 页脚  start*/
+.footer {
+    /* height: 150px; */
+    /* background-color: pink; */
+}
+
+/*footer*/
+/* 布局和背景 */
+.footer {
+    height: 300px;
+    width: 100%;
+    margin-top: 30px;
+    background-color: rgb(43, 54, 54);
+
+}
+
+/* 上半部分 */
+.footer_hd {
+    height: 151px;
+    width: 100%;
+    border-bottom: 1px solid gray;
+    /* background-color: pink; */
+}
+
+.footer_hd .introduce {
+    height: 151px;
+    width: 295px;
+    float: left;
+    padding: 0px 0px 0px 0px;
+}
+
+/* 标题部分 */
+.introduce .hd_title p {
+    font-size: 23px;
+    color: #ebebeb;
+    margin: 12px 0px 0px 12px;
+}
+
+.introduce .hd_body {
+    margin-top: 10px;
+}
+
+.introduce .hd_body a {
+    margin-left: 15px;
+    margin-top: 10px;
+    color: #d6d4d4;
+    transition: 0.5s;
+}
+
+.introduce .hd_body ul li {
+    margin-top: 8px;
+}
+
+.introduce .hd_body ul li p {
+    margin-left: 15px;
+    margin-top: 10px;
+    color: #d6d4d4;
+}
+
+.introduce .hd_body a:hover {
+    color: #497271;
+}
+
+/* 版权部分 */
+.footer_bd {
+    font-size: 16px;
+    color: #d6d4d4;
+    height: 45px;
+    width: 100%;
+    line-height: 45px;
+    text-align: center;
+    padding: 0px 0px 0px 0px;
+    /* background-color: skyblue; */
+}
+
+/* 页脚  end*/
