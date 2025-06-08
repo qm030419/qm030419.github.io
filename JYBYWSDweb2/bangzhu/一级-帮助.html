@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>帮助中心 - 全国校外教育培训监管与服务综合平台</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="../js/tailwindcss.js"></script>
+    <script src="../js/tailwind.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <!-- 顶部导航栏 -->
+    <header class="w-full bg-primary text-white">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-bold">全国校外教育培训监管与服务综合平台</h1>
+        <div class="flex space-x-4 text-sm">
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              机构查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              课程查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              接入银行 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <button class="whitespace-nowrap !rounded-button">登录</button>
+          <button class="whitespace-nowrap !rounded-button">APP下载</button>
+        </div>
+      </div>
+    </header>
+    <!-- 主导航菜单 -->
+    <nav class="bg-blue-600 text-white">
+      <div class="container mx-auto">
+        <ul class="flex">
+          <li class="flex-1">
+            <a
+              href="../一级-首页.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-home-line"></i>
+              </div>
+              首页
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../zhengce/一级-政策.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-list-line"></i>
+              </div>
+              政策
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../dongtai/一级-动态.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              动态
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../baoguang/一级-曝光.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-alert-line"></i>
+              </div>
+              曝光
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../piyao/一级-辟谣.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-error-warning-line"></i>
+              </div>
+              辟谣
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../bangzhu/一级-帮助.html"
+              class="flex items-center justify-center py-4 px-6 bg-blue-700 hover:bg-blue-800 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-question-line"></i>
+              </div>
+              帮助
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- 主体内容 -->
+    <main class="container mx-auto px-4 py-6">
+      <div class="flex flex-col lg:flex-row gap-6">
+        <!-- 左侧分类导航 -->
+        <div class="lg:w-1/4">
+          <div class="bg-white rounded-lg shadow-sm p-4 sticky top-4">
+            <h3 class="text-lg font-bold text-gray-800 mb-4 pb-2 border-b">
+              问题分类
+            </h3>
+            <ul class="space-y-1">
+              <li>
+                <a
+                  href="#platform-guide"
+                  class="flex items-center py-2 px-3 bg-blue-50 text-primary rounded"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-guide-line"></i>
+                  </div>
+                  平台使用指南
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#institution-registration"
+                  class="flex items-center py-2 px-3 text-gray-700 hover:bg-gray-50 rounded"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-building-line"></i>
+                  </div>
+                  机构注册流程
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#policy-interpretation"
+                  class="flex items-center py-2 px-3 text-gray-700 hover:bg-gray-50 rounded"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-file-text-line"></i>
+                  </div>
+                  政策解读
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#system-operation"
+                  class="flex items-center py-2 px-3 text-gray-700 hover:bg-gray-50 rounded"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-computer-line"></i>
+                  </div>
+                  系统操作教程
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#fund-supervision"
+                  class="flex items-center py-2 px-3 text-gray-700 hover:bg-gray-50 rounded"
+                >
+                  <div class="w-5 h-5 flex items-center justify-center mr-2">
+                    <i class="ri-bank-line"></i>
+                  </div>
+                  资金监管
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <!-- 右侧内容区域 -->
+        <div class="lg:w-3/4">
+          <!-- 平台使用指南 -->
+          <div
+            id="platform-guide"
+            class="bg-white rounded-lg shadow-sm p-6 mb-6"
+          >
+            <h3
+              class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center"
+            >
+              <div
+                class="w-6 h-6 flex items-center justify-center mr-2 text-primary"
+              >
+                <i class="ri-guide-line"></i>
+              </div>
+              平台使用指南
+            </h3>
+            <div class="space-y-6">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <h4 class="font-bold text-gray-800 mb-2">平台简介</h4>
+                <p class="text-gray-600">这里可以添加平台的详细介绍。</p>
+              </div>
+            </div>
+          </div>
+          <!-- 机构注册流程 -->
+          <div
+            id="institution-registration"
+            class="bg-white rounded-lg shadow-sm p-6 mb-6"
+          >
+            <h3
+              class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center"
+            >
+              <div
+                class="w-6 h-6 flex items-center justify-center mr-2 text-primary"
+              >
+                <i class="ri-building-line"></i>
+              </div>
+              机构注册流程
+            </h3>
+            <p class="text-gray-600">这里可以添加机构注册的详细流程。</p>
+          </div>
+          <!-- 政策解读 -->
+          <div
+            id="policy-interpretation"
+            class="bg-white rounded-lg shadow-sm p-6 mb-6"
+          >
+            <h3
+              class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center"
+            >
+              <div
+                class="w-6 h-6 flex items-center justify-center mr-2 text-primary"
+              >
+                <i class="ri-file-text-line"></i>
+              </div>
+              政策解读
+            </h3>
+            <div class="space-y-6">
+              <div class="border-l-4 border-primary pl-4 py-1">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  校外培训机构设置标准
+                </h4>
+                <p class="text-gray-600">
+                  根据《关于规范校外培训机构发展的意见》和《校外培训机构设置标准》，校外培训机构需满足以下基本条件：
+                </p>
+                <ul class="list-disc list-inside mt-2 text-gray-600 space-y-1">
+                  <li>具有独立法人资格</li>
+                  <li>有与培训内容相适应的固定场所，符合安全条件</li>
+                  <li>有与培训内容相适应的课程体系</li>
+                  <li>有相应的管理制度和风险防控措施</li>
+                  <li>有与培训规模相适应的师资力量</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- 系统操作教程 -->
+          <div
+            id="system-operation"
+            class="bg-white rounded-lg shadow-sm p-6 mb-6"
+          >
+            <h3
+              class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center"
+            >
+              <div
+                class="w-6 h-6 flex items-center justify-center mr-2 text-primary"
+              >
+                <i class="ri-computer-line"></i>
+              </div>
+              系统操作教程
+            </h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div class="space-y-4">
+                <h4 class="font-bold text-gray-800">机构端操作指南</h4>
+                <div class="space-y-3">
+                  <a
+                    href="#"
+                    class="flex items-center bg-gray-50 hover:bg-blue-50 transition-colors p-3 rounded-lg"
+                  >
+                    <div
+                      class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-3 flex-shrink-0"
+                    >
+                      <i class="ri-user-add-line"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h5 class="font-medium text-gray-800">账号管理</h5>
+                      <p class="text-gray-600 text-sm">
+                        账号注册、登录、密码修改、信息维护
+                      </p>
+                    </div>
+                    <div
+                      class="w-6 h-6 flex items-center justify-center text-gray-400"
+                    >
+                      <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="flex items-center bg-gray-50 hover:bg-blue-50 transition-colors p-3 rounded-lg"
+                  >
+                    <div
+                      class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-3 flex-shrink-0"
+                    >
+                      <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h5 class="font-medium text-gray-800">课程管理</h5>
+                      <p class="text-gray-600 text-sm">
+                        课程备案、排课管理、教学评价、学员管理
+                      </p>
+                    </div>
+                    <div
+                      class="w-6 h-6 flex items-center justify-center text-gray-400"
+                    >
+                      <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <h4 class="font-bold text-gray-800">管理端操作指南</h4>
+                <div class="space-y-3">
+                  <a
+                    href="#"
+                    class="flex items-center bg-gray-50 hover:bg-blue-50 transition-colors p-3 rounded-lg"
+                  >
+                    <div
+                      class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-3 flex-shrink-0"
+                    >
+                      <i class="ri-building-2-line"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h5 class="font-medium text-gray-800">机构管理</h5>
+                      <p class="text-gray-600 text-sm">
+                        机构注册、资质审核、信息变更、年检管理
+                      </p>
+                    </div>
+                    <div
+                      class="w-6 h-6 flex items-center justify-center text-gray-400"
+                    >
+                      <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                  </a>
+                  <a
+                    href="#"
+                    class="flex items-center bg-gray-50 hover:bg-blue-50 transition-colors p-3 rounded-lg"
+                  >
+                    <div
+                      class="w-10 h-10 flex items-center justify-center bg-blue-100 text-primary rounded-full mr-3 flex-shrink-0"
+                    >
+                      <i class="ri-bank-line"></i>
+                    </div>
+                    <div class="flex-1">
+                      <h5 class="font-medium text-gray-800">资金监管</h5>
+                      <p class="text-gray-600 text-sm">
+                        资金监管账户开设、资金流水管理、退费管理
+                      </p>
+                    </div>
+                    <div
+                      class="w-6 h-6 flex items-center justify-center text-gray-400"
+                    >
+                      <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- 资金监管 -->
+          <div
+            id="fund-supervision"
+            class="bg-white rounded-lg shadow-sm p-6 mb-6"
+          >
+            <h3
+              class="text-xl font-bold text-gray-800 mb-4 pb-2 border-b flex items-center"
+            >
+              <div
+                class="w-6 h-6 flex items-center justify-center mr-2 text-primary"
+              >
+                <i class="ri-bank-line"></i>
+              </div>
+              资金监管
+            </h3>
+            <p class="text-gray-600">这里可以添加资金监管的详细说明。</p>
+          </div>
+        </div>
+      </div>
+    </main>
+    <script src="index.js"></script>
+  </body>
+</html>

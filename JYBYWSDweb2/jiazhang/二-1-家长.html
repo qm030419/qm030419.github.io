@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>家长服务专区 - 全国校外教育培训监管与服务综合平台</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="../js/tailwindcss.js"></script>
+    <script src="../js/tailwind.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+
+  <body>
+    <!-- 顶部导航栏 -->
+    <header class="w-full bg-primary text-white">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-bold">全国校外教育培训监管与服务综合平台</h1>
+        <div class="flex space-x-4 text-sm">
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              机构查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              课程查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              接入银行 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <button class="whitespace-nowrap !rounded-button">登录</button>
+          <button class="whitespace-nowrap !rounded-button">APP下载</button>
+        </div>
+      </div>
+    </header>
+
+    <!-- 主导航菜单 -->
+    <nav class="bg-blue-600 text-white">
+      <div class="container mx-auto">
+        <ul class="flex">
+          <li class="flex-1">
+            <a
+              href="../一级-首页.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-home-line"></i>
+              </div>
+              首页
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../zhengce/一级-政策.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-list-line"></i>
+              </div>
+              政策
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../dongtai/一级-动态.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              动态
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../baoguang/一级-曝光.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-alert-line"></i>
+              </div>
+              曝光
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../piyao/一级-辟谣.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-error-warning-line"></i>
+              </div>
+              辟谣
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../bangzhu/一级-帮助.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-question-line"></i>
+              </div>
+              帮助
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <!-- 面包屑导航 -->
+    <div class="bg-white shadow-sm">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex items-center text-sm">
+          <a href="../一级-首页.html" class="text-gray-500 hover:text-primary"
+            >首页</a
+          >
+          <div class="mx-2 text-gray-400">/</div>
+          <span class="text-primary">家长服务</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 主体内容 -->
+    <main class="container mx-auto px-4 py-6">
+      <!-- 页面标题 -->
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+          <div
+            class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full mr-3"
+          >
+            <i class="ri-parent-line"></i>
+          </div>
+          家长服务专区
+        </h2>
+        <a
+          href="../一级-首页.html"
+          class="flex items-center text-primary hover:text-blue-700"
+        >
+          <div class="w-5 h-5 flex items-center justify-center mr-1">
+            <i class="ri-arrow-left-line"></i>
+          </div>
+          返回首页
+        </a>
+      </div>
+
+      <!-- 服务功能区 -->
+      <div class="grid grid-cols-3 gap-6 mb-8">
+        <!-- 培训机构查询 -->
+        <div class="service-card bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-blue-50 p-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full mb-3"
+            >
+              <i class="ri-building-line ri-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">培训机构查询</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              查询全国范围内正规培训机构资质、评级及办学情况
+            </p>
+          </div>
+          <div class="p-4">
+            <div class="mb-4">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="输入机构名称、证号或地址关键词"
+                  class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-search-line"></i>
+                </div>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button
+                class="flex-1 bg-primary text-white py-2 rounded whitespace-nowrap !rounded-button"
+              >
+                立即查询
+              </button>
+              <button
+                class="bg-gray-100 text-gray-700 py-2 px-3 rounded whitespace-nowrap !rounded-button"
+              >
+                高级筛选
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 课程查询与比较 -->
+        <div class="service-card bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-blue-50 p-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full mb-3"
+            >
+              <i class="ri-book-open-line ri-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">课程查询与比较</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              查询比较各培训机构课程内容、师资、评价及收费标准
+            </p>
+          </div>
+          <div class="p-4">
+            <div class="mb-4">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="输入课程名称或关键词"
+                  class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-search-line"></i>
+                </div>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button
+                class="flex-1 bg-primary text-white py-2 rounded whitespace-nowrap !rounded-button"
+              >
+                搜索课程
+              </button>
+              <button
+                class="bg-gray-100 text-gray-700 py-2 px-3 rounded whitespace-nowrap !rounded-button"
+              >
+                课程比较
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 培训费用查询 -->
+        <div class="service-card bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-blue-50 p-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full mb-3"
+            >
+              <i class="ri-money-cny-circle-line ri-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">培训费用查询</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              查询各类培训课程的标准收费及资金监管情况
+            </p>
+          </div>
+          <div class="p-4">
+            <div class="mb-4">
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="输入机构名称或课程名称"
+                  class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-search-line"></i>
+                </div>
+              </div>
+            </div>
+            <div class="flex space-x-2">
+              <button
+                class="flex-1 bg-primary text-white py-2 rounded whitespace-nowrap !rounded-button"
+              >
+                查询费用
+              </button>
+              <button
+                class="bg-gray-100 text-gray-700 py-2 px-3 rounded whitespace-nowrap !rounded-button"
+              >
+                费用对比
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- 投诉举报入口 -->
+        <div class="service-card bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-blue-50 p-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-red-500 text-white rounded-full mb-3"
+            >
+              <i class="ri-alarm-warning-line ri-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">投诉举报入口</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              对培训机构违规行为进行投诉举报，维护合法权益
+            </p>
+          </div>
+          <div class="p-4">
+            <div class="mb-4 text-sm text-gray-600">
+              <p>如遇以下情况，可进行投诉举报：</p>
+              <ul class="mt-2 space-y-1 pl-5 list-disc">
+                <li>违规收费、乱收费</li>
+                <li>虚假宣传、夸大承诺</li>
+                <li>教学质量与承诺不符</li>
+                <li>安全隐患、设施不达标</li>
+              </ul>
+            </div>
+            <button
+              class="w-full bg-red-500 text-white py-2 rounded whitespace-nowrap !rounded-button flex items-center justify-center"
+            >
+              <div class="w-5 h-5 flex items-center justify-center mr-1">
+                <i class="ri-megaphone-line"></i>
+              </div>
+              我要投诉举报
+            </button>
+          </div>
+        </div>
+
+        <!-- 学生课程进度查询 -->
+        <div class="service-card bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-blue-50 p-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full mb-3"
+            >
+              <i class="ri-calendar-check-line ri-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">学生课程进度查询</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              查询孩子的课程学习进度、出勤及学习表现
+            </p>
+          </div>
+          <div class="p-4">
+            <div class="mb-4">
+              <div class="relative mb-3">
+                <input
+                  type="text"
+                  placeholder="学生姓名"
+                  class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-user-line"></i>
+                </div>
+              </div>
+              <div class="relative">
+                <input
+                  type="text"
+                  placeholder="学生ID或手机号"
+                  class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-smartphone-line"></i>
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full bg-primary text-white py-2 rounded whitespace-nowrap !rounded-button"
+            >
+              查询进度
+            </button>
+          </div>
+        </div>
+
+        <!-- 满意度评价 -->
+        <div class="service-card bg-white rounded-lg shadow-sm overflow-hidden">
+          <div class="bg-blue-50 p-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-primary text-white rounded-full mb-3"
+            >
+              <i class="ri-star-line ri-lg"></i>
+            </div>
+            <h3 class="text-lg font-bold text-gray-800">满意度评价</h3>
+            <p class="text-sm text-gray-600 mt-1">
+              对已参加的培训课程进行评价，分享经验与建议
+            </p>
+          </div>
+          <div class="p-4">
+            <div class="mb-4">
+              <div class="relative mb-3">
+                <input
+                  type="text"
+                  placeholder="机构名称或课程名称"
+                  class="w-full pl-10 pr-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                />
+                <div
+                  class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-building-line"></i>
+                </div>
+              </div>
+              <div
+                class="flex items-center justify-between text-sm text-gray-600 mb-2"
+              >
+                <span>综合评分：</span>
+                <div class="flex">
+                  <div
+                    class="w-6 h-6 flex items-center justify-center text-yellow-400 cursor-pointer star-rating"
+                    data-rating="1"
+                  >
+                    <i class="ri-star-fill"></i>
+                  </div>
+                  <div
+                    class="w-6 h-6 flex items-center justify-center text-yellow-400 cursor-pointer star-rating"
+                    data-rating="2"
+                  >
+                    <i class="ri-star-fill"></i>
+                  </div>
+                  <div
+                    class="w-6 h-6 flex items-center justify-center text-yellow-400 cursor-pointer star-rating"
+                    data-rating="3"
+                  >
+                    <i class="ri-star-fill"></i>
+                  </div>
+                  <div
+                    class="w-6 h-6 flex items-center justify-center text-gray-300 cursor-pointer star-rating"
+                    data-rating="4"
+                  >
+                    <i class="ri-star-fill"></i>
+                  </div>
+                  <div
+                    class="w-6 h-6 flex items-center justify-center text-gray-300 cursor-pointer star-rating"
+                    data-rating="5"
+                  >
+                    <i class="ri-star-fill"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full bg-primary text-white py-2 rounded whitespace-nowrap !rounded-button"
+            >
+              提交评价
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 家长咨询服务 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-8">
+        <div class="bg-blue-600 p-5 text-white">
+          <div class="flex items-center">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-white text-blue-600 rounded-full mr-4"
+            >
+              <i class="ri-customer-service-2-line ri-lg"></i>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold">家长咨询服务中心</h3>
+              <p class="text-sm mt-1 text-blue-100">
+                为家长提供专业咨询、政策解读和教育指导服务
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="p-5">
+          <div class="grid grid-cols-3 gap-6">
+            <div class="col-span-2">
+              <div class="grid grid-cols-2 gap-4 mb-4">
+                <div class="bg-blue-50 p-4 rounded">
+                  <div class="flex items-center mb-3">
+                    <div
+                      class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full mr-2"
+                    >
+                      <i class="ri-question-answer-line"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">常见问题咨询</h4>
+                  </div>
+                  <p class="text-sm text-gray-600">
+                    解答家长关于培训机构选择、课程内容、收费标准等常见问题
+                  </p>
+                  <button
+                    class="mt-3 bg-white border border-blue-500 text-blue-500 px-4 py-1.5 rounded text-sm whitespace-nowrap !rounded-button"
+                  >
+                    立即咨询
+                  </button>
+                </div>
+                <div class="bg-blue-50 p-4 rounded">
+                  <div class="flex items-center mb-3">
+                    <div
+                      class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full mr-2"
+                    >
+                      <i class="ri-file-list-3-line"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">政策法规咨询</h4>
+                  </div>
+                  <p class="text-sm text-gray-600">
+                    解读教育培训相关政策法规，帮助家长了解自身权益和义务
+                  </p>
+                  <button
+                    class="mt-3 bg-white border border-blue-500 text-blue-500 px-4 py-1.5 rounded text-sm whitespace-nowrap !rounded-button"
+                  >
+                    查看政策
+                  </button>
+                </div>
+                <div class="bg-blue-50 p-4 rounded">
+                  <div class="flex items-center mb-3">
+                    <div
+                      class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full mr-2"
+                    >
+                      <i class="ri-user-voice-line"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">教育指导服务</h4>
+                  </div>
+                  <p class="text-sm text-gray-600">
+                    提供专业的教育指导，帮助家长科学选择适合孩子的培训课程
+                  </p>
+                  <button
+                    class="mt-3 bg-white border border-blue-500 text-blue-500 px-4 py-1.5 rounded text-sm whitespace-nowrap !rounded-button"
+                  >
+                    预约指导
+                  </button>
+                </div>
+                <div class="bg-blue-50 p-4 rounded">
+                  <div class="flex items-center mb-3">
+                    <div
+                      class="w-8 h-8 flex items-center justify-center bg-blue-500 text-white rounded-full mr-2"
+                    >
+                      <i class="ri-group-line"></i>
+                    </div>
+                    <h4 class="font-bold text-gray-800">家长社区</h4>
+                  </div>
+                  <p class="text-sm text-gray-600">
+                    加入家长交流社区，分享经验，互相学习，共同成长
+                  </p>
+                  <button
+                    class="mt-3 bg-white border border-blue-500 text-blue-500 px-4 py-1.5 rounded text-sm whitespace-nowrap !rounded-button"
+                  >
+                    进入社区
+                  </button>
+                </div>
+              </div>
+              <div class="bg-gray-50 p-4 rounded">
+                <h4 class="font-bold text-gray-800 mb-3">在线咨询</h4>
+                <div class="relative">
+                  <textarea
+                    placeholder="请输入您的问题，我们会尽快回复..."
+                    class="w-full h-24 px-4 py-2 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                  ></textarea>
+                  <button
+                    class="absolute right-3 bottom-3 bg-primary text-white px-4 py-1 rounded text-sm whitespace-nowrap !rounded-button"
+                  >
+                    发送
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="bg-blue-50 p-4 rounded mb-4">
+                <h4 class="font-bold text-gray-800 mb-3">咨询热线</h4>
+                <div
+                  class="flex items-center justify-between mb-3 pb-3 border-b border-blue-100"
+                >
+                  <span class="text-gray-600">全国统一服务热线：</span>
+                  <span class="text-lg font-bold text-primary"
+                    >400-123-4567</span
+                  >
+                </div>
+                <div
+                  class="flex items-center justify-between mb-3 pb-3 border-b border-blue-100"
+                >
+                  <span class="text-gray-600">投诉举报专线：</span>
+                  <span class="text-lg font-bold text-red-500"
+                    >400-765-4321</span
+                  >
+                </div>
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">工作时间：</span>
+                  <span class="text-gray-800">周一至周日 8:00-20:00</span>
+                </div>
+              </div>
+              <div class="bg-blue-50 p-4 rounded">
+                <h4 class="font-bold text-gray-800 mb-3">线下服务中心</h4>
+                <div class="space-y-3 text-sm">
+                  <div class="flex">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center text-primary mr-2"
+                    >
+                      <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div>
+                      <p class="text-gray-800 font-medium">北京市服务中心</p>
+                      <p class="text-gray-600">北京市海淀区中关村南大街5号</p>
+                    </div>
+                  </div>
+                  <div class="flex">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center text-primary mr-2"
+                    >
+                      <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div>
+                      <p class="text-gray-800 font-medium">上海市服务中心</p>
+                      <p class="text-gray-600">上海市徐汇区漕宝路120号</p>
+                    </div>
+                  </div>
+                  <div class="flex">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center text-primary mr-2"
+                    >
+                      <i class="ri-map-pin-line"></i>
+                    </div>
+                    <div>
+                      <p class="text-gray-800 font-medium">广州市服务中心</p>
+                      <p class="text-gray-600">广州市天河区天河路385号</p>
+                    </div>
+                  </div>
+                  <button
+                    class="mt-2 w-full bg-white border border-blue-500 text-blue-500 py-1.5 rounded text-sm whitespace-nowrap !rounded-button"
+                  >
+                    查看更多服务中心
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 信息展示区 -->
+      <div class="grid grid-cols-3 gap-6 mb-8">
+        <!-- 最新通知 -->
+        <div class="bg-white rounded-lg shadow-sm p-5">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-100"
+          >
+            <!-- 这里可以添加最新通知的内容 -->
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
