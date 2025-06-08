@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音乐社区 - 非遗民乐 AI 创新平台</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#9D2932',secondary:'#3A7B5D'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    overflow-x: hidden;
+}
+.nav-glass {
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.8);
+}
+.waveform {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+}
+.waveform-bar {
+    width: 2px;
+    background: linear-gradient(to top, #9D2932, #E84C3D);
+    border-radius: 1px;
+}
+.playing .waveform-bar {
+    animation: audio-wave 1.2s ease-in-out infinite;
+}
+@keyframes audio-wave {
+    0%, 100% { height: 4px; }
+    50% { height: 20px; }
+}
+.waveform-bar:nth-child(1) { animation-delay: 0.1s; }
+.waveform-bar:nth-child(2) { animation-delay: 0.2s; }
+.waveform-bar:nth-child(3) { animation-delay: 0.3s; }
+.waveform-bar:nth-child(4) { animation-delay: 0.4s; }
+.waveform-bar:nth-child(5) { animation-delay: 0.5s; }
+.waveform-bar:nth-child(6) { animation-delay: 0.6s; }
+.waveform-bar:nth-child(7) { animation-delay: 0.7s; }
+.waveform-bar:nth-child(8) { animation-delay: 0.8s; }
+.waveform-bar:nth-child(9) { animation-delay: 0.9s; }
+.waveform-bar:nth-child(10) { animation-delay: 1.0s; }
+.emotion-chart {
+    height: 80px;
+    width: 100%;
+}
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #d1d1d1;
+    border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c1c1c1;
+}
+.challenge-card {
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+.challenge-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(0,0,0,0.7));
+    border-radius: inherit;
+    z-index: 0;
+}
+.challenge-card > * {
+    position: relative;
+    z-index: 1;
+}
+.tab-active {
+    color: #9D2932;
+    border-color: #9D2932;
+}
+.post-card {
+    transition: all 0.3s ease;
+}
+.post-card:hover {
+    transform: translateY(-5px);
+}
+.social-share-panel {
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+.social-share-panel.active {
+    transform: translateX(0);
+}
+.emotion-meter {
+    height: 6px;
+    background: linear-gradient(to right, #3A7B5D, #9D2932);
+    border-radius: 3px;
+}
+.collaborators-avatar {
+    border: 2px solid white;
+    margin-left: -10px;
+}
+.instrument-tag {
+    font-size: 11px;
+}
+.create-post-button {
+    box-shadow: 0 4px 20px rgba(157, 41, 50, 0.25);
+}
+</style>
+</head>
+<body class="bg-gray-50">
+<!-- 导航栏 -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-50 shadow-sm">
+    <div class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+            <div class="flex items-center">
+                <a href="#" class="text-3xl font-['Pacifico'] text-primary mr-10">logo</a>
+                <nav class="hidden md:flex space-x-8">
+                    <a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">首页</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">AI学习系统</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">AI编曲工坊</a>
+                    <a href="#" class="text-gray-800 font-medium border-b-2 border-primary">音乐社区</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">商业服务</a>
+                </nav>
+            </div>
+            <div class="flex items-center space-x-4">
+                <div class="relative">
+                    <input type="text" placeholder="搜索作品、挑战或用户..." class="pl-10 pr-4 py-2 rounded-full text-sm border-none shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 w-40 md:w-60">
+                    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+                        <i class="ri-search-line"></i>
+                    </div>
+                </div>
+                <div class="relative">
+                    <button class="w-10 h-10 flex items-center justify-center bg-gray-100 rounded-full hover:bg-gray-200">
+                        <i class="ri-notification-3-line text-gray-600"></i>
+                    </button>
+                    <div class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></div>
+                </div>
+                <div class="w-10 h-10 rounded-full overflow-hidden">
+                    <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520woman%2520with%2520modern%2520hairstyle%252C%2520neutral%2520expression%252C%2520clean%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=101&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- 主要内容 -->
+<main class="pt-24 pb-20">
+    <div class="container mx-auto px-6">
+        <!-- 页面标题 -->
+        <div class="flex items-center justify-between mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">音乐社区</h1>
+            <div class="flex items-center gap-3">
+                <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-button shadow-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-filter-3-line"></i>
+                    </div>
+                    筛选
+                </button>
+                <button class="flex items-center gap-2 px-4 py-2 bg-white rounded-button shadow-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap">
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-equalizer-line"></i>
+                    </div>
+                    排序
+                </button>
+            </div>
+        </div>
+
+        <!-- 挑战赛专题区 -->
+        <section class="mb-10">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-xl font-bold text-gray-900">热门挑战赛</h2>
+                <a href="#" class="text-primary flex items-center hover:underline">
+                    查看全部
+                    <div class="w-5 h-5 flex items-center justify-center">
+                        <i class="ri-arrow-right-s-line"></i>
+                    </div>
+                </a>
+            </div>
+            <div class="overflow-x-auto custom-scrollbar pb-4">
+                <div class="flex gap-4" style="min-width: max-content;">
+                    <!-- 挑战赛卡片1 -->
+                    <div class="challenge-card w-80 h-48 rounded-lg p-5 flex flex-col justify-between" style="background-image: url('https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520musical%2520instruments%2520arranged%2520in%2520a%2520circle%252C%2520with%2520flowing%2520musical%2520notes%2520connecting%2520them%252C%2520vibrant%2520colors%252C%2520artistic%2520composition%252C%2520high%2520quality%2520digital%2520art&width=400&height=240&seq=201&orientation=landscape')">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-primary/90 text-white text-sm rounded-full">#AI民乐接龙</span>
+                            <h3 class="text-white text-xl font-bold mt-2">春日古筝旋律挑战</h3>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="text-white">
+                                <div class="text-sm opacity-80 mb-1">参与人数</div>
+                                <div class="font-bold">1,248 人</div>
+                            </div>
+                            <div>
+                                <button class="bg-white text-primary hover:bg-white/90 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">参与挑战</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 挑战赛卡片2 -->
+                    <div class="challenge-card w-80 h-48 rounded-lg p-5 flex flex-col justify-between" style="background-image: url('https://readdy.ai/api/search-image?query=Chinese%2520erhu%2520instrument%2520with%2520digital%2520sound%2520waves%2520and%2520particles%252C%2520futuristic%2520AI%2520visualization%252C%2520dark%2520background%2520with%2520red%2520and%2520blue%2520accents%252C%2520high%2520quality%2520digital%2520art&width=400&height=240&seq=202&orientation=landscape')">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-primary/90 text-white text-sm rounded-full">#AI民乐接龙</span>
+                            <h3 class="text-white text-xl font-bold mt-2">二胡现代风格创作</h3>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="text-white">
+                                <div class="text-sm opacity-80 mb-1">剩余时间</div>
+                                <div class="font-bold">3 天 12 小时</div>
+                            </div>
+                            <div>
+                                <button class="bg-white text-primary hover:bg-white/90 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">参与挑战</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 挑战赛卡片3 -->
+                    <div class="challenge-card w-80 h-48 rounded-lg p-5 flex flex-col justify-between" style="background-image: url('https://readdy.ai/api/search-image?query=Chinese%2520bamboo%2520flute%2520with%2520flowing%2520water%2520and%2520mountain%2520elements%252C%2520traditional%2520ink%2520painting%2520style%2520with%2520modern%2520digital%2520effects%252C%2520peaceful%2520atmosphere%252C%2520high%2520quality%2520digital%2520art&width=400&height=240&seq=203&orientation=landscape')">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-primary/90 text-white text-sm rounded-full">#AI民乐接龙</span>
+                            <h3 class="text-white text-xl font-bold mt-2">竹笛山水意境创作</h3>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="text-white">
+                                <div class="text-sm opacity-80 mb-1">参与人数</div>
+                                <div class="font-bold">876 人</div>
+                            </div>
+                            <div>
+                                <button class="bg-white text-primary hover:bg-white/90 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">参与挑战</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 挑战赛卡片4 -->
+                    <div class="challenge-card w-80 h-48 rounded-lg p-5 flex flex-col justify-between" style="background-image: url('https://readdy.ai/api/search-image?query=Chinese%2520pipa%2520instrument%2520with%2520colorful%2520abstract%2520patterns%2520and%2520flowing%2520energy%252C%2520fusion%2520of%2520traditional%2520and%2520modern%2520elements%252C%2520vibrant%2520colors%252C%2520high%2520quality%2520digital%2520art&width=400&height=240&seq=204&orientation=landscape')">
+                        <div>
+                            <span class="inline-block px-3 py-1 bg-primary/90 text-white text-sm rounded-full">#AI民乐接龙</span>
+                            <h3 class="text-white text-xl font-bold mt-2">琵琶现代融合挑战</h3>
+                        </div>
+                        <div class="flex justify-between items-end">
+                            <div class="text-white">
+                                <div class="text-sm opacity-80 mb-1">剩余时间</div>
+                                <div class="font-bold">5 天 8 小时</div>
+                            </div>
+                            <div>
+                                <button class="bg-white text-primary hover:bg-white/90 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">参与挑战</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 分类筛选 -->
+        <section class="mb-8">
+            <div class="bg-white rounded-lg shadow-sm p-4 flex flex-wrap gap-4">
+                <div class="flex items-center px-1 py-1 bg-gray-100 rounded-full">
+                    <button class="px-4 py-1.5 rounded-full bg-primary text-white text-sm">全部作品</button>
+                    <button class="px-4 py-1.5 rounded-full text-gray-600 text-sm hover:bg-gray-200">最新发布</button>
+                    <button class="px-4 py-1.5 rounded-full text-gray-600 text-sm hover:bg-gray-200">热门推荐</button>
+                    <button class="px-4 py-1.5 rounded-full text-gray-600 text-sm hover:bg-gray-200">官方精选</button>
+                </div>
+                
+                <div class="flex flex-wrap gap-2">
+                    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm hover:bg-gray-200">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-music-2-line"></i>
+                        </div>
+                        古筝
+                    </button>
+                    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm hover:bg-gray-200">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-music-2-line"></i>
+                        </div>
+                        二胡
+                    </button>
+                    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm hover:bg-gray-200">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-music-2-line"></i>
+                        </div>
+                        琵琶
+                    </button>
+                    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm hover:bg-gray-200">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-music-2-line"></i>
+                        </div>
+                        笛子
+                    </button>
+                    <button class="flex items-center gap-1 px-3 py-1.5 rounded-full bg-gray-100 text-gray-700 text-sm hover:bg-gray-200">
+                        <div class="w-4 h-4 flex items-center justify-center">
+                            <i class="ri-add-line"></i>
+                        </div>
+                        更多
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- 主要内容区 -->
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- 左侧作品列表 -->
+            <div class="lg:w-3/4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- 作品卡片1 -->
+                    <div class="post-card bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                        <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520middle-aged%2520Chinese%2520man%2520with%2520glasses%252C%2520professional%2520look%252C%2520neutral%2520expression%252C%2520clean%2520background&width=100&height=100&seq=301&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-900">陈明远</div>
+                                        <div class="text-xs text-gray-500">2025-04-26 发布</div>
+                                    </div>
+                                </div>
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                                    <i class="ri-more-fill"></i>
+                                </button>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">《山水清音》- 古筝与二胡的对话</h3>
+                            <p class="text-gray-600 text-sm mb-4">这是我用AI辅助创作的一首融合古筝与二胡的曲子，灵感来源于黄山的云海景观，希望能带给大家宁静与舒适。</p>
+                            
+                            <!-- 音频播放器 -->
+                            <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full">
+                                        <i class="ri-play-fill ri-lg"></i>
+                                    </button>
+                                    <div class="flex-1 mx-3">
+                                        <div class="waveform playing">
+                                            <div class="waveform-bar h-4"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-18"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-4"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>1:24</span>
+                                            <span>3:48</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-volume-up-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-download-line"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI分析标签 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="text-sm font-medium text-gray-700">AI 音乐分析</div>
+                                    <button class="text-xs text-primary">查看详情</button>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">情感值</div>
+                                        <div class="flex items-center">
+                                            <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mr-2">
+                                                <div class="emotion-meter" style="width: 75%"></div>
+                                            </div>
+                                            <span class="text-xs font-medium">平静</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">风格相似度</div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs">传统民乐</span>
+                                            <span class="text-xs font-medium">92%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">古筝</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">二胡</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">山水意境</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">中速</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 互动功能 -->
+                            <div class="flex items-center justify-between border-t pt-3">
+                                <div class="flex items-center gap-4">
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-heart-line"></i>
+                                        </div>
+                                        <span class="text-sm">248</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-message-3-line"></i>
+                                        </div>
+                                        <span class="text-sm">36</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-share-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                                <button class="flex items-center gap-1 text-primary hover:text-primary/80">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-magic-line"></i>
+                                    </div>
+                                    <span class="text-sm font-medium">二次创作</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 作品卡片2 -->
+                    <div class="post-card bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                        <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520woman%2520with%2520artistic%2520style%252C%2520creative%2520look%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=302&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-900">林雨晴</div>
+                                        <div class="text-xs text-gray-500">2025-04-27 发布</div>
+                                    </div>
+                                </div>
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                                    <i class="ri-more-fill"></i>
+                                </button>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">《江南雨韵》- #AI民乐接龙挑战作品</h3>
+                            <p class="text-gray-600 text-sm mb-4">参与#AI民乐接龙挑战，基于@张文华 的主题，我用AI添加了琵琶部分，表现江南雨天的朦胧意境。欢迎大家接力创作！</p>
+                            
+                            <!-- 音频播放器 -->
+                            <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <button class="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full">
+                                        <i class="ri-play-fill ri-lg"></i>
+                                    </button>
+                                    <div class="flex-1 mx-3">
+                                        <div class="waveform">
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>0:00</span>
+                                            <span>4:12</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-volume-up-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-download-line"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI分析标签 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="text-sm font-medium text-gray-700">AI 音乐分析</div>
+                                    <button class="text-xs text-primary">查看详情</button>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">情感值</div>
+                                        <div class="flex items-center">
+                                            <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mr-2">
+                                                <div class="emotion-meter" style="width: 60%"></div>
+                                            </div>
+                                            <span class="text-xs font-medium">忧郁</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">风格相似度</div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs">江南丝竹</span>
+                                            <span class="text-xs font-medium">87%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">琵琶</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">古筝</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">江南风格</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">慢速</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 互动功能 -->
+                            <div class="flex items-center justify-between border-t pt-3">
+                                <div class="flex items-center gap-4">
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-heart-line"></i>
+                                        </div>
+                                        <span class="text-sm">186</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-message-3-line"></i>
+                                        </div>
+                                        <span class="text-sm">24</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-share-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                                <button class="flex items-center gap-1 text-primary hover:text-primary/80">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-magic-line"></i>
+                                    </div>
+                                    <span class="text-sm font-medium">二次创作</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 作品卡片3 -->
+                    <div class="post-card bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                        <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520elderly%2520Chinese%2520man%2520with%2520traditional%2520look%252C%2520wise%2520expression%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=303&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-900">王德胜</div>
+                                        <div class="text-xs text-gray-500">2025-04-25 发布</div>
+                                    </div>
+                                </div>
+                                <div class="px-2 py-0.5 bg-blue-100 text-blue-600 text-xs rounded-full">官方认证</div>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">《竹林清韵》- 传统笛子独奏</h3>
+                            <p class="text-gray-600 text-sm mb-4">这是我演奏的传统笛子曲《竹林清韵》，使用AI进行了音频优化和空间处理，希望能让大家感受到竹笛的空灵之美。</p>
+                            
+                            <!-- 音频播放器 -->
+                            <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <button class="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full">
+                                        <i class="ri-play-fill ri-lg"></i>
+                                    </button>
+                                    <div class="flex-1 mx-3">
+                                        <div class="waveform">
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                            <div class="waveform-bar h-6"></div>
+                                            <div class="waveform-bar h-14"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-10"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>0:00</span>
+                                            <span>5:26</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-volume-up-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-download-line"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI分析标签 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="text-sm font-medium text-gray-700">AI 音乐分析</div>
+                                    <button class="text-xs text-primary">查看详情</button>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">情感值</div>
+                                        <div class="flex items-center">
+                                            <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mr-2">
+                                                <div class="emotion-meter" style="width: 85%"></div>
+                                            </div>
+                                            <span class="text-xs font-medium">空灵</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">风格相似度</div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs">传统笛子</span>
+                                            <span class="text-xs font-medium">96%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">笛子</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">独奏</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">传统风格</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">中速</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 互动功能 -->
+                            <div class="flex items-center justify-between border-t pt-3">
+                                <div class="flex items-center gap-4">
+                                    <button class="flex items-center gap-1 text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-heart-fill"></i>
+                                        </div>
+                                        <span class="text-sm">342</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-message-3-line"></i>
+                                        </div>
+                                        <span class="text-sm">58</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-share-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                                <button class="flex items-center gap-1 text-primary hover:text-primary/80">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-magic-line"></i>
+                                    </div>
+                                    <span class="text-sm font-medium">二次创作</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 作品卡片4 -->
+                    <div class="post-card bg-white rounded-lg shadow-sm overflow-hidden">
+                        <div class="p-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="flex items-center">
+                                    <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                        <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520man%2520with%2520modern%2520style%252C%2520casual%2520look%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=304&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                    </div>
+                                    <div>
+                                        <div class="font-medium text-gray-900">张伟明</div>
+                                        <div class="text-xs text-gray-500">2025-04-24 发布</div>
+                                    </div>
+                                </div>
+                                <button class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-gray-600 rounded-full hover:bg-gray-100">
+                                    <i class="ri-more-fill"></i>
+                                </button>
+                            </div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-2">《未来的乐章》- 电子与民乐融合</h3>
+                            <p class="text-gray-600 text-sm mb-4">这是我尝试将电子音乐与传统二胡融合的作品，AI帮助我实现了两种风格的完美结合，希望能带来全新的听觉体验。</p>
+                            
+                            <!-- 音频播放器 -->
+                            <div class="bg-gray-50 rounded-lg p-3 mb-4">
+                                <div class="flex items-center justify-between mb-3">
+                                    <button class="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full">
+                                        <i class="ri-play-fill ri-lg"></i>
+                                    </button>
+                                    <div class="flex-1 mx-3">
+                                        <div class="waveform">
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                            <div class="waveform-bar h-8"></div>
+                                            <div class="waveform-bar h-12"></div>
+                                            <div class="waveform-bar h-16"></div>
+                                        </div>
+                                        <div class="flex justify-between text-xs text-gray-500 mt-1">
+                                            <span>0:00</span>
+                                            <span>3:18</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center gap-2">
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-volume-up-line"></i>
+                                        </button>
+                                        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-200">
+                                            <i class="ri-download-line"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- AI分析标签 -->
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <div class="text-sm font-medium text-gray-700">AI 音乐分析</div>
+                                    <button class="text-xs text-primary">查看详情</button>
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">情感值</div>
+                                        <div class="flex items-center">
+                                            <div class="w-full h-1.5 bg-gray-200 rounded-full overflow-hidden mr-2">
+                                                <div class="emotion-meter" style="width: 40%"></div>
+                                            </div>
+                                            <span class="text-xs font-medium">激昂</span>
+                                        </div>
+                                    </div>
+                                    <div class="bg-gray-50 rounded p-2">
+                                        <div class="text-xs text-gray-500 mb-1">风格相似度</div>
+                                        <div class="flex items-center justify-between">
+                                            <span class="text-xs">电子民乐</span>
+                                            <span class="text-xs font-medium">78%</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-1 mt-2">
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">二胡</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-primary/10 text-primary rounded-full">电子音效</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">融合风格</span>
+                                    <span class="instrument-tag px-2 py-0.5 bg-gray-100 text-gray-600 rounded-full">快速</span>
+                                </div>
+                            </div>
+                            
+                            <!-- 互动功能 -->
+                            <div class="flex items-center justify-between border-t pt-3">
+                                <div class="flex items-center gap-4">
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-heart-line"></i>
+                                        </div>
+                                        <span class="text-sm">156</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-message-3-line"></i>
+                                        </div>
+                                        <span class="text-sm">42</span>
+                                    </button>
+                                    <button class="flex items-center gap-1 text-gray-500 hover:text-primary">
+                                        <div class="w-5 h-5 flex items-center justify-center">
+                                            <i class="ri-share-line"></i>
+                                        </div>
+                                    </button>
+                                </div>
+                                <button class="flex items-center gap-1 text-primary hover:text-primary/80">
+                                    <div class="w-5 h-5 flex items-center justify-center">
+                                        <i class="ri-magic-line"></i>
+                                    </div>
+                                    <span class="text-sm font-medium">二次创作</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 加载更多 -->
+                <div class="flex justify-center mt-8">
+                    <button class="px-6 py-2 bg-white border border-gray-200 rounded-button text-gray-700 hover:bg-gray-50 shadow-sm whitespace-nowrap">加载更多</button>
+                </div>
+            </div>
+            
+            <!-- 右侧边栏 -->
+            <div class="lg:w-1/4">
+                <!-- 发布作品按钮 -->
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-6 text-center">
+                    <button class="w-full bg-primary text-white hover:bg-primary/90 py-3 rounded-button font-medium flex items-center justify-center gap-2 whitespace-nowrap create-post-button">
+                        <div class="w-5 h-5 flex items-center justify-center">
+                            <i class="ri-add-line"></i>
+                        </div>
+                        发布作品
+                    </button>
+                    <p class="text-sm text-gray-500 mt-3">分享你的民乐创作，获得社区反馈</p>
+                </div>
+                
+                <!-- 热门排行榜 -->
+                <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">热门排行榜</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 flex items-center justify-center bg-primary text-white rounded-full text-sm font-medium mr-3 flex-shrink-0">1</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-1">《春江花月夜》现代演绎</h4>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span>李明远</span>
+                                    <span class="mx-2">·</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="w-4 h-4 flex items-center justify-center">
+                                            <i class="ri-heart-fill text-primary"></i>
+                                        </div>
+                                        <span>1,248</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full text-sm font-medium mr-3 flex-shrink-0">2</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-1">《梅花三弄》AI重构版</h4>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span>王晓华</span>
+                                    <span class="mx-2">·</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="w-4 h-4 flex items-center justify-center">
+                                            <i class="ri-heart-fill text-primary"></i>
+                                        </div>
+                                        <span>986</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full text-sm font-medium mr-3 flex-shrink-0">3</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-1">《高山流水》电子版</h4>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span>张伟明</span>
+                                    <span class="mx-2">·</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="w-4 h-4 flex items-center justify-center">
+                                            <i class="ri-heart-fill text-primary"></i>
+                                        </div>
+                                        <span>864</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full text-sm font-medium mr-3 flex-shrink-0">4</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-1">《阳春白雪》笛子独奏</h4>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span>王德胜</span>
+                                    <span class="mx-2">·</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="w-4 h-4 flex items-center justify-center">
+                                            <i class="ri-heart-fill text-primary"></i>
+                                        </div>
+                                        <span>742</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full text-sm font-medium mr-3 flex-shrink-0">5</div>
+                            <div>
+                                <h4 class="font-medium text-gray-900 mb-1">《十面埋伏》现代琵琶</h4>
+                                <div class="flex items-center text-sm text-gray-500">
+                                    <span>林雨晴</span>
+                                    <span class="mx-2">·</span>
+                                    <div class="flex items-center gap-1">
+                                        <div class="w-4 h-4 flex items-center justify-center">
+                                            <i class="ri-heart-fill text-primary"></i>
+                                        </div>
+                                        <span>685</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 合作创作室 -->
+                <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-6">
+                    <div class="p-4 border-b">
+                        <h3 class="text-lg font-semibold text-gray-900">合作创作室</h3>
+                        <p class="text-sm text-gray-600 mt-1">与其他音乐人实时协作创作</p>
+                    </div>
+                    <div class="p-4">
+                        <div class="flex items-center justify-between mb-4">
+                            <div class="text-sm text-gray-700">当前在线</div>
+                            <div class="px-2 py-0.5 bg-green-100 text-green-600 text-xs rounded-full">24 人</div>
+                        </div>
+                        <div class="flex mb-4">
+                            <div class="w-8 h-8 rounded-full overflow-hidden collaborators-avatar">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520woman%2520with%2520modern%2520hairstyle%252C%2520neutral%2520expression%252C%2520clean%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=401&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden collaborators-avatar">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520middle-aged%2520Chinese%2520man%2520with%2520glasses%252C%2520professional%2520look%252C%2520neutral%2520expression%252C%2520clean%2520background&width=100&height=100&seq=402&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden collaborators-avatar">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520woman%2520with%2520artistic%2520style%252C%2520creative%2520look%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=403&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden collaborators-avatar">
+                                <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520man%2520with%2520modern%2520style%252C%2520casual%2520look%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=404&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                            </div>
+                            <div class="w-8 h-8 rounded-full overflow-hidden collaborators-avatar flex items-center justify-center bg-gray-200 text-gray-600 text-xs font-medium">
+                                +19
+                            </div>
+                        </div>
+                        <div class="space-y-2 mb-4">
+                            <div class="flex items-center justify-between text-sm">
+                                <span>《江南春韵》合作中</span>
+                                <span class="text-green-600">进行中</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span>《山水之间》合作中</span>
+                                <span class="text-green-600">进行中</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm">
+                                <span>《古风新韵》合作中</span>
+                                <span class="text-gray-500">已完成</span>
+                            </div>
+                        </div>
+                        <button class="w-full bg-primary/10 text-primary hover:bg-primary/20 py-2 rounded-button font-medium whitespace-nowrap">
+                            进入创作室
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 推荐关注 -->
+                <div class="bg-white rounded-lg shadow-sm p-4">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4">推荐关注</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                    <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520elderly%2520Chinese%2520woman%2520with%2520traditional%2520style%252C%2520wise%2520expression%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=501&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">赵梅芳</div>
+                                    <div class="text-xs text-gray-500">国家一级古筝演奏家</div>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 border border-primary text-primary rounded-full text-sm hover:bg-primary/5 whitespace-nowrap">关注</button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                    <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520middle-aged%2520Chinese%2520man%2520with%2520artistic%2520style%252C%2520thoughtful%2520expression%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=502&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">李文杰</div>
+                                    <div class="text-xs text-gray-500">民乐作曲家</div>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 border border-primary text-primary rounded-full text-sm hover:bg-primary/5 whitespace-nowrap">关注</button>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 rounded-full overflow-hidden mr-3">
+                                    <img src="https://readdy.ai/api/search-image?query=Portrait%2520of%2520young%2520Chinese%2520woman%2520with%2520modern%2520professional%2520look%252C%2520confident%2520expression%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=503&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+                                </div>
+                                <div>
+                                    <div class="font-medium text-gray-900">张雨婷</div>
+                                    <div class="text-xs text-gray-500">AI音乐制作人</div>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 border border-primary text-primary rounded-full text-sm hover:bg-primary/5 whitespace-nowrap">关注</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<!-- 发布作品悬浮按钮 -->
+<div class="fixed bottom-6 right-6 z-40">
+    <button class="w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full shadow-lg hover:bg-primary/90">
+        <i class="ri-add-line ri-xl"></i>
+    </button>
+</div>
+
+<!-- 社交分享面板 -->
+<div class="social-share-panel fixed top-0 right-0 bottom-0 w-72 bg-white shadow-lg z-50 p-4">
+    <div class="flex justify-between items-center mb-6">
+        <h3 class="text-lg font-semibold text-gray-900">分享到</h3>
+        <button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100" id="close-share-panel">
+            <i class="ri-close-line"></i>
+        </button>
+    </div>
+    <div class="grid grid-cols-3 gap-4">
+        <button class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+            <div class="w-12 h-12 flex items-center justify-center bg-green-100 text-green-600 rounded-full">
+                <i class="ri-wechat-fill ri-xl"></i>
+            </div>
+            <span class="text-sm text-gray-700">微信</span>
+        </button>
+        <button class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+            <div class="w-12 h-12 flex items-center justify-center bg-red-100 text-red-600 rounded-full">
+                <i class="ri-weibo-fill ri-xl"></i>
+            </div>
+            <span class="text-sm text-gray-700">微博</span>
+        </button>
+        <button class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+            <div class="w-12 h-12 flex items-center justify-center bg-black/10 text-black rounded-full">
+                <i class="ri-douyin-fill ri-xl"></i>
+            </div>
+            <span class="text-sm text-gray-700">抖音</span>
+        </button>
+        <button class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+            <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
+                <i class="ri-qq-fill ri-xl"></i>
+            </div>
+            <span class="text-sm text-gray-700">QQ</span>
+        </button>
+        <button class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+            <div class="w-12 h-12 flex items-center justify-center bg-blue-100 text-blue-600 rounded-full">
+                <i class="ri-link ri-xl"></i>
+            </div>
+            <span class="text-sm text-gray-700">复制链接</span>
+        </button>
+        <button class="flex flex-col items-center gap-2 p-3 rounded-lg hover:bg-gray-50">
+            <div class="w-12 h-12 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+                <i class="ri-more-fill ri-xl"></i>
+            </div>
+            <span class="text-sm text-gray-700">更多</span>
+        </button>
+    </div>
+</div>
+
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <a href="#" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
+                <p class="text-gray-400 mb-4">传统民乐与人工智能的创新融合，开启音乐创作与学习的全新可能。</p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+                        <i class="ri-wechat-fill"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+                        <i class="ri-weibo-fill"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+                        <i class="ri-bilibili-fill"></i>
+                    </a>
+                    <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+                        <i class="ri-douyin-fill"></i>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">快速链接</h4>
+                <ul class="space-y-2">
+                    <li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI学习系统</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI编曲工坊</a></li>
+                    <li><a href="#" class="text-white transition-colors">音乐社区</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">商业服务</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">支持与帮助</h4>
+                <ul class="space-y-2">
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+                    <li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-4">联系我们</h4>
+                <ul class="space-y-2">
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+                            <i class="ri-map-pin-line"></i>
+                        </div>
+                        <span class="text-gray-400">北京市海淀区中关村南大街5号</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+                            <i class="ri-mail-line"></i>
+                        </div>
+                        <span class="text-gray-400">contact@aimingyue.com</span>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+                            <i class="ri-phone-line"></i>
+                        </div>
+                        <span class="text-gray-400">400-888-7766</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+            <p>© 2025 AI民乐创新平台. 保留所有权利.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // 音频播放控制
+    const playButtons = document.querySelectorAll('.waveform');
+    playButtons.forEach(button => {
+        const parentDiv = button.closest('.bg-gray-50');
+        const playBtn = parentDiv.querySelector('button');
+        
+        playBtn.addEventListener('click', function() {
+            const isPlaying = button.classList.contains('playing');
+            
+            // 先停止所有播放
+            document.querySelectorAll('.waveform').forEach(wf => {
+                wf.classList.remove('playing');
+                const btn = wf.closest('.bg-gray-50').querySelector('button');
+                btn.classList.remove('bg-primary');
+                btn.classList.add('bg-gray-200');
+                btn.classList.remove('text-white');
+                btn.classList.add('text-gray-700');
+                btn.innerHTML = '<i class="ri-play-fill ri-lg"></i>';
+            });
+            
+            // 如果当前不是播放状态，则开始播放
+            if (!isPlaying) {
+                button.classList.add('playing');
+                playBtn.classList.remove('bg-gray-200');
+                playBtn.classList.add('bg-primary');
+                playBtn.classList.remove('text-gray-700');
+                playBtn.classList.add('text-white');
+                playBtn.innerHTML = '<i class="ri-pause-fill ri-lg"></i>';
+            }
+        });
+    });
+    
+    // 社交分享面板
+    const shareButtons = document.querySelectorAll('.ri-share-line');
+    const sharePanel = document.querySelector('.social-share-panel');
+    const closeShareButton = document.getElementById('close-share-panel');
+    
+    shareButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            sharePanel.classList.add('active');
+        });
+    });
+    
+    closeShareButton.addEventListener('click', function() {
+        sharePanel.classList.remove('active');
+    });
+    
+    // 点赞功能
+    const likeButtons = document.querySelectorAll('.ri-heart-line');
+    likeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const parent = this.closest('button');
+            const countElement = parent.querySelector('span');
+            const count = parseInt(countElement.textContent);
+            
+            if (this.classList.contains('ri-heart-line')) {
+                this.classList.remove('ri-heart-line');
+                this.classList.add('ri-heart-fill');
+                parent.classList.add('text-primary');
+                countElement.textContent = count + 1;
+            } else {
+                this.classList.remove('ri-heart-fill');
+                this.classList.add('ri-heart-line');
+                parent.classList.remove('text-primary');
+                countElement.textContent = count - 1;
+            }
+        });
+    });
+});
+</script>
+</body>
+</html>

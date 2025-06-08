@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>非遗民乐 AI 创新平台</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#9D2932',secondary:'#3A7B5D'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.lug.ustc.edu.cn">
+<link rel="preconnect" href="https://gstatic.loli.net" crossorigin> 
+<link href="https://fonts.lug.ustc.edu.cn/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.lug.ustc.edu.cn/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans SC', sans-serif;
+overflow-x: hidden;
+}
+.hero-section::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: url('https://readdy.ai/api/search-image?query=Traditional%20Chinese%20ink%20painting%20pattern%20with%20mountains%20and%20clouds%2C%20very%20light%20and%20subtle%2C%20perfect%20for%20background%20overlay%2C%20elegant%20and%20minimal&width=1920&height=1080&seq=11&orientation=landscape');
+background-size: cover;
+opacity: 0.1;
+pointer-events: none;
+}
+.feature-card {
+background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.9) 100%);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(157, 41, 50, 0.1);
+}
+.section-pattern {
+position: relative;
+}
+.section-pattern::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: url('https://readdy.ai/api/search-image?query=Traditional%20Chinese%20paper%20texture%20with%20subtle%20cloud%20patterns%2C%20very%20light%20and%20minimal%2C%20perfect%20for%20background&width=1920&height=1080&seq=12&orientation=landscape');
+background-size: cover;
+opacity: 0.05;
+pointer-events: none;
+}
+.hero-section {
+position: relative;
+background-image: url('https://readdy.ai/api/search-image?query=Traditional%20Chinese%20musical%20instruments%20like%20guzheng%2C%20erhu%20and%20pipa%20with%20modern%20AI%20technology%20visualization%2C%20particle%20effects%2C%20sound%20waves%2C%20gradient%20colors%20of%20red%20and%20blue%2C%20clean%20background%20on%20the%20left%20side%20for%20text%2C%20detailed%20instruments%20on%20the%20right%20side%2C%20digital%20art%20style%2C%20high%20quality&width=1920&height=1080&seq=1&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+.hero-overlay {
+background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%);
+}
+.nav-glass {
+backdrop-filter: blur(10px);
+background-color: rgba(255, 255, 255, 0.8);
+}
+.feature-card {
+transition: all 0.3s ease;
+}
+.feature-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.audio-visualizer {
+height: 60px;
+display: flex;
+align-items: center;
+gap: 2px;
+}
+.audio-bar {
+width: 3px;
+background: linear-gradient(to top, #E84C3D, #8D5A97);
+border-radius: 1px;
+animation: audio-wave 1.5s ease-in-out infinite;
+}
+@keyframes audio-wave {
+0%, 100% { height: 10px; }
+50% { height: 40px; }
+}
+.audio-bar:nth-child(1) { animation-delay: 0.1s; }
+.audio-bar:nth-child(2) { animation-delay: 0.2s; }
+.audio-bar:nth-child(3) { animation-delay: 0.3s; }
+.audio-bar:nth-child(4) { animation-delay: 0.4s; }
+.audio-bar:nth-child(5) { animation-delay: 0.5s; }
+.audio-bar:nth-child(6) { animation-delay: 0.6s; }
+.audio-bar:nth-child(7) { animation-delay: 0.7s; }
+.audio-bar:nth-child(8) { animation-delay: 0.8s; }
+.audio-bar:nth-child(9) { animation-delay: 0.9s; }
+.audio-bar:nth-child(10) { animation-delay: 1.0s; }
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.switch-slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .switch-slider {
+background-color: #E84C3D;
+}
+input:checked + .switch-slider:before {
+transform: translateX(26px);
+}
+</style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-50 shadow-sm">
+<div class="container mx-auto px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<a href="#" class="text-3xl font-['Pacifico'] text-primary mr-10">logo</a>
+<nav class="hidden md:flex space-x-8">
+<a href="#" class="text-gray-800 font-medium border-b-2 border-primary">首页</a>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">AI学习系统</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">AI编曲工坊</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">音乐社区</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">商业服务</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 w-40 md:w-60">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<button class="bg-white text-primary border border-primary hover:bg-primary/5 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">登录</button>
+<button class="bg-primary text-white hover:bg-primary/90 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">注册</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero 区域 -->
+<section class="hero-section min-h-screen pt-20">
+<div class="hero-overlay w-full h-full absolute top-0 left-0"></div>
+<div class="container mx-auto px-6 py-20 relative">
+<div class="flex flex-col md:flex-row items-center min-h-[80vh]">
+<div class="md:w-1/2 z-10">
+<h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">传统民乐<br><span class="text-primary">遇见</span>人工智能</h1>
+<p class="text-lg text-gray-700 mb-8 max-w-lg">我们将千年非物质文化遗产与前沿AI技术相融合，让传统民族音乐焕发新生命，开启音乐创作与学习的全新可能。</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-white hover:bg-primary/90 px-6 py-3 rounded-button font-medium flex items-center gap-2 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-music-2-line"></i>
+</div>
+开始创作
+</button>
+<button class="bg-white text-gray-800 border border-gray-200 hover:bg-gray-50 px-6 py-3 rounded-button font-medium flex items-center gap-2 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-play-circle-line"></i>
+</div>
+观看演示
+</button>
+</div>
+</div>
+<div class="md:w-1/2 mt-12 md:mt-0 flex justify-end">
+<div class="relative">
+<div class="audio-visualizer absolute -top-12 left-1/2 transform -translate-x-1/2">
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+<div class="audio-bar"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="absolute bottom-6 right-6 bg-white/80 backdrop-blur-sm p-3 rounded-full shadow-md z-10 flex items-center gap-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white rounded-full shadow-sm text-primary hover:bg-primary/5">
+<i class="ri-volume-up-line ri-lg"></i>
+</button>
+<div class="w-20 h-1 bg-gray-200 rounded-full overflow-hidden">
+<div class="w-3/4 h-full bg-primary"></div>
+</div>
+</div>
+</section>
+<!-- 核心功能入口 -->
+<section class="py-20 section-pattern">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">探索 AI 民乐新体验</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">四大核心功能，让你轻松体验非遗民乐与人工智能的完美融合，开启音乐创作与学习的全新旅程。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<!-- 功能卡片1 -->
+<div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=A%20person%20learning%20to%20play%20Chinese%20traditional%20instrument%20with%20AI%20visualization%20helping%20them%2C%20showing%20music%20notes%20and%20finger%20positions%2C%20modern%20UI%20overlay%20with%20progress%20indicators%2C%20clean%20professional%20look%2C%20soft%20lighting&width=600&height=400&seq=2&orientation=landscape" alt="智能学习测评" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-graduation-cap-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">智能学习测评</h3>
+<p class="text-gray-600 mb-4">AI 实时分析演奏，提供专业反馈，让民乐学习更高效、更有趣。</p>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+开始学习
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- 功能卡片2 -->
+<div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=AI%20generating%20Chinese%20traditional%20music%2C%20visualization%20of%20sound%20waves%20and%20musical%20patterns%2C%20modern%20interface%20with%20sliders%20and%20controls%2C%20Chinese%20instruments%20like%20erhu%20and%20guzheng%20in%20background%2C%20clean%20professional%20look&width=600&height=400&seq=3&orientation=landscape" alt="10秒AI生成民乐" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-magic-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">10秒AI生成民乐</h3>
+<p class="text-gray-600 mb-4">输入关键词或哼唱旋律，AI 秒速生成专业民族音乐作品。</p>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+立即体验
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- 功能卡片3 -->
+<div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Social%20music%20community%20with%20people%20sharing%20Chinese%20traditional%20music%2C%20modern%20interface%20showing%20trending%20challenges%2C%20user%20avatars%2C%20like%20buttons%2C%20comment%20sections%2C%20clean%20professional%20design%20with%20soft%20colors&width=600&height=400&seq=4&orientation=landscape" alt="热门挑战赛" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-trophy-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">热门挑战赛</h3>
+<p class="text-gray-600 mb-4">参与创作挑战，与全球音乐爱好者交流，展示你的民乐才华。</p>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+查看挑战
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- 功能卡片4 -->
+<div class="feature-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Business%20collaboration%20with%20AI%20music%20technology%2C%20showing%20professional%20studio%20setup%20with%20Chinese%20traditional%20instruments%2C%20modern%20interface%20with%20analytics%20dashboard%2C%20client%20logos%2C%20clean%20professional%20corporate%20look&width=600&height=400&seq=5&orientation=landscape" alt="商业合作案例" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="w-12 h-12 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-building-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">商业合作案例</h3>
+<p class="text-gray-600 mb-4">为品牌、影视、游戏提供专业的民族音乐定制与授权服务。</p>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+了解更多
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 文化价值展示区 -->
+<section class="py-20 section-pattern">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">传统与创新的完美融合</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">我们致力于连接非遗传承人与现代科技，让千年民族音乐焕发新的生命力。</p>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+<!-- 非遗传承人视频故事 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-80">
+<img src="https://readdy.ai/api/search-image?query=Elderly%20Chinese%20master%20musician%20playing%20traditional%20guzheng%20instrument%20in%20a%20beautiful%20traditional%20setting%2C%20soft%20natural%20lighting%2C%20detailed%20hands%20showing%20technique%2C%20emotional%20expression%2C%20high%20quality%20professional%20photograph&width=800&height=500&seq=6&orientation=landscape" alt="非遗传承人" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/40 flex items-center justify-center">
+<button class="w-16 h-16 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-colors">
+<i class="ri-play-fill ri-2x"></i>
+</button>
+</div>
+</div>
+<div class="p-6">
+<div class="flex items-center mb-4">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="https://readdy.ai/api/search-image?query=Portrait%20of%20elderly%20Chinese%20woman%20with%20gentle%20smile%2C%20traditional%20clothing%2C%20professional%20headshot%20with%20neutral%20background&width=100&height=100&seq=7&orientation=squarish" alt="王梅芳" class="w-full h-full object-cover">
+</div>
+<div>
+<h3 class="text-lg font-semibold text-gray-900">王梅芳</h3>
+<p class="text-gray-500 text-sm">国家级非物质文化遗产古筝演奏技艺传承人</p>
+</div>
+</div>
+<h4 class="text-xl font-semibold text-gray-900 mb-3">《指尖上的传承》</h4>
+<p class="text-gray-600 mb-4">王梅芳老师从艺六十余年，致力于古筝技艺的传承与创新。本视频记录了她与AI技术的首次合作，探索传统音乐的现代表达。</p>
+<div class="flex items-center text-gray-500 text-sm">
+<div class="flex items-center mr-4">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-eye-line"></i>
+</div>
+12,568 次观看
+</div>
+<div class="flex items-center">
+<div class="w-4 h-4 flex items-center justify-center mr-1">
+<i class="ri-time-line"></i>
+</div>
+8:42
+</div>
+</div>
+</div>
+</div>
+<!-- AI生成音乐案例 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="p-6">
+<h3 class="text-2xl font-semibold text-gray-900 mb-6">AI 民乐创作展示</h3>
+<div class="mb-8">
+<div class="flex items-center justify-between mb-3">
+<h4 class="font-medium text-gray-900">传统古筝曲《高山流水》</h4>
+<div class="flex items-center">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary">
+<i class="ri-download-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary">
+<i class="ri-share-line"></i>
+</button>
+</div>
+</div>
+<div class="flex items-center mb-3">
+<button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full mr-4">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+<div class="flex-1">
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full w-1/3 bg-primary"></div>
+</div>
+<div class="flex justify-between text-xs text-gray-500 mt-1">
+<span>1:24</span>
+<span>4:36</span>
+</div>
+</div>
+</div>
+<div id="traditional-chart" class="h-32 w-full"></div>
+</div>
+<div class="mb-8">
+<div class="flex items-center justify-between mb-3">
+<h4 class="font-medium text-gray-900">AI 重新诠释版《高山流水》</h4>
+<div class="flex items-center">
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary">
+<i class="ri-download-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center text-gray-500 hover:text-primary">
+<i class="ri-share-line"></i>
+</button>
+</div>
+</div>
+<div class="flex items-center mb-3">
+<button class="w-10 h-10 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full mr-4">
+<i class="ri-pause-fill ri-lg"></i>
+</button>
+<div class="flex-1">
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full w-2/3 bg-primary"></div>
+</div>
+<div class="flex justify-between text-xs text-gray-500 mt-1">
+<span>2:48</span>
+<span>4:12</span>
+</div>
+</div>
+</div>
+<div id="ai-chart" class="h-32 w-full"></div>
+</div>
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<span class="text-gray-700 mr-3">对比模式</span>
+<label class="custom-switch">
+<input type="checkbox" checked>
+<span class="switch-slider"></span>
+</label>
+</div>
+<button class="text-primary font-medium flex items-center hover:underline">
+查看更多案例
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 用户评价 -->
+<section class="py-20 section-pattern">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">用户心声</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">来自各行各业的用户，分享他们使用我们平台的真实体验与感受。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<!-- 评价1 -->
+<div class="bg-white p-6 rounded-lg shadow-md">
+<div class="flex items-center mb-4">
+<div class="text-primary">
+<i class="ri-double-quotes-l ri-2x"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">作为一名音乐教育工作者，这个平台彻底改变了我教授民族音乐的方式。AI 辅助教学功能让学生更容易理解复杂的演奏技巧，学习效率提高了至少 50%。</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="https://readdy.ai/api/search-image?query=Professional%20Chinese%20female%20music%20teacher%20in%20her%2040s%2C%20smart%20casual%20attire%2C%20friendly%20smile%2C%20neutral%20background%2C%20headshot%20portrait&width=100&height=100&seq=8&orientation=squarish" alt="林教授" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-medium text-gray-900">林晓梅</h4>
+<p class="text-gray-500 text-sm">中央音乐学院民乐系教授</p>
+</div>
+</div>
+</div>
+<!-- 评价2 -->
+<div class="bg-white p-6 rounded-lg shadow-md">
+<div class="flex items-center mb-4">
+<div class="text-primary">
+<i class="ri-double-quotes-l ri-2x"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">我是一名游戏音乐制作人，一直在寻找能够快速生成高质量中国风音乐的工具。这个平台的 AI 编曲功能令人惊叹，为我们的游戏增添了独特的文化韵味。</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="https://readdy.ai/api/search-image?query=Young%20Chinese%20male%20game%20developer%20in%20his%2030s%20with%20glasses%2C%20casual%20modern%20style%2C%20creative%20look%2C%20neutral%20background%2C%20professional%20headshot&width=100&height=100&seq=9&orientation=squarish" alt="陈工程师" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-medium text-gray-900">陈志远</h4>
+<p class="text-gray-500 text-sm">网易游戏音频总监</p>
+</div>
+</div>
+</div>
+<!-- 评价3 -->
+<div class="bg-white p-6 rounded-lg shadow-md">
+<div class="flex items-center mb-4">
+<div class="text-primary">
+<i class="ri-double-quotes-l ri-2x"></i>
+</div>
+</div>
+<p class="text-gray-600 mb-6">作为一个对民乐感兴趣但没有音乐基础的爱好者，这个平台让我能够轻松创作出自己的民族音乐作品。AI 技术降低了学习门槛，让传统音乐变得更加亲民。</p>
+<div class="flex items-center">
+<div class="w-12 h-12 rounded-full overflow-hidden mr-4">
+<img src="https://readdy.ai/api/search-image?query=Chinese%20female%20college%20student%20in%20her%2020s%2C%20casual%20modern%20style%2C%20bright%20smile%2C%20neutral%20background%2C%20professional%20headshot&width=100&height=100&seq=10&orientation=squarish" alt="李同学" class="w-full h-full object-cover">
+</div>
+<div>
+<h4 class="font-medium text-gray-900">李雨桐</h4>
+<p class="text-gray-500 text-sm">大学生 / 音乐爱好者</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 数据统计 -->
+<section class="py-16 section-pattern">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">12,000+</div>
+<p class="text-gray-600">注册用户</p>
+</div>
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">50+</div>
+<p class="text-gray-600">非遗传承人</p>
+</div>
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">85,000+</div>
+<p class="text-gray-600">AI 生成作品</p>
+</div>
+<div class="text-center">
+<div class="text-4xl font-bold text-primary mb-2">28</div>
+<p class="text-gray-600">民族乐器种类</p>
+</div>
+</div>
+</div>
+</section>
+<!-- 订阅区域 -->
+<section class="py-20 section-pattern bg-gradient-to-r from-primary/10 to-secondary/10">
+<div class="container mx-auto px-6">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">订阅我们的最新动态</h2>
+<p class="text-gray-600 mb-8">获取最新的 AI 民乐技术进展、创作灵感和独家优惠信息。</p>
+<div class="flex flex-col md:flex-row gap-4 max-w-lg mx-auto">
+<input type="email" placeholder="您的邮箱地址" class="flex-1 px-4 py-3 rounded-button border-none bg-white shadow-sm focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+<button class="bg-primary text-white hover:bg-primary/90 px-6 py-3 rounded-button font-medium whitespace-nowrap">立即订阅</button>
+</div>
+<p class="text-xs text-gray-500 mt-4">我们尊重您的隐私，绝不会向第三方分享您的信息。</p>
+</div>
+</div>
+</section>
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div>
+<a href="#" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
+<p class="text-gray-400 mb-4">传统民乐与人工智能的创新融合，开启音乐创作与学习的全新可能。</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-wechat-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-weibo-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-bilibili-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-douyin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">快速链接</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">AI学习系统</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI编曲工坊</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">音乐社区</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">商业服务</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">支持与帮助</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">联系我们</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-map-pin-line"></i>
+</div>
+<span class="text-gray-400">北京市海淀区中关村南大街5号</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-mail-line"></i>
+</div>
+<span class="text-gray-400">contact@aimingyue.com</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-phone-line"></i>
+</div>
+<span class="text-gray-400">400-888-7766</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+<p>© 2025 AI民乐创新平台. 保留所有权利.</p>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// 传统音乐图表
+const traditionalChart = echarts.init(document.getElementById('traditional-chart'));
+const traditionalOption = {
+animation: false,
+grid: {
+left: 0,
+right: 0,
+top: 0,
+bottom: 0
+},
+xAxis: {
+type: 'category',
+show: false,
+data: Array.from({length: 50}, (_, i) => i)
+},
+yAxis: {
+type: 'value',
+show: false
+},
+series: [{
+data: Array.from({length: 50}, () => Math.random() * 80 + 20),
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(87, 181, 231, 1)',
+width: 2
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(87, 181, 231, 0.2)'
+}, {
+offset: 1, color: 'rgba(87, 181, 231, 0.05)'
+}]
+}
+}
+}]
+};
+traditionalChart.setOption(traditionalOption);
+// AI音乐图表
+const aiChart = echarts.init(document.getElementById('ai-chart'));
+const aiOption = {
+animation: false,
+grid: {
+left: 0,
+right: 0,
+top: 0,
+bottom: 0
+},
+xAxis: {
+type: 'category',
+show: false,
+data: Array.from({length: 50}, (_, i) => i)
+},
+yAxis: {
+type: 'value',
+show: false
+},
+series: [{
+data: Array.from({length: 50}, () => Math.random() * 100),
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(252, 141, 98, 1)',
+width: 2
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(252, 141, 98, 0.2)'
+}, {
+offset: 1, color: 'rgba(252, 141, 98, 0.05)'
+}]
+}
+}
+}]
+};
+aiChart.setOption(aiOption);
+// 窗口大小变化时重新调整图表大小
+window.addEventListener('resize', function() {
+traditionalChart.resize();
+aiChart.resize();
+});
+});
+</script>
+</body>
+</html>

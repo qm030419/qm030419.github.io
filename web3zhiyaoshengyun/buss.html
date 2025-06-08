@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>商业服务 - 非遗民乐 AI 创新平台</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#9D2932',secondary:'#3A7B5D'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans SC', sans-serif;
+overflow-x: hidden;
+}
+.section-pattern {
+position: relative;
+}
+.section-pattern::before {
+content: '';
+position: absolute;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-image: url('https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520paper%2520texture%2520with%2520subtle%2520cloud%2520patterns%252C%2520very%2520light%2520and%2520minimal%252C%2520perfect%2520for%2520background&width=1920&height=1080&seq=12&orientation=landscape');
+background-size: cover;
+opacity: 0.05;
+pointer-events: none;
+}
+.hero-section {
+position: relative;
+background-image: url('https://readdy.ai/api/search-image?query=Modern%2520abstract%2520business%2520scene%2520with%2520floating%2520traditional%2520Chinese%2520musical%2520instruments%2520in%2520a%2520minimalist%2520space%252C%2520soft%2520gradient%2520background%2520in%2520warm%2520tones%252C%2520clean%2520left%2520side%2520for%2520text%252C%2520elegant%2520visual%2520style%252C%2520subtle%2520particle%2520effects%252C%2520professional%2520lighting%252C%2520high%2520end%25203D%2520rendering%252C%2520cinematic%2520composition&width=1920&height=1080&seq=33&orientation=landscape');
+background-size: cover;
+background-position: center;
+}
+.hero-overlay {
+background: linear-gradient(90deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 50%, rgba(255,255,255,0) 100%);
+}
+.nav-glass {
+backdrop-filter: blur(10px);
+background-color: rgba(255, 255, 255, 0.8);
+}
+.service-card {
+transition: all 0.3s ease;
+background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.9) 100%);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(157, 41, 50, 0.1);
+}
+.service-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.case-card {
+transition: all 0.3s ease;
+}
+.case-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.map-container {
+position: relative;
+background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png');
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
+}
+.map-point {
+position: absolute;
+width: 16px;
+height: 16px;
+background-color: rgba(157, 41, 50, 0.8);
+border-radius: 50%;
+cursor: pointer;
+transition: all 0.3s ease;
+}
+.map-point::before {
+content: '';
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: 16px;
+height: 16px;
+background-color: rgba(157, 41, 50, 0.4);
+border-radius: 50%;
+animation: pulse 2s infinite;
+}
+.map-point:hover {
+transform: scale(1.2);
+}
+@keyframes pulse {
+0% {
+transform: translate(-50%, -50%) scale(1);
+opacity: 1;
+}
+100% {
+transform: translate(-50%, -50%) scale(2.5);
+opacity: 0;
+}
+}
+.process-step {
+position: relative;
+}
+.process-step:not(:last-child)::after {
+content: '';
+position: absolute;
+top: 28px;
+right: -50%;
+width: 100%;
+height: 2px;
+background-color: #E5E7EB;
+z-index: 0;
+}
+.process-step-active:not(:last-child)::after {
+background-color: #9D2932;
+}
+.case-detail-modal {
+display: none;
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: rgba(0, 0, 0, 0.5);
+z-index: 100;
+overflow-y: auto;
+}
+</style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-50 shadow-sm">
+<div class="container mx-auto px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-3xl font-['Pacifico'] text-primary mr-10">logo</a>
+<nav class="hidden md:flex space-x-8">
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">首页</a>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">AI学习系统</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">AI编曲工坊</a>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/b31f8147-8427-4bef-b5fa-65dc69073310" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">音乐社区</a>
+<a href="#" class="text-gray-800 font-medium border-b-2 border-primary">商业服务</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 w-40 md:w-60">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<button class="bg-white text-primary border border-primary hover:bg-primary/5 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">登录</button>
+<button class="bg-primary text-white hover:bg-primary/90 px-4 py-2 rounded-button text-sm font-medium whitespace-nowrap">注册</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero 区域 -->
+<section class="hero-section min-h-[70vh] pt-20">
+<div class="hero-overlay w-full h-full absolute top-0 left-0"></div>
+<div class="container mx-auto px-6 py-20 relative">
+<div class="flex flex-col md:flex-row items-center min-h-[50vh]">
+<div class="md:w-1/2 z-10">
+<h1 class="text-4xl md:text-5xl font-bold text-gray-900 leading-tight mb-6">民族音乐<br><span class="text-primary">商业解决方案</span></h1>
+<p class="text-lg text-gray-700 mb-8 max-w-lg">我们为企业客户提供专业的民族音乐定制、版权授权和AI音乐技术合作，助力品牌传播与商业创新，打造独具文化特色的商业价值。</p>
+<div class="flex flex-wrap gap-4">
+<button class="bg-primary text-white hover:bg-primary/90 px-6 py-3 rounded-button font-medium flex items-center gap-2 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-customer-service-2-line"></i>
+</div>
+联系商务顾问
+</button>
+<button class="bg-white text-gray-800 border border-gray-200 hover:bg-gray-50 px-6 py-3 rounded-button font-medium flex items-center gap-2 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-file-list-3-line"></i>
+</div>
+获取服务手册
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- B端服务导航矩阵 -->
+<section class="py-20 section-pattern">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">专业商业服务</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">我们提供全方位的民族音乐商业解决方案，满足企业在不同场景下的专业音乐需求。</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- 服务卡片1：影视游戏配乐定制 -->
+<div class="service-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%2520music%2520studio%2520with%2520traditional%2520Chinese%2520instruments%2520and%2520modern%2520recording%2520equipment%252C%2520film%2520and%2520game%2520production%2520elements%2520visible%252C%2520professional%2520lighting%252C%2520clean%2520organized%2520workspace%252C%2520high%2520quality%2520professional%2520photograph&width=600&height=400&seq=22&orientation=landscape" alt="影视游戏配乐定制" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="w-14 h-14 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-film-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">影视游戏配乐定制</h3>
+<p class="text-gray-600 mb-4">由专业作曲家团队和非遗传承人共同打造，为您的影视作品、游戏、广告等提供原创民族音乐定制服务，彰显独特的文化魅力。</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">28种传统民族乐器可选</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">专业录音棚现场录制</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">无限次修改直至满意</span>
+</li>
+</ul>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+了解服务详情
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- 服务卡片2：版权交易市场 -->
+<div class="service-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Blockchain%2520technology%2520visualization%2520with%2520music%2520copyright%2520elements%252C%2520digital%2520contracts%252C%2520secure%2520certificates%252C%2520traditional%2520Chinese%2520music%2520symbols%252C%2520professional%2520business%2520setting%252C%2520clean%2520modern%2520design%252C%2520high%2520quality%2520digital%2520art&width=600&height=400&seq=23&orientation=landscape" alt="版权交易市场" class="w-full h-full object-cover object-top"></div>
+<div class="p-6">
+<div class="w-14 h-14 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-copyright-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">版权交易市场</h3>
+<p class="text-gray-600 mb-4">基于区块链技术的版权存证与交易平台，提供海量优质民族音乐素材，满足各类商业项目的音乐授权需求，保障版权安全。</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">10,000+ 正版音乐素材</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">区块链存证保障</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">多种授权方式灵活选择</span>
+</li>
+</ul>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+进入版权市场
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+<!-- 服务卡片3：API接入文档 -->
+<div class="service-card bg-white rounded-lg shadow-md overflow-hidden">
+<div class="h-56 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Developer%2520API%2520documentation%2520interface%2520with%2520code%2520samples%252C%2520music%2520AI%2520technology%2520diagrams%252C%2520integration%2520flowcharts%252C%2520clean%2520modern%2520design%252C%2520professional%2520development%2520environment%252C%2520high%2520quality%2520digital%2520interface&width=600&height=400&seq=24&orientation=landscape" alt="API接入文档" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-6">
+<div class="w-14 h-14 flex items-center justify-center bg-primary/10 text-primary rounded-full mb-4">
+<i class="ri-code-box-line ri-xl"></i>
+</div>
+<h3 class="text-xl font-semibold text-gray-900 mb-2">API接入文档中心</h3>
+<p class="text-gray-600 mb-4">为开发者和企业提供AI民族音乐生成与分析的API接口，轻松将我们的技术集成到您的产品、应用或服务中。</p>
+<ul class="mb-6 space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">RESTful API设计</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">详细的开发文档与示例</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span class="text-gray-700">企业级SLA保障</span>
+</li>
+</ul>
+<a href="#" class="text-primary font-medium flex items-center hover:underline">
+查看API文档
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</a>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 交互式案例地图 -->
+<section class="py-20 bg-gray-50 section-pattern">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">全球商业案例</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">探索我们在全球范围内的成功案例，了解民族音乐如何为不同行业的企业创造独特价值。</p>
+</div>
+<div class="bg-white rounded-lg shadow-lg overflow-hidden">
+<div class="p-6 border-b border-gray-100">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<h3 class="text-xl font-semibold text-gray-900">案例分布地图</h3>
+<div class="flex items-center gap-4">
+<div class="flex items-center px-1 py-1 bg-gray-100 rounded-full">
+<button class="px-4 py-2 text-sm font-medium text-white bg-primary rounded-full whitespace-nowrap">全部案例</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-700 rounded-full whitespace-nowrap">影视案例</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-700 rounded-full whitespace-nowrap">游戏案例</button>
+<button class="px-4 py-2 text-sm font-medium text-gray-700 rounded-full whitespace-nowrap">品牌案例</button>
+</div>
+<div class="relative">
+<input type="text" placeholder="搜索案例..." class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 w-40 md:w-60">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="relative">
+<div class="map-container h-[500px] w-full">
+<!-- 地图上的点 -->
+<div class="map-point" style="top: 35%; left: 20%;" data-region="北京" data-cases="12"></div>
+<div class="map-point" style="top: 40%; left: 25%;" data-region="上海" data-cases="15"></div>
+<div class="map-point" style="top: 45%; left: 23%;" data-region="广州" data-cases="8"></div>
+<div class="map-point" style="top: 30%; left: 30%;" data-region="成都" data-cases="6"></div>
+<div class="map-point" style="top: 25%; left: 70%;" data-region="纽约" data-cases="5"></div>
+<div class="map-point" style="top: 20%; left: 45%;" data-region="伦敦" data-cases="4"></div>
+<div class="map-point" style="top: 50%; left: 75%;" data-region="东京" data-cases="7"></div>
+<div class="map-point" style="top: 60%; left: 65%;" data-region="悉尼" data-cases="3"></div>
+</div>
+<!-- 热门案例展示 -->
+<div class="absolute bottom-0 left-0 right-0 bg-white/90 backdrop-blur-sm p-6">
+<h4 class="text-lg font-semibold text-gray-900 mb-4">热门案例</h4>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="case-card bg-white rounded shadow p-4 cursor-pointer" data-case-id="1">
+<div class="h-32 rounded overflow-hidden mb-3">
+<img src="https://readdy.ai/api/search-image?query=Chinese%2520historical%2520drama%2520film%2520scene%2520with%2520traditional%2520costumes%2520and%2520setting%252C%2520professional%2520cinematography%252C%2520high%2520quality%2520film%2520still&width=300&height=200&seq=25&orientation=landscape" alt="长安幻夜" class="w-full h-full object-cover object-top">
+</div>
+<h5 class="font-medium text-gray-900">《长安幻夜》电影配乐</h5>
+<p class="text-sm text-gray-500">影视类 | 唐风古韵</p>
+</div>
+<div class="case-card bg-white rounded shadow p-4 cursor-pointer" data-case-id="2">
+<div class="h-32 rounded overflow-hidden mb-3">
+<img src="https://readdy.ai/api/search-image?query=Chinese%2520fantasy%2520RPG%2520game%2520screenshot%2520with%2520traditional%2520elements%252C%2520beautiful%2520landscape%252C%2520character%2520in%2520traditional%2520costume%252C%2520high%2520quality%2520game%2520visual&width=300&height=200&seq=26&orientation=landscape" alt="山海奇缘" class="w-full h-full object-cover object-top">
+</div>
+<h5 class="font-medium text-gray-900">《山海奇缘》游戏配乐</h5>
+<p class="text-sm text-gray-500">游戏类 | 神话传说</p>
+</div>
+<div class="case-card bg-white rounded shadow p-4 cursor-pointer" data-case-id="3">
+<div class="h-32 rounded overflow-hidden mb-3">
+<img src="https://readdy.ai/api/search-image?query=Luxury%2520Chinese%2520tea%2520brand%2520commercial%2520with%2520elegant%2520setting%252C%2520traditional%2520tea%2520ceremony%252C%2520professional%2520product%2520photography%252C%2520high%2520quality%2520advertising%2520image&width=300&height=200&seq=27&orientation=landscape" alt="茗香茶韵" class="w-full h-full object-cover object-top">
+</div>
+<h5 class="font-medium text-gray-900">茗香茶韵品牌音乐</h5>
+<p class="text-sm text-gray-500">品牌类 | 江南丝竹</p>
+</div>
+<div class="case-card bg-white rounded shadow p-4 cursor-pointer" data-case-id="4">
+<div class="h-32 rounded overflow-hidden mb-3">
+<img src="https://readdy.ai/api/search-image?query=International%2520cultural%2520exhibition%2520with%2520Chinese%2520elements%252C%2520modern%2520exhibition%2520hall%252C%2520visitors%2520viewing%2520displays%252C%2520professional%2520event%2520photography%252C%2520high%2520quality%2520image&width=300&height=200&seq=28&orientation=landscape" alt="丝路文化展" class="w-full h-full object-cover object-top">
+</div>
+<h5 class="font-medium text-gray-900">丝路文化展览音乐</h5>
+<p class="text-sm text-gray-500">展览类 | 西域风情</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 案例详情弹窗 -->
+<div id="caseDetailModal" class="case-detail-modal">
+<div class="flex items-center justify-center min-h-screen p-4">
+<div class="bg-white rounded-lg shadow-xl max-w-4xl w-full mx-auto overflow-hidden">
+<div class="relative h-80">
+<img id="caseImage" src="" alt="案例图片" class="w-full h-full object-cover">
+<button id="closeModal" class="absolute top-4 right-4 w-10 h-10 flex items-center justify-center bg-black/50 text-white rounded-full hover:bg-black/70">
+<i class="ri-close-line ri-lg"></i>
+</button>
+</div>
+<div class="p-6">
+<div class="flex flex-wrap items-center justify-between gap-4 mb-6">
+<div>
+<h3 id="caseTitle" class="text-2xl font-semibold text-gray-900"></h3>
+<p id="caseCategory" class="text-gray-500"></p>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-1 px-3 py-1 text-sm bg-gray-100 rounded-full text-gray-700 hover:bg-gray-200">
+<i class="ri-share-line"></i> 分享
+</button>
+<button class="flex items-center gap-1 px-3 py-1 text-sm bg-primary/10 rounded-full text-primary hover:bg-primary/20">
+<i class="ri-download-line"></i> 下载案例
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+<div>
+<h4 class="font-medium text-gray-900 mb-2">项目信息</h4>
+<ul class="space-y-2 text-sm">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-500 mr-2 mt-0.5">
+<i class="ri-building-line"></i>
+</div>
+<span id="caseClient" class="text-gray-700"></span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-500 mr-2 mt-0.5">
+<i class="ri-calendar-line"></i>
+</div>
+<span id="caseDate" class="text-gray-700"></span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-500 mr-2 mt-0.5">
+<i class="ri-music-2-line"></i>
+</div>
+<span id="caseStyle" class="text-gray-700"></span>
+</li>
+</ul>
+</div>
+<div class="md:col-span-2">
+<h4 class="font-medium text-gray-900 mb-2">项目概述</h4>
+<p id="caseDescription" class="text-gray-700 text-sm"></p>
+</div>
+</div>
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">民族音乐元素</h4>
+<div id="caseElements" class="flex flex-wrap gap-2"></div>
+</div>
+<div class="mb-6">
+<h4 class="font-medium text-gray-900 mb-3">试听片段</h4>
+<div class="flex items-center mb-3">
+<button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full mr-4">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+<div class="flex-1">
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full w-1/3 bg-primary"></div>
+</div>
+<div class="flex justify-between text-xs text-gray-500 mt-1">
+<span>0:48</span>
+<span>2:36</span>
+</div>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 mb-3">客户评价</h4>
+<div class="bg-gray-50 p-4 rounded">
+<div class="flex items-start mb-2">
+<div class="text-primary">
+<i class="ri-double-quotes-l ri-lg"></i>
+</div>
+</div>
+<p id="caseTestimonial" class="text-gray-700 text-sm mb-4"></p>
+<div class="flex items-center">
+<div id="clientAvatar" class="w-10 h-10 rounded-full overflow-hidden mr-3">
+<img src="" alt="客户头像" class="w-full h-full object-cover">
+</div>
+<div>
+<h5 id="clientName" class="font-medium text-gray-900 text-sm"></h5>
+<p id="clientTitle" class="text-gray-500 text-xs"></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 服务流程 -->
+<section class="py-20 section-pattern">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">服务流程</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">我们提供标准化的服务流程，确保高效沟通与优质交付，让您的商业项目顺利进行。</p>
+</div>
+<div class="flex flex-col md:flex-row justify-between items-start mb-16">
+<div class="process-step process-step-active text-center md:w-1/5 mb-8 md:mb-0">
+<div class="w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full mx-auto mb-4 relative z-10">
+<i class="ri-discuss-line ri-xl"></i>
+</div>
+<h3 class="font-medium text-gray-900 mb-2">需求沟通</h3>
+<p class="text-sm text-gray-600">深入了解您的项目背景、目标受众和音乐需求</p>
+</div>
+<div class="process-step process-step-active text-center md:w-1/5 mb-8 md:mb-0">
+<div class="w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full mx-auto mb-4 relative z-10">
+<i class="ri-file-list-3-line ri-xl"></i>
+</div>
+<h3 class="font-medium text-gray-900 mb-2">方案制定</h3>
+<p class="text-sm text-gray-600">提供专业的音乐创作方案和详细报价</p>
+</div>
+<div class="process-step process-step-active text-center md:w-1/5 mb-8 md:mb-0">
+<div class="w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full mx-auto mb-4 relative z-10">
+<i class="ri-music-2-line ri-xl"></i>
+</div>
+<h3 class="font-medium text-gray-900 mb-2">创作制作</h3>
+<p class="text-sm text-gray-600">由专业团队进行音乐创作、编曲和录制</p>
+</div>
+<div class="process-step process-step-active text-center md:w-1/5 mb-8 md:mb-0">
+<div class="w-14 h-14 flex items-center justify-center bg-primary text-white rounded-full mx-auto mb-4 relative z-10">
+<i class="ri-edit-line ri-xl"></i>
+</div>
+<h3 class="font-medium text-gray-900 mb-2">修改完善</h3>
+<p class="text-sm text-gray-600">根据您的反馈进行调整，直至满意</p>
+</div>
+<div class="process-step text-center md:w-1/5">
+<div class="w-14 h-14 flex items-center justify-center bg-gray-200 text-gray-700 rounded-full mx-auto mb-4 relative z-10">
+<i class="ri-check-double-line ri-xl"></i>
+</div>
+<h3 class="font-medium text-gray-900 mb-2">交付使用</h3>
+<p class="text-sm text-gray-600">提供最终成品和版权授权文件</p>
+</div>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="p-6">
+<div class="flex flex-col md:flex-row items-start gap-8">
+<div class="md:w-1/2">
+<h3 class="text-xl font-semibold text-gray-900 mb-4">常见问题</h3>
+<div class="space-y-4">
+<div class="border-b border-gray-100 pb-4">
+<h4 class="font-medium text-gray-900 mb-2">服务周期一般是多久？</h4>
+<p class="text-gray-600 text-sm">根据项目复杂度不同，一般定制服务周期为7-30天，版权授权可即时完成，API接入技术支持一般在3个工作日内响应。</p>
+</div>
+<div class="border-b border-gray-100 pb-4">
+<h4 class="font-medium text-gray-900 mb-2">如何保障音乐的版权安全？</h4>
+<p class="text-gray-600 text-sm">我们所有音乐作品均通过区块链技术进行存证，并提供正规的版权授权协议，确保您的商业使用合法合规。</p>
+</div>
+<div class="border-b border-gray-100 pb-4">
+<h4 class="font-medium text-gray-900 mb-2">可以提供多种风格的民族音乐吗？</h4>
+<p class="text-gray-600 text-sm">是的，我们覆盖汉族、蒙古族、藏族、维吾尔族等多个民族的音乐风格，可根据您的需求进行个性化定制。</p>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 mb-2">API服务有使用限制吗？</h4>
+<p class="text-gray-600 text-sm">我们提供不同级别的API调用套餐，从基础的每日100次调用到企业级无限调用，您可以根据需求选择合适的方案。</p>
+</div>
+</div>
+</div>
+<div class="md:w-1/2">
+<h3 class="text-xl font-semibold text-gray-900 mb-4">联系我们</h3>
+<p class="text-gray-600 mb-6">如果您有任何疑问或需求，请随时联系我们的商务团队，我们将在1个工作日内回复您。</p>
+<form class="space-y-4">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label for="name" class="block text-sm font-medium text-gray-700 mb-1">您的姓名</label>
+<input type="text" id="name" class="w-full px-4 py-2 rounded border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+</div>
+<div>
+<label for="company" class="block text-sm font-medium text-gray-700 mb-1">公司名称</label>
+<input type="text" id="company" class="w-full px-4 py-2 rounded border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label for="email" class="block text-sm font-medium text-gray-700 mb-1">电子邮箱</label>
+<input type="email" id="email" class="w-full px-4 py-2 rounded border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+</div>
+<div>
+<label for="phone" class="block text-sm font-medium text-gray-700 mb-1">联系电话</label>
+<input type="tel" id="phone" class="w-full px-4 py-2 rounded border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+</div>
+</div>
+<div>
+<label for="service" class="block text-sm font-medium text-gray-700 mb-1">服务需求</label>
+<select id="service" class="w-full px-4 py-2 rounded border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm pr-8">
+<option value="">请选择服务类型</option>
+<option value="custom">影视游戏配乐定制</option>
+<option value="copyright">版权授权</option>
+<option value="api">API技术合作</option>
+<option value="other">其他合作</option>
+</select>
+</div>
+<div>
+<label for="message" class="block text-sm font-medium text-gray-700 mb-1">需求描述</label>
+<textarea id="message" rows="4" class="w-full px-4 py-2 rounded border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm"></textarea>
+</div>
+<div class="flex justify-end">
+<button type="submit" class="bg-primary text-white hover:bg-primary/90 px-6 py-3 rounded-button font-medium whitespace-nowrap">提交需求</button>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 合作伙伴 -->
+<section class="py-16 section-pattern bg-gray-50">
+<div class="container mx-auto px-6">
+<div class="text-center mb-12">
+<h2 class="text-3xl font-bold text-gray-900 mb-4">合作伙伴</h2>
+<p class="text-gray-600 max-w-2xl mx-auto">我们与众多知名企业和机构建立了长期稳定的合作关系</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-6 gap-8">
+<div class="flex flex-col items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center text-gray-700 mb-2">
+<i class="ri-netease-cloud-music-fill ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700 font-medium">网易音乐</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center text-gray-700 mb-2">
+<i class="ri-bilibili-fill ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700 font-medium">哔哩哔哩</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center text-gray-700 mb-2">
+<i class="ri-tencent-qq-fill ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700 font-medium">腾讯游戏</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center text-gray-700 mb-2">
+<i class="ri-douyin-fill ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700 font-medium">抖音</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center text-gray-700 mb-2">
+<i class="ri-netflix-fill ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700 font-medium">Netflix</span>
+</div>
+<div class="flex flex-col items-center justify-center p-4">
+<div class="w-12 h-12 flex items-center justify-center text-gray-700 mb-2">
+<i class="ri-apple-fill ri-2x"></i>
+</div>
+<span class="text-sm text-gray-700 font-medium">Apple</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
+<p class="text-gray-400 mb-4">传统民乐与人工智能的创新融合，开启音乐创作与学习的全新可能。</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-wechat-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-weibo-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-bilibili-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-douyin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">快速链接</h4>
+<ul class="space-y-2">
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">AI学习系统</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI编曲工坊</a></li>
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/b31f8147-8427-4bef-b5fa-65dc69073310" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">音乐社区</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">商业服务</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">支持与帮助</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">联系我们</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-map-pin-line"></i>
+</div>
+<span class="text-gray-400">北京市海淀区中关村南大街5号</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-mail-line"></i>
+</div>
+<span class="text-gray-400">business@aimingyue.com</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-phone-line"></i>
+</div>
+<span class="text-gray-400">400-888-7766</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+<p>© 2025 AI民乐创新平台. 保留所有权利.</p>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// 地图点击事件
+const mapPoints = document.querySelectorAll('.map-point');
+mapPoints.forEach(point => {
+point.addEventListener('mouseover', function() {
+const region = this.getAttribute('data-region');
+const cases = this.getAttribute('data-cases');
+// 创建提示框
+let tooltip = document.createElement('div');
+tooltip.className = 'absolute bg-white shadow-md rounded p-2 text-sm z-20';
+tooltip.style.top = (this.offsetTop - 40) + 'px';
+tooltip.style.left = (this.offsetLeft - 20) + 'px';
+tooltip.innerHTML = `<strong>${region}</strong>: ${cases} 个案例`;
+// 添加到地图容器
+this.parentNode.appendChild(tooltip);
+// 移出时移除提示框
+this.addEventListener('mouseout', function() {
+tooltip.remove();
+});
+});
+point.addEventListener('click', function() {
+const region = this.getAttribute('data-region');
+// 这里可以添加点击后显示该地区案例的逻辑
+alert(`显示${region}地区的案例`);
+});
+});
+// 案例卡片点击事件
+const caseCards = document.querySelectorAll('.case-card');
+const caseDetailModal = document.getElementById('caseDetailModal');
+const closeModal = document.getElementById('closeModal');
+// 案例数据
+const caseData = {
+"1": {
+title: "《长安幻夜》电影配乐",
+category: "影视类 | 唐风古韵",
+image: "https://readdy.ai/api/search-image?query=Chinese%2520historical%2520drama%2520film%2520scene%2520with%2520traditional%2520costumes%2520and%2520setting%252C%2520professional%2520cinematography%252C%2520high%2520quality%2520film%2520still&width=800&height=400&seq=25&orientation=landscape",
+client: "华夏电影制作有限公司",
+date: "2025年2月15日",
+style: "唐代宫廷音乐、古筝、琵琶、笛子",
+description: "为古装奇幻电影《长安幻夜》创作配乐，融合唐代宫廷音乐元素与现代配乐技术，营造神秘奇幻的唐朝氛围，获得第40届金像奖最佳原创音乐提名。",
+elements: ["古筝", "琵琶", "笛子", "编钟", "唐代宫廷音乐"],
+testimonial: "AI民乐团队为我们的电影创作了极具唐代特色的音乐，不仅完美还原了历史氛围，更通过现代技术手段赋予了作品独特的奇幻色彩，大大提升了电影的艺术表现力。",
+clientName: "张志远",
+clientTitle: "《长安幻夜》音乐总监",
+clientAvatar: "https://readdy.ai/api/search-image?query=Professional%2520Chinese%2520male%2520film%2520director%2520in%2520his%252040s%252C%2520casual%2520smart%2520attire%252C%2520thoughtful%2520expression%252C%2520neutral%2520background%252C%2520headshot%2520portrait&width=100&height=100&seq=29&orientation=squarish"
+},
+"2": {
+title: "《山海奇缘》游戏配乐",
+category: "游戏类 | 神话传说",
+image: "https://readdy.ai/api/search-image?query=Chinese%2520fantasy%2520RPG%2520game%2520screenshot%2520with%2520traditional%2520elements%252C%2520beautiful%2520landscape%252C%2520character%2520in%2520traditional%2520costume%252C%2520high%2520quality%2520game%2520visual&width=800&height=400&seq=26&orientation=landscape",
+client: "网易游戏",
+date: "2024年12月10日",
+style: "中国神话音乐、民族管弦乐",
+description: "为开放世界RPG游戏《山海奇缘》创作原声音乐，基于《山海经》神话传说，结合各地民族音乐元素，打造沉浸式游戏音乐体验，支持动态音乐系统。",
+elements: ["二胡", "古琴", "箫", "羌笛", "民族打击乐"],
+testimonial: "通过AI民乐平台，我们能够根据游戏中不同场景和情境实时生成匹配的民族音乐，大大提升了游戏的沉浸感。玩家们对游戏中的音乐赞不绝口，这已成为我们游戏的一大亮点。",
+clientName: "刘明",
+clientTitle: "网易游戏音频总监",
+clientAvatar: "https://readdy.ai/api/search-image?query=Young%2520Chinese%2520male%2520game%2520developer%2520in%2520his%252030s%2520with%2520glasses%252C%2520casual%2520modern%2520style%252C%2520creative%2520look%252C%2520neutral%2520background%252C%2520professional%2520headshot&width=100&height=100&seq=30&orientation=squarish"
+},
+"3": {
+title: "茗香茶韵品牌音乐",
+category: "品牌类 | 江南丝竹",
+image: "https://readdy.ai/api/search-image?query=Luxury%2520Chinese%2520tea%2520brand%2520commercial%2520with%2520elegant%2520setting%252C%2520traditional%2520tea%2520ceremony%252C%2520professional%2520product%2520photography%252C%2520high%2520quality%2520advertising%2520image&width=800&height=400&seq=27&orientation=landscape",
+client: "茗香茶业集团",
+date: "2025年1月5日",
+style: "江南丝竹、园林雅集",
+description: "为高端茶叶品牌"茗香茶韵"创作品牌音乐识别系统，包括品牌主题曲、广告配乐、门店背景音乐等，融入江南丝竹风格，营造雅致品茶氛围。",
+elements: ["琴", "箫", "笛", "古筝", "江南丝竹"],
+testimonial: "AI民乐平台为我们定制的品牌音乐系统完美诠释了我们'雅致东方'的品牌理念，无论是线下门店还是线上广告，音乐都能让顾客立即识别我们的品牌，并沉浸在优雅的茶文化氛围中。",
+clientName: "陈雅琴",
+clientTitle: "茗香茶业品牌总监",
+clientAvatar: "https://readdy.ai/api/search-image?query=Professional%2520Chinese%2520female%2520marketing%2520executive%2520in%2520her%252030s%252C%2520elegant%2520business%2520attire%252C%2520confident%2520smile%252C%2520neutral%2520background%252C%2520headshot%2520portrait&width=100&height=100&seq=31&orientation=squarish"
+},
+"4": {
+title: "丝路文化展览音乐",
+category: "展览类 | 西域风情",
+image: "https://readdy.ai/api/search-image?query=International%2520cultural%2520exhibition%2520with%2520Chinese%2520elements%252C%2520modern%2520exhibition%2520hall%252C%2520visitors%2520viewing%2520displays%252C%2520professional%2520event%2520photography%252C%2520high%2520quality%2520image&width=800&height=400&seq=28&orientation=landscape",
+client: "国家文物局",
+date: "2024年11月20日",
+style: "丝绸之路音乐、多民族融合",
+description: "为"丝路文明：东西方文化交流展"创作展览音乐，融合中亚、西亚和中国传统音乐元素，通过空间音频技术在不同展区呈现差异化的音乐体验。",
+elements: ["冬不拉", "热瓦普", "马头琴", "埙", "丝路乐器"],
+testimonial: "这套展览音乐系统是我们文化展览的点睛之笔，AI技术让不同展区能够呈现出独特的音乐氛围，参观者可以通过耳朵'听见'丝路文明的多元交融，大大增强了展览的沉浸感和教育意义。",
+clientName: "王立新",
+clientTitle: "国家文物局展览策划主任",
+clientAvatar: "https://readdy.ai/api/search-image?query=Professional%2520Chinese%2520male%2520museum%2520curator%2520in%2520his%252050s%252C%2520formal%2520attire%252C%2520scholarly%2520appearance%252C%2520neutral%2520background%252C%2520headshot%2520portrait&width=100&height=100&seq=32&orientation=squarish"
+}
+};
+caseCards.forEach(card => {
+card.addEventListener('click', function() {
+const caseId = this.getAttribute('data-case-id');
+const caseInfo = caseData[caseId];
+// 填充案例详情
+document.getElementById('caseImage').src = caseInfo.image;
+document.getElementById('caseTitle').textContent = caseInfo.title;
+document.getElementById('caseCategory').textContent = caseInfo.category;
+document.getElementById('caseClient').textContent = caseInfo.client;
+document.getElementById('caseDate').textContent = caseInfo.date;
+document.getElementById('caseStyle').textContent = caseInfo.style;
+document.getElementById('caseDescription').textContent = caseInfo.description;
+// 填充音乐元素标签
+const elementsContainer = document.getElementById('caseElements');
+elementsContainer.innerHTML = '';
+caseInfo.elements.forEach(element => {
+const tag = document.createElement('span');
+tag.className = 'px-3 py-1 bg-primary/10 text-primary text-sm rounded-full';
+tag.textContent = element;
+elementsContainer.appendChild(tag);
+});
+// 填充客户评价
+document.getElementById('caseTestimonial').textContent = caseInfo.testimonial;
+document.getElementById('clientName').textContent = caseInfo.clientName;
+document.getElementById('clientTitle').textContent = caseInfo.clientTitle;
+document.getElementById('clientAvatar').querySelector('img').src = caseInfo.clientAvatar;
+// 显示弹窗
+caseDetailModal.style.display = 'block';
+document.body.style.overflow = 'hidden';
+});
+});
+// 关闭弹窗
+closeModal.addEventListener('click', function() {
+caseDetailModal.style.display = 'none';
+document.body.style.overflow = 'auto';
+});
+// 点击弹窗外部关闭
+caseDetailModal.addEventListener('click', function(e) {
+if (e.target === caseDetailModal) {
+caseDetailModal.style.display = 'none';
+document.body.style.overflow = 'auto';
+}
+});
+});
+</script>
+</body>
+</html>

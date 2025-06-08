@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI编曲工坊 - 智能民乐创作平台</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#E84C3D',secondary:'#8D5A97'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans SC', sans-serif;
+overflow-x: hidden;
+}
+.nav-glass {
+backdrop-filter: blur(10px);
+background-color: rgba(255, 255, 255, 0.8);
+}
+.custom-range {
+-webkit-appearance: none;
+width: 100%;
+height: 6px;
+border-radius: 5px;
+background: #e5e7eb;
+outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #E84C3D;
+cursor: pointer;
+border: 3px solid white;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.custom-range::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #E84C3D;
+cursor: pointer;
+border: 3px solid white;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.custom-checkbox {
+display: inline-block;
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 1px solid #e5e7eb;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+background-color: #f9fafb;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #E84C3D;
+border-color: #E84C3D;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 7px;
+top: 3px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.switch-slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .switch-slider {
+background-color: #E84C3D;
+}
+input:checked + .switch-slider:before {
+transform: translateX(26px);
+}
+.tab-button {
+transition: all 0.3s ease;
+}
+.tab-button.active {
+background-color: #E84C3D;
+color: white;
+}
+.tab-content {
+display: none;
+}
+.tab-content.active {
+display: block;
+}
+.instrument-card {
+transition: all 0.3s ease;
+}
+.instrument-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.instrument-card.active {
+border-color: #E84C3D;
+background-color: rgba(232, 76, 61, 0.05);
+}
+.style-matrix-item {
+transition: all 0.3s ease;
+}
+.style-matrix-item:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.waveform {
+display: flex;
+align-items: center;
+height: 40px;
+}
+.wave-bar {
+width: 2px;
+background: linear-gradient(to top, #E84C3D, #8D5A97);
+border-radius: 1px;
+margin: 0 1px;
+}
+.track {
+transition: all 0.3s ease;
+}
+.track:hover {
+background-color: rgba(232, 76, 61, 0.05);
+}
+</style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-50 shadow-sm">
+<div class="container mx-auto px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<a href="#" class="text-3xl font-['Pacifico'] text-primary mr-10">logo</a>
+<nav class="hidden md:flex space-x-8">
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">首页</a>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">AI学习系统</a>
+<a href="#" class="text-gray-800 font-medium border-b-2 border-primary">AI编曲工坊</a>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/c822ff63-715f-4c35-b7e2-56c7e13ed082" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">音乐社区</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">商业服务</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 w-40 md:w-60">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-notification-3-line"></i>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%252520portrait%252520of%252520young%252520Asian%252520woman%252520with%252520short%252520hair%252520and%252520glasses%25252C%252520neutral%252520background%25252C%252520high%252520quality%252520headshot&width=100&height=100&seq=101&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-gray-700">陈雅琪</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- 主要内容区域 -->
+<main class="pt-20">
+<!-- 创作工作台 -->
+<section class="py-10 bg-gray-50">
+<div class="container mx-auto px-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-gray-900">创作工作台</h2>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="flex items-center text-primary hover:underline">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-arrow-left-line"></i>
+</div>
+返回学习系统
+</a>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="flex flex-col lg:flex-row">
+<!-- 左侧输入面板 -->
+<div class="lg:w-1/4 border-r border-gray-100 p-6">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">输入方式</h3>
+<div class="space-y-6">
+<!-- 语音输入 -->
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-3 flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-mic-line"></i>
+</div>
+语音输入
+</h4>
+<div class="flex flex-col items-center">
+<button class="w-16 h-16 flex items-center justify-center bg-primary text-white rounded-full mb-3 hover:bg-primary/90 transition-colors">
+<i class="ri-mic-fill ri-2x"></i>
+</button>
+<span class="text-sm text-gray-500">点击开始录音</span>
+</div>
+</div>
+<!-- 哼唱识别 -->
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-3 flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-music-line"></i>
+</div>
+哼唱识别
+</h4>
+<div class="flex flex-col items-center">
+<div class="waveform w-full mb-3">
+<div class="wave-bar h-5"></div>
+<div class="wave-bar h-8"></div>
+<div class="wave-bar h-12"></div>
+<div class="wave-bar h-16"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-25"></div>
+<div class="wave-bar h-30"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-10"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-25"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-10"></div>
+<div class="wave-bar h-5"></div>
+<div class="wave-bar h-8"></div>
+<div class="wave-bar h-12"></div>
+<div class="wave-bar h-16"></div>
+</div>
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-2 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">开始哼唱</button>
+</div>
+</div>
+<!-- 文本关键词 -->
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-3 flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-text"></i>
+</div>
+文本关键词
+</h4>
+<div>
+<textarea placeholder="输入描述音乐的关键词，如：欢快、古风、悠扬..." class="w-full p-3 border border-gray-200 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none h-24"></textarea>
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-2 rounded-button text-sm font-medium mt-3 whitespace-nowrap !rounded-button">生成旋律</button>
+</div>
+</div>
+<!-- 历史记录 -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">历史输入</h4>
+<div class="space-y-2">
+<div class="flex items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-history-line"></i>
+</div>
+<span class="text-sm text-gray-700">古风悠扬，如流水潺潺</span>
+</div>
+<div class="flex items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-history-line"></i>
+</div>
+<span class="text-sm text-gray-700">欢快明亮，春日田园</span>
+</div>
+<div class="flex items-center p-2 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer">
+<div class="w-6 h-6 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-history-line"></i>
+</div>
+<span class="text-sm text-gray-700">深沉悲壮，战场史诗</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 中央音轨编辑区 -->
+<div class="lg:w-2/4 p-6 border-r border-gray-100">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-lg font-semibold text-gray-800">音轨编辑器</h3>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-add-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-save-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-download-line"></i>
+</button>
+</div>
+</div>
+<!-- 乐器选择器 -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-800 mb-3">乐器选择</h4>
+<div class="flex flex-wrap gap-2">
+<div class="instrument-card active px-3 py-2 border-2 rounded-lg flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-primary">
+<i class="ri-music-2-line"></i>
+</div>
+<span class="text-sm font-medium">古筝</span>
+</div>
+<div class="instrument-card px-3 py-2 border-2 border-gray-200 rounded-lg flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-500">
+<i class="ri-music-2-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">二胡</span>
+</div>
+<div class="instrument-card px-3 py-2 border-2 border-gray-200 rounded-lg flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-500">
+<i class="ri-music-2-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">笛子</span>
+</div>
+<div class="instrument-card px-3 py-2 border-2 border-gray-200 rounded-lg flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-500">
+<i class="ri-music-2-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">琵琶</span>
+</div>
+<div class="instrument-card px-3 py-2 border-2 border-gray-200 rounded-lg flex items-center">
+<div class="w-6 h-6 flex items-center justify-center mr-2 text-gray-500">
+<i class="ri-add-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-700">添加</span>
+</div>
+</div>
+</div>
+<!-- 音轨显示区 -->
+<div class="mb-6 bg-gray-50 rounded-lg p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full mr-3">
+<i class="ri-play-fill"></i>
+</div>
+<div class="text-sm font-medium text-gray-700">00:00 / 03:24</div>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-7 h-7 flex items-center justify-center bg-white text-gray-600 rounded-full border border-gray-200">
+<i class="ri-repeat-line"></i>
+</button>
+<button class="w-7 h-7 flex items-center justify-center bg-white text-gray-600 rounded-full border border-gray-200">
+<i class="ri-speed-line"></i>
+</button>
+<button class="w-7 h-7 flex items-center justify-center bg-white text-gray-600 rounded-full border border-gray-200">
+<i class="ri-equalizer-line"></i>
+</button>
+</div>
+</div>
+<!-- 音轨列表 -->
+<div class="space-y-3">
+<!-- 音轨1 -->
+<div class="track bg-white p-3 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">古筝主旋律</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-volume-up-line"></i>
+</button>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-edit-line"></i>
+</button>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+<div class="relative h-12 bg-gray-100 rounded-md overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-3/4 bg-gradient-to-r from-primary/20 to-primary/5 rounded-md"></div>
+<div class="absolute top-1/2 left-0 right-0 h-px bg-gray-300"></div>
+<!-- 音符标记 -->
+<div class="absolute top-1/4 left-[10%] w-2 h-8 bg-primary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[20%] w-2 h-8 bg-primary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[35%] w-2 h-8 bg-primary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[50%] w-2 h-8 bg-primary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[65%] w-2 h-8 bg-primary/60 rounded-sm"></div>
+</div>
+</div>
+<!-- 音轨2 -->
+<div class="track bg-white p-3 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center bg-secondary/10 text-secondary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">电子节拍</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-volume-up-line"></i>
+</button>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-edit-line"></i>
+</button>
+<button class="w-6 h-6 flex items-center justify-center text-gray-500 hover:text-gray-700">
+<i class="ri-delete-bin-line"></i>
+</button>
+</div>
+</div>
+<div class="relative h-12 bg-gray-100 rounded-md overflow-hidden">
+<div class="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-secondary/20 to-secondary/5 rounded-md"></div>
+<div class="absolute top-1/2 left-0 right-0 h-px bg-gray-300"></div>
+<!-- 音符标记 -->
+<div class="absolute top-1/4 left-[5%] w-2 h-8 bg-secondary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[15%] w-2 h-8 bg-secondary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[25%] w-2 h-8 bg-secondary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[35%] w-2 h-8 bg-secondary/60 rounded-sm"></div>
+<div class="absolute top-1/4 left-[45%] w-2 h-8 bg-secondary/60 rounded-sm"></div>
+</div>
+</div>
+<!-- 音轨3 -->
+<div class="track bg-white p-3 rounded-lg">
+<div class="flex items-center justify-between mb-2">
+<div class="flex items-center">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-200 text-gray-600 rounded-full mr-2">
+<i class="ri-add-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">添加新音轨</span>
+</div>
+</div>
+<div class="h-12 bg-gray-100 rounded-md border-2 border-dashed border-gray-300 flex items-center justify-center">
+<span class="text-sm text-gray-500">点击添加新音轨</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 音频波形 -->
+<div>
+<h4 class="font-medium text-gray-800 mb-3">混音预览</h4>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div id="audio-waveform" class="h-24 w-full mb-3"></div>
+<div class="flex items-center justify-between">
+<button class="bg-primary text-white hover:bg-primary/90 px-4 py-2 rounded-button text-sm font-medium flex items-center whitespace-nowrap !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-play-fill"></i>
+</div>
+播放混音
+</button>
+<button class="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 px-4 py-2 rounded-button text-sm font-medium flex items-center whitespace-nowrap !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center mr-1">
+<i class="ri-download-line"></i>
+</div>
+导出作品
+</button>
+</div>
+</div>
+</div>
+</div>
+<!-- 右侧参数面板 -->
+<div class="lg:w-1/4 p-6">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">AI 参数调节</h3>
+<!-- 传统↔现代滑动条 -->
+<div class="mb-6">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-medium text-gray-800">传统 ↔ 现代</h4>
+<span class="text-sm text-gray-500">60%</span>
+</div>
+<input type="range" min="0" max="100" value="60" class="custom-range mb-2">
+<div class="flex justify-between text-xs text-gray-500">
+<span>传统民乐</span>
+<span>现代元素</span>
+</div>
+</div>
+<!-- 情感倾向选择器 -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-800 mb-3">情感倾向</h4>
+<div class="grid grid-cols-2 gap-3">
+<div class="bg-primary/10 p-3 rounded-lg flex items-center cursor-pointer">
+<div class="w-8 h-8 flex items-center justify-center bg-white text-primary rounded-full mr-2">
+<i class="ri-emotion-happy-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">欢快</span>
+</div>
+<div class="bg-gray-100 p-3 rounded-lg flex items-center cursor-pointer hover:bg-gray-200">
+<div class="w-8 h-8 flex items-center justify-center bg-white text-gray-600 rounded-full mr-2">
+<i class="ri-emotion-unhappy-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">忧伤</span>
+</div>
+<div class="bg-gray-100 p-3 rounded-lg flex items-center cursor-pointer hover:bg-gray-200">
+<div class="w-8 h-8 flex items-center justify-center bg-white text-gray-600 rounded-full mr-2">
+<i class="ri-emotion-normal-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">平静</span>
+</div>
+<div class="bg-gray-100 p-3 rounded-lg flex items-center cursor-pointer hover:bg-gray-200">
+<div class="w-8 h-8 flex items-center justify-center bg-white text-gray-600 rounded-full mr-2">
+<i class="ri-emotion-2-line"></i>
+</div>
+<span class="text-sm font-medium text-gray-800">激昂</span>
+</div>
+</div>
+</div>
+<!-- 智能混音参数 -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-800 mb-3">智能混音参数</h4>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm text-gray-700">音色明亮度</span>
+<span class="text-xs text-gray-500">75%</span>
+</div>
+<input type="range" min="0" max="100" value="75" class="custom-range">
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm text-gray-700">混响效果</span>
+<span class="text-xs text-gray-500">40%</span>
+</div>
+<input type="range" min="0" max="100" value="40" class="custom-range">
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm text-gray-700">节奏复杂度</span>
+<span class="text-xs text-gray-500">60%</span>
+</div>
+<input type="range" min="0" max="100" value="60" class="custom-range">
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm text-gray-700">和声丰富度</span>
+<span class="text-xs text-gray-500">80%</span>
+</div>
+<input type="range" min="0" max="100" value="80" class="custom-range">
+</div>
+</div>
+</div>
+<!-- 曲风选择 -->
+<div class="mb-6">
+<h4 class="font-medium text-gray-800 mb-3">曲风选择</h4>
+<div class="bg-gray-50 p-3 rounded-lg">
+<select class="w-full p-2 border border-gray-200 rounded text-sm focus:outline-none focus:ring-2 focus:ring-primary/20 pr-8">
+<option>古风</option>
+<option>江南丝竹</option>
+<option>西北风情</option>
+<option>现代融合</option>
+<option>电子国风</option>
+</select>
+</div>
+</div>
+<!-- 操作按钮 -->
+<div class="space-y-3">
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-3 rounded-button font-medium whitespace-nowrap !rounded-button">应用参数</button>
+<button class="w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 py-3 rounded-button font-medium whitespace-nowrap !rounded-button">重置参数</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 风格融合案例 -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-6">
+<h2 class="text-2xl font-bold text-gray-900 mb-8">风格融合案例</h2>
+<!-- 风格矩阵 -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-10">
+<!-- 古筝+电子乐 -->
+<div class="style-matrix-item bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Traditional%252520Chinese%252520guzheng%252520instrument%252520with%252520modern%252520electronic%252520music%252520equipment%25252C%252520fusion%252520of%252520traditional%252520and%252520modern%252520music%25252C%252520artistic%252520composition%25252C%252520studio%252520lighting%25252C%252520high%252520quality%252520photograph%252520with%252520clean%252520background&width=600&height=400&seq=31&orientation=landscape" alt="古筝+电子乐" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+<div class="p-4 text-white">
+<h3 class="text-xl font-bold mb-1">古筝 + 电子乐</h3>
+<p class="text-sm text-white/80">传统古筝与现代电子节拍的完美融合</p>
+</div>
+</div>
+<div class="absolute top-3 right-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">《电子江南》</h4>
+<p class="text-xs text-gray-500">作者：林子晴</p>
+</div>
+</div>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<span class="text-gray-500 ml-1">4.5</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-download-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-share-line"></i>
+</div>
+</div>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">使用模板</button>
+</div>
+</div>
+</div>
+<!-- 二胡+爵士乐 -->
+<div class="style-matrix-item bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520erhu%252520instrument%252520with%252520jazz%252520band%252520setup%25252C%252520fusion%252520of%252520traditional%252520Chinese%252520and%252520western%252520jazz%252520music%25252C%252520artistic%252520composition%25252C%252520studio%252520lighting%25252C%252520high%252520quality%252520photograph%252520with%252520clean%252520background&width=600&height=400&seq=32&orientation=landscape" alt="二胡+爵士乐" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+<div class="p-4 text-white">
+<h3 class="text-xl font-bold mb-1">二胡 + 爵士乐</h3>
+<p class="text-sm text-white/80">东方旋律与西方爵士的独特碰撞</p>
+</div>
+</div>
+<div class="absolute top-3 right-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-secondary/10 text-secondary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">《爵士丝路》</h4>
+<p class="text-xs text-gray-500">作者：王明哲</p>
+</div>
+</div>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="text-gray-500 ml-1">4.0</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-download-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-share-line"></i>
+</div>
+</div>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">使用模板</button>
+</div>
+</div>
+</div>
+<!-- 笛子+流行乐 -->
+<div class="style-matrix-item bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520bamboo%252520flute%252520dizi%252520with%252520modern%252520pop%252520music%252520band%252520setup%25252C%252520fusion%252520of%252520traditional%252520Chinese%252520and%252520contemporary%252520pop%252520music%25252C%252520artistic%252520composition%25252C%252520studio%252520lighting%25252C%252520high%252520quality%252520photograph%252520with%252520clean%252520background&width=600&height=400&seq=33&orientation=landscape" alt="笛子+流行乐" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+<div class="p-4 text-white">
+<h3 class="text-xl font-bold mb-1">笛子 + 流行乐</h3>
+<p class="text-sm text-white/80">传统笛音与现代流行元素的创新结合</p>
+</div>
+</div>
+<div class="absolute top-3 right-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">《竹韵流行》</h4>
+<p class="text-xs text-gray-500">作者：张雨晴</p>
+</div>
+</div>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<span class="text-gray-500 ml-1">4.7</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-download-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-share-line"></i>
+</div>
+</div>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">使用模板</button>
+</div>
+</div>
+</div>
+<!-- 琵琶+摇滚乐 -->
+<div class="style-matrix-item bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520pipa%252520instrument%252520with%252520rock%252520band%252520setup%25252C%252520fusion%252520of%252520traditional%252520Chinese%252520and%252520rock%252520music%25252C%252520artistic%252520composition%25252C%252520studio%252520lighting%25252C%252520high%252520quality%252520photograph%252520with%252520clean%252520background&width=600&height=400&seq=34&orientation=landscape" alt="琵琶+摇滚乐" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+<div class="p-4 text-white">
+<h3 class="text-xl font-bold mb-1">琵琶 + 摇滚乐</h3>
+<p class="text-sm text-white/80">古典琵琶与现代摇滚的激情碰撞</p>
+</div>
+</div>
+<div class="absolute top-3 right-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-secondary/10 text-secondary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">《琵琶摇滚》</h4>
+<p class="text-xs text-gray-500">作者：李志强</p>
+</div>
+</div>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="text-gray-500 ml-1">4.2</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-download-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-share-line"></i>
+</div>
+</div>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">使用模板</button>
+</div>
+</div>
+</div>
+<!-- 扬琴+爵士乐 -->
+<div class="style-matrix-item bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520yangqin%252520dulcimer%252520with%252520ambient%252520electronic%252520music%252520setup%25252C%252520fusion%252520of%252520traditional%252520Chinese%252520and%252520ambient%252520music%25252C%252520artistic%252520composition%25252C%252520studio%252520lighting%25252C%252520high%252520quality%252520photograph%252520with%252520clean%252520background&width=600&height=400&seq=35&orientation=landscape" alt="扬琴+电子氛围乐" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+<div class="p-4 text-white">
+<h3 class="text-xl font-bold mb-1">扬琴 + 电子氛围</h3>
+<p class="text-sm text-white/80">传统扬琴与现代电子氛围音乐的融合</p>
+</div>
+</div>
+<div class="absolute top-3 right-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">《扬琴空间》</h4>
+<p class="text-xs text-gray-500">作者：陈思远</p>
+</div>
+</div>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="text-gray-500 ml-1">4.1</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-download-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-share-line"></i>
+</div>
+</div>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">使用模板</button>
+</div>
+</div>
+</div>
+<!-- 古琴+新世纪 -->
+<div class="style-matrix-item bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520guqin%252520instrument%252520with%252520new%252520age%252520music%252520setup%25252C%252520fusion%252520of%252520traditional%252520Chinese%252520and%252520new%252520age%252520music%25252C%252520artistic%252520composition%25252C%252520studio%252520lighting%25252C%252520high%252520quality%252520photograph%252520with%252520clean%252520background&width=600&height=400&seq=36&orientation=landscape" alt="古琴+新世纪音乐" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end">
+<div class="p-4 text-white">
+<h3 class="text-xl font-bold mb-1">古琴 + 新世纪</h3>
+<p class="text-sm text-white/80">千年古琴与新世纪音乐的时空对话</p>
+</div>
+</div>
+<div class="absolute top-3 right-3">
+<button class="w-10 h-10 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+</div>
+</div>
+<div class="p-4">
+<div class="flex items-center justify-between mb-4">
+<div class="flex items-center">
+<div class="w-8 h-8 flex items-center justify-center bg-secondary/10 text-secondary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900">《古今对话》</h4>
+<p class="text-xs text-gray-500">作者：赵梦琪</p>
+</div>
+</div>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<span class="text-gray-500 ml-1">4.6</span>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-heart-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-download-line"></i>
+</div>
+<div class="w-6 h-6 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full">
+<i class="ri-share-line"></i>
+</div>
+</div>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-3 py-1.5 rounded-button text-sm font-medium whitespace-nowrap !rounded-button">使用模板</button>
+</div>
+</div>
+</div>
+</div>
+<div class="flex justify-center">
+<button class="bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 px-6 py-3 rounded-button font-medium flex items-center gap-2 whitespace-nowrap !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-add-line"></i>
+</div>
+查看更多风格组合
+</button>
+</div>
+</div>
+</section>
+<!-- 社区优秀作品 -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-6">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold text-gray-900">社区优秀作品</h2>
+<button class="text-primary font-medium flex items-center hover:underline">
+查看全部
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+<div class="bg-white rounded-lg shadow-md overflow-hidden mb-10">
+<div class="px-1 py-1 bg-gray-50 flex">
+<button class="tab-button active px-4 py-2 rounded-full text-sm font-medium flex-1">热门作品</button>
+<button class="tab-button px-4 py-2 rounded-full text-sm font-medium flex-1">最新上传</button>
+<button class="tab-button px-4 py-2 rounded-full text-sm font-medium flex-1">编辑推荐</button>
+</div>
+<div class="p-6">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- 作品卡片1 -->
+<div class="bg-gray-50 rounded-lg overflow-hidden">
+<div class="relative h-40">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520traditional%252520music%252520performance%252520with%252520guzheng%252520and%252520modern%252520elements%25252C%252520artistic%252520visualization%252520of%252520sound%252520waves%25252C%252520colorful%252520abstract%252520background%25252C%252520high%252520quality%252520digital%252520art&width=400&height=300&seq=41&orientation=landscape" alt="春江花月夜现代版" class="w-full h-full object-cover object-top">
+<div class="absolute bottom-3 right-3">
+<button class="w-8 h-8 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill"></i>
+</button>
+</div>
+</div>
+<div class="p-3">
+<h4 class="font-medium text-gray-900 mb-1">春江花月夜现代版</h4>
+<div class="flex items-center justify-between">
+<span class="text-xs text-gray-500">作者：王梦琪</span>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<span class="text-gray-500 ml-1">4.8</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 作品卡片2 -->
+<div class="bg-gray-50 rounded-lg overflow-hidden">
+<div class="relative h-40">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520erhu%252520and%252520jazz%252520piano%252520duet%25252C%252520artistic%252520visualization%252520of%252520sound%252520waves%25252C%252520colorful%252520abstract%252520background%25252C%252520high%252520quality%252520digital%252520art&width=400&height=300&seq=42&orientation=landscape" alt="丝路爵士" class="w-full h-full object-cover object-top">
+<div class="absolute bottom-3 right-3">
+<button class="w-8 h-8 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill"></i>
+</button>
+</div>
+</div>
+<div class="p-3">
+<h4 class="font-medium text-gray-900 mb-1">丝路爵士</h4>
+<div class="flex items-center justify-between">
+<span class="text-xs text-gray-500">作者：李天明</span>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<span class="text-gray-500 ml-1">4.7</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 作品卡片3 -->
+<div class="bg-gray-50 rounded-lg overflow-hidden">
+<div class="relative h-40">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520bamboo%252520flute%252520with%252520electronic%252520music%252520elements%25252C%252520artistic%252520visualization%252520of%252520sound%252520waves%25252C%252520colorful%252520abstract%252520background%25252C%252520high%252520quality%252520digital%252520art&width=400&height=300&seq=43&orientation=landscape" alt="竹韵电音" class="w-full h-full object-cover object-top">
+<div class="absolute bottom-3 right-3">
+<button class="w-8 h-8 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill"></i>
+</button>
+</div>
+</div>
+<div class="p-3">
+<h4 class="font-medium text-gray-900 mb-1">竹韵电音</h4>
+<div class="flex items-center justify-between">
+<span class="text-xs text-gray-500">作者：张雨晴</span>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<span class="text-gray-500 ml-1">4.6</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 作品卡片4 -->
+<div class="bg-gray-50 rounded-lg overflow-hidden">
+<div class="relative h-40">
+<img src="https://readdy.ai/api/search-image?query=Chinese%252520pipa%252520with%252520rock%252520music%252520elements%25252C%252520artistic%252520visualization%252520of%252520sound%252520waves%25252C%252520colorful%252520abstract%252520background%25252C%252520high%252520quality%252520digital%252520art&width=400&height=300&seq=44&orientation=landscape" alt="琵琶摇滚" class="w-full h-full object-cover object-top">
+<div class="absolute bottom-3 right-3">
+<button class="w-8 h-8 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30">
+<i class="ri-play-fill"></i>
+</button>
+</div>
+</div>
+<div class="p-3">
+<h4 class="font-medium text-gray-900 mb-1">琵琶摇滚</h4>
+<div class="flex items-center justify-between">
+<span class="text-xs text-gray-500">作者：陈志强</span>
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<span class="text-gray-500 ml-1">4.5</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 创作挑战 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-xl font-semibold text-gray-900">本周创作挑战</h3>
+<div class="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full">
+还剩 3 天
+</div>
+</div>
+<div class="flex flex-col md:flex-row gap-6">
+<div class="md:w-1/3">
+<img src="https://readdy.ai/api/search-image?query=Traditional%252520Chinese%252520instruments%252520with%252520futuristic%252520elements%25252C%252520music%252520challenge%252520concept%25252C%252520artistic%252520composition%25252C%252520vibrant%252520colors%25252C%252520high%252520quality%252520digital%252520art&width=600&height=400&seq=45&orientation=landscape" alt="传统与未来" class="w-full h-auto rounded-lg">
+</div>
+<div class="md:w-2/3">
+<h4 class="text-lg font-semibold text-gray-900 mb-3">主题：传统与未来</h4>
+<p class="text-gray-600 mb-4">使用至少一种传统民族乐器与未来电子音乐元素相结合，创作一首展现中国传统文化与现代科技融合的作品。作品长度在2-4分钟之间，需包含明确的主题旋律和和声变化。</p>
+<div class="bg-gray-50 p-4 rounded-lg mb-4">
+<h5 class="font-medium text-gray-800 mb-2">参与要求</h5>
+<ul class="space-y-2 text-sm text-gray-600">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>必须使用一种传统民族乐器作为主要音色</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>必须融合电子音乐元素（如合成器、鼓机等）</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>作品长度在2-4分钟之间</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>5月1日前提交作品</span>
+</li>
+</ul>
+</div>
+<div class="flex flex-wrap gap-4">
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-user-line"></i>
+</div>
+<div>
+<div class="text-sm font-medium text-gray-900">128</div>
+<div class="text-xs text-gray-500">参与人数</div>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-music-2-line"></i>
+</div>
+<div>
+<div class="text-sm font-medium text-gray-900">86</div>
+<div class="text-xs text-gray-500">已提交作品</div>
+</div>
+</div>
+<div class="flex items-center">
+<div class="w-10 h-10 flex items-center justify-center bg-primary/10 text-primary rounded-full mr-2">
+<i class="ri-trophy-line"></i>
+</div>
+<div>
+<div class="text-sm font-medium text-gray-900">¥2,000</div>
+<div class="text-xs text-gray-500">奖金池</div>
+</div>
+</div>
+</div>
+<button class="mt-6 bg-primary text-white hover:bg-primary/90 px-6 py-3 rounded-button font-medium whitespace-nowrap !rounded-button">参与挑战</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div>
+<a href="#" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
+<p class="text-gray-400 mb-4">传统民乐与人工智能的创新融合，开启音乐创作与学习的全新可能。</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-wechat-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-weibo-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-bilibili-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-douyin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">快速链接</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/4c5e0b99-d395-4d58-a680-11e3bb2506c5" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">AI学习系统</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI编曲工坊</a></li>
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/c822ff63-715f-4c35-b7e2-56c7e13ed082" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">音乐社区</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">商业服务</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">支持与帮助</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">联系我们</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-map-pin-line"></i>
+</div>
+<span class="text-gray-400">北京市海淀区中关村南大街5号</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-mail-line"></i>
+</div>
+<span class="text-gray-400">contact@aimingyue.com</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-phone-line"></i>
+</div>
+<span class="text-gray-400">400-888-7766</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+<p>© 2025 AI民乐创新平台. 保留所有权利.</p>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// 音频波形图表
+const audioWaveform = echarts.init(document.getElementById('audio-waveform'));
+const waveformOption = {
+animation: false,
+grid: {
+left: 0,
+right: 0,
+top: 0,
+bottom: 0
+},
+xAxis: {
+type: 'category',
+show: false,
+data: Array.from({length: 100}, (_, i) => i)
+},
+yAxis: {
+type: 'value',
+show: false
+},
+series: [{
+data: Array.from({length: 100}, () => Math.random() * 100 - 50),
+type: 'bar',
+barWidth: 2,
+itemStyle: {
+color: function(params) {
+const value = Math.abs(params.data);
+if (value > 40) {
+return 'rgba(252, 141, 98, 0.8)';
+} else if (value > 20) {
+return 'rgba(251, 191, 114, 0.8)';
+} else {
+return 'rgba(141, 211, 199, 0.8)';
+}
+}
+}
+}]
+};
+audioWaveform.setOption(waveformOption);
+// 窗口大小变化时重新调整图表大小
+window.addEventListener('resize', function() {
+audioWaveform.resize();
+});
+// 标签页切换
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+if (tabButtons.length > 0 && tabContents.length > 0) {
+tabButtons.forEach((button, index) => {
+button.addEventListener('click', () => {
+// 移除所有活动状态
+tabButtons.forEach(btn => btn.classList.remove('active'));
+tabContents.forEach(content => content.classList.remove('active'));
+// 添加当前活动状态
+button.classList.add('active');
+if (tabContents[index]) {
+tabContents[index].classList.add('active');
+}
+});
+});
+}
+});
+</script>
+</body>
+</html>

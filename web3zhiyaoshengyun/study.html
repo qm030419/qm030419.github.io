@@ -1,0 +1,1903 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI学习系统 - 智能民乐学习平台</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#E84C3D',secondary:'#8D5A97'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Noto Sans SC', sans-serif;
+overflow-x: hidden;
+}
+.nav-glass {
+backdrop-filter: blur(10px);
+background-color: rgba(255, 255, 255, 0.8);
+}
+.instrument-card {
+transition: all 0.3s ease;
+}
+.instrument-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+.instrument-card.active {
+border-color: #E84C3D;
+background-color: rgba(232, 76, 61, 0.05);
+}
+.progress-ring {
+transform: rotate(-90deg);
+}
+.progress-ring__circle {
+transition: stroke-dashoffset 0.35s;
+transform-origin: 50% 50%;
+}
+.custom-range {
+-webkit-appearance: none;
+width: 100%;
+height: 6px;
+border-radius: 5px;
+background: #e5e7eb;
+outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #E84C3D;
+cursor: pointer;
+border: 3px solid white;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.custom-range::-moz-range-thumb {
+width: 18px;
+height: 18px;
+border-radius: 50%;
+background: #E84C3D;
+cursor: pointer;
+border: 3px solid white;
+box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.custom-checkbox {
+display: inline-block;
+position: relative;
+padding-left: 30px;
+cursor: pointer;
+user-select: none;
+}
+.custom-checkbox input {
+position: absolute;
+opacity: 0;
+cursor: pointer;
+height: 0;
+width: 0;
+}
+.checkmark {
+position: absolute;
+top: 0;
+left: 0;
+height: 20px;
+width: 20px;
+background-color: #fff;
+border: 1px solid #e5e7eb;
+border-radius: 4px;
+}
+.custom-checkbox:hover input ~ .checkmark {
+background-color: #f9fafb;
+}
+.custom-checkbox input:checked ~ .checkmark {
+background-color: #E84C3D;
+border-color: #E84C3D;
+}
+.checkmark:after {
+content: "";
+position: absolute;
+display: none;
+}
+.custom-checkbox input:checked ~ .checkmark:after {
+display: block;
+}
+.custom-checkbox .checkmark:after {
+left: 7px;
+top: 3px;
+width: 6px;
+height: 10px;
+border: solid white;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.switch-slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+transition: .4s;
+border-radius: 34px;
+}
+.switch-slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .switch-slider {
+background-color: #E84C3D;
+}
+input:checked + .switch-slider:before {
+transform: translateX(26px);
+}
+.tab-button {
+transition: all 0.3s ease;
+}
+.tab-button.active {
+background-color: #E84C3D;
+color: white;
+}
+.tab-content {
+display: none;
+}
+.tab-content.active {
+display: block;
+}
+.note-marker {
+position: absolute;
+width: 12px;
+height: 12px;
+border-radius: 50%;
+background-color: rgba(232, 76, 61, 0.7);
+transform: translate(-50%, -50%);
+}
+.note-marker.error {
+background-color: rgba(239, 68, 68, 0.7);
+}
+.note-marker.perfect {
+background-color: rgba(16, 185, 129, 0.7);
+}
+.waveform {
+display: flex;
+align-items: center;
+height: 40px;
+}
+.wave-bar {
+width: 2px;
+background: linear-gradient(to top, #E84C3D, #8D5A97);
+border-radius: 1px;
+margin: 0 1px;
+}
+.resource-card {
+transition: all 0.3s ease;
+}
+.resource-card:hover {
+transform: translateY(-3px);
+box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+</style>
+</head>
+<body>
+<!-- 导航栏 -->
+<header class="nav-glass fixed top-0 left-0 right-0 z-50 shadow-sm">
+<div class="container mx-auto px-6 py-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center">
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-3xl font-['Pacifico'] text-primary mr-10">logo</a>
+<nav class="hidden md:flex space-x-8">
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">首页</a>
+<a href="#" class="text-gray-800 font-medium border-b-2 border-primary">AI学习系统</a>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/b93f3abb-0281-4fe6-b5c1-463486fa618c" data-readdy="true" class="text-gray-600 hover:text-primary transition-colors">AI编曲工坊</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">音乐社区</a>
+<a href="#" class="text-gray-600 hover:text-primary transition-colors">商业服务</a>
+</nav>
+</div>
+<div class="flex items-center space-x-4">
+<div class="relative">
+<input type="text" placeholder="搜索..." class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/20 w-40 md:w-60">
+<div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-search-line"></i>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 flex items-center justify-center bg-primary/10 text-primary rounded-full">
+<i class="ri-notification-3-line"></i>
+</div>
+<div class="flex items-center gap-2">
+<div class="w-9 h-9 rounded-full overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%2520portrait%2520of%2520young%2520Asian%2520woman%2520with%2520short%2520hair%2520and%2520glasses%252C%2520neutral%2520background%252C%2520high%2520quality%2520headshot&width=100&height=100&seq=101&orientation=squarish" alt="用户头像" class="w-full h-full object-cover">
+</div>
+<span class="text-sm font-medium text-gray-700">陈雅琪</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- 主要内容区域 -->
+<main class="pt-20">
+<!-- 乐器选择区域 -->
+<section class="py-10 bg-gray-50">
+<div class="container mx-auto px-6">
+<div class="flex flex-col md:flex-row items-start gap-8">
+<div class="md:w-1/4">
+<h2 class="text-2xl font-bold text-gray-900 mb-6">选择您的乐器</h2>
+<div class="bg-white p-6 rounded-lg shadow-sm">
+<div class="mb-6">
+<h3 class="text-lg font-medium text-gray-800 mb-3">乐器分类</h3>
+<div class="space-y-2">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+弹拨乐器
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+拉弦乐器
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+吹奏乐器
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+打击乐器
+</label>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="text-lg font-medium text-gray-800 mb-3">难度等级</h3>
+<div class="space-y-2">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+入门
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+初级
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+中级
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+高级
+</label>
+</div>
+</div>
+<div>
+<h3 class="text-lg font-medium text-gray-800 mb-3">学习目标</h3>
+<div class="space-y-2">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox" checked>
+<span class="checkmark"></span>
+兴趣爱好
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+考级备考
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+专业演奏
+</label>
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+教学研究
+</label>
+</div>
+</div>
+</div>
+</div>
+<div class="md:w-3/4">
+<div class="flex justify-between items-center mb-6">
+<h2 class="text-2xl font-bold text-gray-900">推荐乐器</h2>
+<div class="flex items-center gap-2">
+<span class="text-gray-600 text-sm">显示全部</span>
+<label class="custom-switch">
+<input type="checkbox" checked>
+<span class="switch-slider"></span>
+</label>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- 乐器卡片1 -->
+<div class="instrument-card active bg-white rounded-lg border-2 overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520guzheng%2520instrument%2520on%2520elegant%2520display%252C%2520detailed%2520craftsmanship%252C%2520beautiful%2520wood%2520texture%252C%2520studio%2520lighting%252C%2520white%2520background%252C%2520professional%2520product%2520photography&width=600&height=400&seq=11&orientation=landscape" alt="古筝" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-3">
+<h3 class="text-xl font-semibold text-gray-900">古筝</h3>
+<div class="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full">入门</div>
+</div>
+<p class="text-gray-600 text-sm mb-4">古筝，又称汉筝，是中国传统弹拨乐器，有着悠久的历史和丰富的表现力。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.5</span>
+</div>
+<button class="text-primary font-medium text-sm">开始学习</button>
+</div>
+</div>
+</div>
+<!-- 乐器卡片2 -->
+<div class="instrument-card bg-white rounded-lg border-2 border-gray-100 overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520erhu%2520instrument%2520on%2520elegant%2520display%252C%2520detailed%2520craftsmanship%252C%2520beautiful%2520wood%2520texture%252C%2520studio%2520lighting%252C%2520white%2520background%252C%2520professional%2520product%2520photography&width=600&height=400&seq=12&orientation=landscape" alt="二胡" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-3">
+<h3 class="text-xl font-semibold text-gray-900">二胡</h3>
+<div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">初级</div>
+</div>
+<p class="text-gray-600 text-sm mb-4">二胡是中国传统拉弦乐器，有着"东方小提琴"的美誉，音色哀婉动人。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.0</span>
+</div>
+<button class="text-primary font-medium text-sm">开始学习</button>
+</div>
+</div>
+</div>
+<!-- 乐器卡片3 -->
+<div class="instrument-card bg-white rounded-lg border-2 border-gray-100 overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520pipa%2520instrument%2520on%2520elegant%2520display%252C%2520detailed%2520craftsmanship%252C%2520beautiful%2520wood%2520texture%252C%2520studio%2520lighting%252C%2520white%2520background%252C%2520professional%2520product%2520photography&width=600&height=400&seq=13&orientation=landscape" alt="琵琶" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-3">
+<h3 class="text-xl font-semibold text-gray-900">琵琶</h3>
+<div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">初级</div>
+</div>
+<p class="text-gray-600 text-sm mb-4">琵琶是中国传统弹拨乐器，有着"百乐之王"的美誉，音色丰富多变。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.5</span>
+</div>
+<button class="text-primary font-medium text-sm">开始学习</button>
+</div>
+</div>
+</div>
+<!-- 乐器卡片4 -->
+<div class="instrument-card bg-white rounded-lg border-2 border-gray-100 overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520dizi%2520bamboo%2520flute%2520on%2520elegant%2520display%252C%2520detailed%2520craftsmanship%252C%2520beautiful%2520bamboo%2520texture%252C%2520studio%2520lighting%252C%2520white%2520background%252C%2520professional%2520product%2520photography&width=600&height=400&seq=14&orientation=landscape" alt="笛子" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-3">
+<h3 class="text-xl font-semibold text-gray-900">笛子</h3>
+<div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">入门</div>
+</div>
+<p class="text-gray-600 text-sm mb-4">笛子是中国传统吹奏乐器，音色清脆明亮，具有极强的表现力和感染力。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">4.0</span>
+</div>
+<button class="text-primary font-medium text-sm">开始学习</button>
+</div>
+</div>
+</div>
+<!-- 乐器卡片5 -->
+<div class="instrument-card bg-white rounded-lg border-2 border-gray-100 overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520yangqin%2520dulcimer%2520on%2520elegant%2520display%252C%2520detailed%2520craftsmanship%252C%2520beautiful%2520wood%2520texture%252C%2520studio%2520lighting%252C%2520white%2520background%252C%2520professional%2520product%2520photography&width=600&height=400&seq=15&orientation=landscape" alt="扬琴" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-3">
+<h3 class="text-xl font-semibold text-gray-900">扬琴</h3>
+<div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">中级</div>
+</div>
+<p class="text-gray-600 text-sm mb-4">扬琴是中国传统打击弦鸣乐器，音色明亮圆润，具有丰富的表现力。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">3.5</span>
+</div>
+<button class="text-primary font-medium text-sm">开始学习</button>
+</div>
+</div>
+</div>
+<!-- 乐器卡片6 -->
+<div class="instrument-card bg-white rounded-lg border-2 border-gray-100 overflow-hidden">
+<div class="h-48 overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520suona%2520horn%2520on%2520elegant%2520display%252C%2520detailed%2520craftsmanship%252C%2520beautiful%2520wood%2520and%2520metal%2520texture%252C%2520studio%2520lighting%252C%2520white%2520background%252C%2520professional%2520product%2520photography&width=600&height=400&seq=16&orientation=landscape" alt="唢呐" class="w-full h-full object-cover object-top">
+</div>
+<div class="p-5">
+<div class="flex justify-between items-center mb-3">
+<h3 class="text-xl font-semibold text-gray-900">唢呐</h3>
+<div class="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">中级</div>
+</div>
+<p class="text-gray-600 text-sm mb-4">唢呐是中国传统吹奏乐器，音量宏大，音色嘹亮，具有浓郁的民族特色。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center">
+<div class="text-yellow-400 flex">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-gray-500 text-sm ml-1">3.0</span>
+</div>
+<button class="text-primary font-medium text-sm">开始学习</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 学习仪表盘 -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-6">
+<h2 class="text-2xl font-bold text-gray-900 mb-8">古筝学习仪表盘</h2>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="flex flex-col lg:flex-row">
+<!-- 左侧学习数据 -->
+<div class="lg:w-1/3 p-6 border-r border-gray-100">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-semibold text-gray-800">学习进度</h3>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-500">本周</span>
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-center mb-6">
+<div class="relative w-40 h-40">
+<svg class="progress-ring" width="160" height="160">
+<circle class="progress-ring__circle" stroke="#f3f4f6" stroke-width="10" fill="transparent" r="70" cx="80" cy="80"/>
+<circle class="progress-ring__circle" stroke="#E84C3D" stroke-width="10" fill="transparent" r="70" cx="80" cy="80" stroke-dasharray="439.8" stroke-dashoffset="154"/>
+</svg>
+<div class="absolute inset-0 flex flex-col items-center justify-center">
+<span class="text-3xl font-bold text-gray-900">65%</span>
+<span class="text-sm text-gray-500">完成度</span>
+</div>
+</div>
+</div>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-medium text-gray-700">基础指法</span>
+<span class="text-sm text-gray-500">85%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-medium text-gray-700">音阶练习</span>
+<span class="text-sm text-gray-500">70%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 70%"></div>
+</div>
+</div>
+<div>
+<div class="flex justify-between items-center mb-1">
+<span class="text-sm font-medium text-gray-700">曲目演奏</span>
+<span class="text-sm text-gray-500">40%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 40%"></div>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">学习统计</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="text-2xl font-bold text-gray-900 mb-1">12.5</div>
+<div class="text-sm text-gray-500">学习时长 (小时)</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="text-2xl font-bold text-gray-900 mb-1">8</div>
+<div class="text-sm text-gray-500">完成课程数</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="text-2xl font-bold text-gray-900 mb-1">5</div>
+<div class="text-sm text-gray-500">掌握技巧数</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="text-2xl font-bold text-primary mb-1">+15%</div>
+<div class="text-sm text-gray-500">进步率</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 中间进步曲线 -->
+<div class="lg:w-1/3 p-6 border-r border-gray-100">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-semibold text-gray-800">进步曲线</h3>
+<div class="flex items-center gap-2">
+<span class="text-sm text-gray-500">过去30天</span>
+<div class="w-5 h-5 flex items-center justify-center text-gray-400">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+</div>
+<div id="progress-chart" class="h-64 w-full mb-6"></div>
+<div class="flex justify-center gap-6 mb-6">
+<div class="flex items-center">
+<div class="w-3 h-3 rounded-full bg-[rgba(87,181,231,1)] mr-2"></div>
+<span class="text-sm text-gray-600">准确率</span>
+</div>
+<div class="flex items-center">
+<div class="w-3 h-3 rounded-full bg-[rgba(141,211,199,1)] mr-2"></div>
+<span class="text-sm text-gray-600">速度</span>
+</div>
+<div class="flex items-center">
+<div class="w-3 h-3 rounded-full bg-[rgba(251,191,114,1)] mr-2"></div>
+<span class="text-sm text-gray-600">表现力</span>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-3">技能雷达图</h4>
+<div id="skills-radar" class="h-64 w-full"></div>
+</div>
+</div>
+<!-- 右侧弱点分析 -->
+<div class="lg:w-1/3 p-6">
+<div class="flex items-center justify-between mb-6">
+<h3 class="text-lg font-semibold text-gray-800">弱点分析</h3>
+<button class="text-sm text-primary font-medium">查看详情</button>
+</div>
+<div class="space-y-4 mb-6">
+<div class="bg-red-50 p-4 rounded-lg">
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-red-100 text-red-500 rounded-full mr-3">
+<i class="ri-error-warning-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 mb-1">右手指力不均</h4>
+<p class="text-sm text-gray-600">无名指和小指力度不足，影响音色均衡性</p>
+</div>
+</div>
+</div>
+<div class="bg-yellow-50 p-4 rounded-lg">
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-yellow-100 text-yellow-500 rounded-full mr-3">
+<i class="ri-alert-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 mb-1">节奏稳定性</h4>
+<p class="text-sm text-gray-600">快速段落中节奏把控不稳定，需加强练习</p>
+</div>
+</div>
+</div>
+<div class="bg-blue-50 p-4 rounded-lg">
+<div class="flex items-start">
+<div class="w-8 h-8 flex items-center justify-center bg-blue-100 text-blue-500 rounded-full mr-3">
+<i class="ri-information-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 mb-1">左手按弦技巧</h4>
+<p class="text-sm text-gray-600">按弦深度不足，影响音准，建议加强练习</p>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<h4 class="font-medium text-gray-800 mb-3">AI 改进建议</h4>
+<ul class="space-y-2 text-sm text-gray-600">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>每日练习右手无名指和小指的独立性训练</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>使用节拍器进行慢速到快速的渐进式练习</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>加强左手按弦力度和深度的感知训练</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-checkbox-circle-line"></i>
+</div>
+<span>针对性练习《高山流水》第三段的技术难点</span>
+</li>
+</ul>
+</div>
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-3 rounded-button font-medium flex items-center justify-center gap-2 whitespace-nowrap !rounded-button">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-file-list-3-line"></i>
+</div>
+生成个性化练习计划
+</button>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 实时演奏分析 -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-6">
+<h2 class="text-2xl font-bold text-gray-900 mb-8">实时演奏分析</h2>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="px-1 py-1 bg-gray-50 flex">
+<button class="tab-button active px-4 py-2 rounded-full text-sm font-medium flex-1">乐谱分析</button>
+<button class="tab-button px-4 py-2 rounded-full text-sm font-medium flex-1">姿势对比</button>
+<button class="tab-button px-4 py-2 rounded-full text-sm font-medium flex-1">音频波形</button>
+</div>
+<!-- 乐谱分析内容 -->
+<div class="tab-content active p-6">
+<div class="flex flex-col lg:flex-row gap-6">
+<div class="lg:w-2/3">
+<div class="relative mb-4">
+<img src="https://readdy.ai/api/search-image?query=Traditional%2520Chinese%2520guzheng%2520sheet%2520music%2520with%2520notes%2520and%2520symbols%252C%2520clear%2520and%2520detailed%2520notation%252C%2520professional%2520music%2520score%2520layout%252C%2520high%2520quality%2520print%2520on%2520white%2520paper&width=800&height=400&seq=17&orientation=landscape" alt="古筝乐谱" class="w-full h-auto rounded-lg">
+<!-- 错误标记点 -->
+<div class="note-marker error" style="top: 35%; left: 25%"></div>
+<div class="note-marker error" style="top: 45%; left: 60%"></div>
+<div class="note-marker perfect" style="top: 55%; left: 40%"></div>
+<div class="note-marker perfect" style="top: 30%; left: 75%"></div>
+</div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+<div class="flex-1 w-64">
+<input type="range" class="custom-range" min="0" max="100" value="45">
+</div>
+<span class="text-sm text-gray-500">01:24 / 03:45</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-repeat-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-speed-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-fullscreen-line"></i>
+</button>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<h3 class="text-lg font-semibold text-gray-800 mb-3">演奏统计</h3>
+<div class="grid grid-cols-3 gap-4 mb-4">
+<div class="bg-white p-3 rounded-lg text-center">
+<div class="text-2xl font-bold text-primary mb-1">82%</div>
+<div class="text-sm text-gray-500">准确率</div>
+</div>
+<div class="bg-white p-3 rounded-lg text-center">
+<div class="text-2xl font-bold text-gray-900 mb-1">76%</div>
+<div class="text-sm text-gray-500">节奏感</div>
+</div>
+<div class="bg-white p-3 rounded-lg text-center">
+<div class="text-2xl font-bold text-gray-900 mb-1">68%</div>
+<div class="text-sm text-gray-500">表现力</div>
+</div>
+</div>
+<div class="waveform">
+<div class="wave-bar h-5"></div>
+<div class="wave-bar h-8"></div>
+<div class="wave-bar h-12"></div>
+<div class="wave-bar h-16"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-25"></div>
+<div class="wave-bar h-30"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-10"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-25"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-10"></div>
+<div class="wave-bar h-5"></div>
+<div class="wave-bar h-8"></div>
+<div class="wave-bar h-12"></div>
+<div class="wave-bar h-16"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-25"></div>
+<div class="wave-bar h-30"></div>
+<div class="wave-bar h-25"></div>
+<div class="wave-bar h-20"></div>
+<div class="wave-bar h-15"></div>
+<div class="wave-bar h-10"></div>
+<div class="wave-bar h-5"></div>
+<div class="wave-bar h-8"></div>
+<div class="wave-bar h-12"></div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/3">
+<div class="bg-gray-50 p-4 rounded-lg mb-6">
+<h3 class="text-lg font-semibold text-gray-800 mb-3">错误分析</h3>
+<div class="space-y-4">
+<div class="bg-white p-3 rounded-lg">
+<div class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center bg-red-100 text-red-500 rounded-full mr-2">
+<i class="ri-close-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 text-sm">第2小节第3拍</h4>
+<p class="text-xs text-gray-600 mt-1">音高偏低，右手大指力度不足</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-3 rounded-lg">
+<div class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center bg-red-100 text-red-500 rounded-full mr-2">
+<i class="ri-close-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 text-sm">第4小节第1拍</h4>
+<p class="text-xs text-gray-600 mt-1">节奏不稳，滑音速度不均匀</p>
+</div>
+</div>
+</div>
+<div class="bg-white p-3 rounded-lg">
+<div class="flex items-start">
+<div class="w-6 h-6 flex items-center justify-center bg-green-100 text-green-500 rounded-full mr-2">
+<i class="ri-check-line"></i>
+</div>
+<div>
+<h4 class="font-medium text-gray-900 text-sm">第3小节</h4>
+<p class="text-xs text-gray-600 mt-1">表现力良好，音色饱满</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<h3 class="text-lg font-semibold text-gray-800 mb-3">AI 改进建议</h3>
+<div class="space-y-3">
+<div class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-arrow-right-circle-line"></i>
+</div>
+<p class="text-sm text-gray-600">第2小节练习右手大指的独立控制，增强力度</p>
+</div>
+<div class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-arrow-right-circle-line"></i>
+</div>
+<p class="text-sm text-gray-600">使用节拍器慢练第4小节，逐渐提高速度</p>
+</div>
+<div class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-arrow-right-circle-line"></i>
+</div>
+<p class="text-sm text-gray-600">练习滑音技巧，注意保持速度均匀</p>
+</div>
+<div class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-arrow-right-circle-line"></i>
+</div>
+<p class="text-sm text-gray-600">继续保持第3小节的表现方式，可以作为参考</p>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-2.5 rounded-button text-sm font-medium whitespace-nowrap">重新演奏</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 姿势对比内容 -->
+<div class="tab-content p-6 hidden">
+<div class="flex flex-col lg:flex-row gap-6">
+<div class="lg:w-1/2">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">标准姿势</h3>
+<div class="relative mb-4 rounded-lg overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Professional%2520Chinese%2520musician%2520playing%2520guzheng%2520with%2520perfect%2520posture%252C%2520elegant%2520hand%2520position%252C%2520proper%2520finger%2520technique%252C%2520side%2520view%252C%2520studio%2520lighting%252C%2520clean%2520background%252C%2520high%2520quality%2520photograph&width=600&height=400&seq=18&orientation=landscape" alt="标准古筝姿势" class="w-full h-auto">
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-2">标准姿势要点</h4>
+<ul class="space-y-2 text-sm text-gray-600">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span>上身挺直，肩膀放松，与琴保持适当距离</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span>右手手腕微抬，手指自然弯曲，指尖朝下</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span>左手手指自然弯曲，指腹轻触琴弦</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span>视线平视或略微低头，保持颈部放松</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="lg:w-1/2">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">您的姿势</h3>
+<div class="relative mb-4 rounded-lg overflow-hidden">
+<img src="https://readdy.ai/api/search-image?query=Amateur%2520Chinese%2520musician%2520playing%2520guzheng%2520with%2520slightly%2520incorrect%2520posture%252C%2520hand%2520position%2520needs%2520improvement%252C%2520side%2520view%252C%2520studio%2520lighting%252C%2520clean%2520background%252C%2520high%2520quality%2520photograph&width=600&height=400&seq=19&orientation=landscape" alt="您的古筝姿势" class="w-full h-auto">
+<!-- 姿势问题标记 -->
+<div class="absolute w-8 h-8 flex items-center justify-center bg-red-500/70 text-white rounded-full" style="top: 30%; right: 30%">
+<i class="ri-error-warning-line"></i>
+</div>
+<div class="absolute w-8 h-8 flex items-center justify-center bg-yellow-500/70 text-white rounded-full" style="top: 60%; left: 40%">
+<i class="ri-alert-line"></i>
+</div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-2">姿势改进建议</h4>
+<ul class="space-y-2 text-sm text-gray-600">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-red-500 mr-2 mt-0.5">
+<i class="ri-close-line"></i>
+</div>
+<span>右手手腕过低，导致指力不足，应适当抬高手腕</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-yellow-500 mr-2 mt-0.5">
+<i class="ri-alert-line"></i>
+</div>
+<span>左手按弦位置不准确，应更靠近琴码</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span>上身姿势良好，保持挺直</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-green-500 mr-2 mt-0.5">
+<i class="ri-check-line"></i>
+</div>
+<span>视线方向正确，颈部放松</span>
+</li>
+</ul>
+<div class="mt-4">
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-2.5 rounded-button text-sm font-medium whitespace-nowrap">查看详细姿势指导</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- 音频波形内容 -->
+<div class="tab-content p-6 hidden">
+<div class="flex flex-col lg:flex-row gap-6">
+<div class="lg:w-2/3">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">音频波形分析</h3>
+<div id="audio-waveform" class="h-64 w-full mb-6 bg-gray-50 rounded-lg"></div>
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-4">
+<button class="w-10 h-10 flex items-center justify-center bg-primary text-white rounded-full">
+<i class="ri-play-fill ri-lg"></i>
+</button>
+<div class="flex-1 w-64">
+<input type="range" class="custom-range" min="0" max="100" value="60">
+</div>
+<span class="text-sm text-gray-500">01:48 / 03:45</span>
+</div>
+<div class="flex items-center gap-3">
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-equalizer-line"></i>
+</button>
+<button class="w-8 h-8 flex items-center justify-center bg-gray-100 text-gray-600 rounded-full hover:bg-gray-200">
+<i class="ri-download-line"></i>
+</button>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-3">音色分析</h4>
+<div id="timbre-chart" class="h-40 w-full"></div>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-3">节奏稳定性</h4>
+<div id="rhythm-chart" class="h-40 w-full"></div>
+</div>
+</div>
+</div>
+<div class="lg:w-1/3">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">声学特征</h3>
+<div class="space-y-4">
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-medium text-gray-800">音色纯净度</h4>
+<span class="text-sm font-medium text-primary">78%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 78%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-2">音色较为纯净，但在高音区有轻微杂音</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-medium text-gray-800">音量控制</h4>
+<span class="text-sm font-medium text-primary">65%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 65%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-2">音量控制有待提高，强弱对比不够明显</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-medium text-gray-800">音准准确度</h4>
+<span class="text-sm font-medium text-primary">85%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 85%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-2">音准总体良好，个别滑音音高控制不稳</p>
+</div>
+<div class="bg-gray-50 p-4 rounded-lg">
+<div class="flex justify-between items-center mb-2">
+<h4 class="font-medium text-gray-800">节奏稳定性</h4>
+<span class="text-sm font-medium text-primary">72%</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden">
+<div class="h-full bg-primary" style="width: 72%"></div>
+</div>
+<p class="text-xs text-gray-500 mt-2">节奏基本稳定，快速段落有轻微不稳</p>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-2.5 rounded-button text-sm font-medium whitespace-nowrap">导出分析报告</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 个性化学习计划 -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-6">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold text-gray-900">个性化学习计划</h2>
+<button class="bg-primary/10 text-primary hover:bg-primary/20 px-4 py-2 rounded-button text-sm font-medium flex items-center gap-2 whitespace-nowrap">
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-refresh-line"></i>
+</div>
+更新计划
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- 每日练习 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="bg-primary/10 px-6 py-4">
+<div class="flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900">每日练习</h3>
+<div class="w-8 h-8 flex items-center justify-center bg-white text-primary rounded-full">
+<i class="ri-calendar-line"></i>
+</div>
+</div>
+<p class="text-sm text-gray-600">2025年4月28日 星期一</p>
+</div>
+<div class="p-6">
+<div class="space-y-4">
+<div class="flex items-center">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2">
+<h4 class="font-medium text-gray-900">基础指法练习</h4>
+<p class="text-xs text-gray-500">15分钟，重点练习右手大指力度</p>
+</div>
+</label>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2">
+<h4 class="font-medium text-gray-900">音阶练习</h4>
+<p class="text-xs text-gray-500">20分钟，D调五声音阶上行下行</p>
+</div>
+</label>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2">
+<h4 class="font-medium text-gray-900">《高山流水》第一段</h4>
+<p class="text-xs text-gray-500">25分钟，重点练习滑音技巧</p>
+</div>
+</label>
+</div>
+<div class="flex items-center">
+<label class="custom-checkbox text-gray-700 flex items-center">
+<input type="checkbox">
+<span class="checkmark"></span>
+<div class="ml-2">
+<h4 class="font-medium text-gray-900">节奏训练</h4>
+<p class="text-xs text-gray-500">15分钟，使用节拍器慢速练习</p>
+</div>
+</label>
+</div>
+</div>
+<div class="mt-6">
+<div class="flex items-center justify-between text-sm">
+<span class="text-gray-500">今日完成</span>
+<span class="font-medium text-gray-900">0/4</span>
+</div>
+<div class="h-2 bg-gray-200 rounded-full overflow-hidden mt-2">
+<div class="h-full bg-primary" style="width: 0%"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- 本周目标 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="bg-secondary/10 px-6 py-4">
+<div class="flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900">本周目标</h3>
+<div class="w-8 h-8 flex items-center justify-center bg-white text-secondary rounded-full">
+<i class="ri-flag-line"></i>
+</div>
+</div>
+<p class="text-sm text-gray-600">2025年4月28日 - 5月4日</p>
+</div>
+<div class="p-6">
+<div class="space-y-4">
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-900">掌握《高山流水》第一段</h4>
+<div class="flex justify-between items-center mt-2">
+<div class="text-xs text-gray-500">进度</div>
+<div class="text-xs font-medium text-gray-700">45%</div>
+</div>
+<div class="h-1.5 bg-gray-200 rounded-full overflow-hidden mt-1">
+<div class="h-full bg-secondary" style="width: 45%"></div>
+</div>
+</div>
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-900">提高右手指力均衡性</h4>
+<div class="flex justify-between items-center mt-2">
+<div class="text-xs text-gray-500">进度</div>
+<div class="text-xs font-medium text-gray-700">30%</div>
+</div>
+<div class="h-1.5 bg-gray-200 rounded-full overflow-hidden mt-1">
+<div class="h-full bg-secondary" style="width: 30%"></div>
+</div>
+</div>
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-900">练习左手按弦技巧</h4>
+<div class="flex justify-between items-center mt-2">
+<div class="text-xs text-gray-500">进度</div>
+<div class="text-xs font-medium text-gray-700">60%</div>
+</div>
+<div class="h-1.5 bg-gray-200 rounded-full overflow-hidden mt-1">
+<div class="h-full bg-secondary" style="width: 60%"></div>
+</div>
+</div>
+</div>
+<div class="mt-6">
+<button class="w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 py-2 rounded-button text-sm font-medium whitespace-nowrap">查看详细目标</button>
+</div>
+</div>
+</div>
+<!-- 长期规划 -->
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="bg-gray-100 px-6 py-4">
+<div class="flex justify-between items-center">
+<h3 class="text-lg font-semibold text-gray-900">长期规划</h3>
+<div class="w-8 h-8 flex items-center justify-center bg-white text-gray-700 rounded-full">
+<i class="ri-road-map-line"></i>
+</div>
+</div>
+<p class="text-sm text-gray-600">未来3个月学习路径</p>
+</div>
+<div class="p-6">
+<div class="relative pb-12">
+<div class="absolute h-full w-0.5 bg-gray-200 left-2.5 top-0"></div>
+<div class="relative flex items-start mb-6">
+<div class="w-5 h-5 flex items-center justify-center bg-primary text-white rounded-full z-10 mt-1">
+<i class="ri-checkbox-blank-circle-fill text-xs"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-900">第一阶段：基础巩固</h4>
+<p class="text-xs text-gray-500 mt-1">掌握基本指法和音阶练习，完成《高山流水》第一段</p>
+</div>
+</div>
+<div class="relative flex items-start mb-6">
+<div class="w-5 h-5 flex items-center justify-center bg-gray-300 text-white rounded-full z-10 mt-1">
+<i class="ri-checkbox-blank-circle-fill text-xs"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-700">第二阶段：技巧提升</h4>
+<p class="text-xs text-gray-500 mt-1">学习进阶技巧，包括颤音、轮指和双手配合，完成《高山流水》全曲</p>
+</div>
+</div>
+<div class="relative flex items-start">
+<div class="w-5 h-5 flex items-center justify-center bg-gray-300 text-white rounded-full z-10 mt-1">
+<i class="ri-checkbox-blank-circle-fill text-xs"></i>
+</div>
+<div class="ml-4">
+<h4 class="font-medium text-gray-700">第三阶段：曲目拓展</h4>
+<p class="text-xs text-gray-500 mt-1">学习2-3首新曲目，提升表现力和舞台表现能力</p>
+</div>
+</div>
+</div>
+<div class="mt-2">
+<button class="w-full bg-white border border-gray-200 text-gray-700 hover:bg-gray-50 py-2 rounded-button text-sm font-medium whitespace-nowrap">调整学习规划</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 视频教程资源 -->
+<section class="py-16 bg-gray-50">
+<div class="container mx-auto px-6">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold text-gray-900">推荐视频教程</h2>
+<button class="text-primary font-medium flex items-center hover:underline">
+查看全部
+<div class="w-5 h-5 flex items-center justify-center ml-1">
+<i class="ri-arrow-right-line"></i>
+</div>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<!-- 视频卡片1 -->
+<div class="resource-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%2520woman%2520teaching%2520guzheng%2520lesson%252C%2520close-up%2520of%2520hands%2520on%2520instrument%252C%2520professional%2520educational%2520setting%252C%2520bright%2520clean%2520studio%252C%2520high%2520quality%2520video%2520thumbnail&width=600&height=400&seq=20&orientation=landscape" alt="古筝基础指法教学" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+<button class="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-colors">
+<i class="ri-play-fill ri-xl"></i>
+</button>
+</div>
+<div class="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">
+初级
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1">古筝基础指法详解</h3>
+<div class="flex items-center text-xs text-gray-500 mb-2">
+<div class="flex items-center mr-3">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+王梅芳
+</div>
+<div class="flex items-center">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-time-line"></i>
+</div>
+25:36
+</div>
+</div>
+<p class="text-xs text-gray-600 mb-3">详细讲解古筝基础指法，包括大指、食指、中指的基本弹奏方法和练习技巧。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<span class="text-gray-500 ml-1">4.5</span>
+</div>
+<button class="text-primary text-xs font-medium">立即观看</button>
+</div>
+</div>
+</div>
+<!-- 视频卡片2 -->
+<div class="resource-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Close-up%2520of%2520hands%2520playing%2520guzheng%2520showing%2520advanced%2520technique%252C%2520focus%2520on%2520finger%2520movements%252C%2520professional%2520educational%2520setting%252C%2520bright%2520clean%2520studio%252C%2520high%2520quality%2520video%2520thumbnail&width=600&height=400&seq=21&orientation=landscape" alt="古筝进阶技巧" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+<button class="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-colors">
+<i class="ri-play-fill ri-xl"></i>
+</button>
+</div>
+<div class="absolute top-2 right-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded-full">
+中级
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1">古筝滑音技巧精讲</h3>
+<div class="flex items-center text-xs text-gray-500 mb-2">
+<div class="flex items-center mr-3">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+刘佳琪
+</div>
+<div class="flex items-center">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-time-line"></i>
+</div>
+32:15
+</div>
+</div>
+<p class="text-xs text-gray-600 mb-3">深入讲解古筝滑音技巧，包括上滑、下滑、长滑、短滑等多种滑音方法和应用场景。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="text-gray-500 ml-1">4.0</span>
+</div>
+<button class="text-primary text-xs font-medium">立即观看</button>
+</div>
+</div>
+</div>
+<!-- 视频卡片3 -->
+<div class="resource-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%2520guzheng%2520master%2520teaching%2520traditional%2520piece%2520High%2520Mountain%2520Flowing%2520Water%252C%2520showing%2520sheet%2520music%2520and%2520demonstration%252C%2520professional%2520educational%2520setting%252C%2520bright%2520clean%2520studio%252C%2520high%2520quality%2520video%2520thumbnail&width=600&height=400&seq=22&orientation=landscape" alt="高山流水教学" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+<button class="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-colors">
+<i class="ri-play-fill ri-xl"></i>
+</button>
+</div>
+<div class="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">
+初级
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1">《高山流水》第一段教学</h3>
+<div class="flex items-center text-xs text-gray-500 mb-2">
+<div class="flex items-center mr-3">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+张雨晴
+</div>
+<div class="flex items-center">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-time-line"></i>
+</div>
+45:20
+</div>
+</div>
+<p class="text-xs text-gray-600 mb-3">详细讲解《高山流水》第一段的演奏技巧，包括指法、节奏和表现力的训练方法。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+<span class="text-gray-500 ml-1">4.7</span>
+</div>
+<button class="text-primary text-xs font-medium">立即观看</button>
+</div>
+</div>
+</div>
+<!-- 视频卡片4 -->
+<div class="resource-card bg-white rounded-lg shadow-sm overflow-hidden">
+<div class="relative h-48">
+<img src="https://readdy.ai/api/search-image?query=Chinese%2520guzheng%2520performance%2520posture%2520tutorial%252C%2520showing%2520correct%2520sitting%2520position%2520and%2520hand%2520placement%252C%2520professional%2520educational%2520setting%252C%2520bright%2520clean%2520studio%252C%2520high%2520quality%2520video%2520thumbnail&width=600&height=400&seq=23&orientation=landscape" alt="古筝姿势教学" class="w-full h-full object-cover object-top">
+<div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity">
+<button class="w-12 h-12 flex items-center justify-center bg-white/20 backdrop-blur-sm text-white rounded-full hover:bg-white/30 transition-colors">
+<i class="ri-play-fill ri-xl"></i>
+</button>
+</div>
+<div class="absolute top-2 right-2 bg-primary text-white text-xs px-2 py-1 rounded-full">
+初级
+</div>
+</div>
+<div class="p-4">
+<h3 class="font-medium text-gray-900 mb-1">古筝正确姿势与手型</h3>
+<div class="flex items-center text-xs text-gray-500 mb-2">
+<div class="flex items-center mr-3">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-user-line"></i>
+</div>
+李明珠
+</div>
+<div class="flex items-center">
+<div class="w-3 h-3 flex items-center justify-center mr-1">
+<i class="ri-time-line"></i>
+</div>
+18:45
+</div>
+</div>
+<p class="text-xs text-gray-600 mb-3">详细讲解古筝演奏的正确坐姿、手型和指甲使用方法，帮助初学者建立良好的演奏习惯。</p>
+<div class="flex justify-between items-center">
+<div class="flex items-center text-yellow-400 text-xs">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+<span class="text-gray-500 ml-1">4.2</span>
+</div>
+<button class="text-primary text-xs font-medium">立即观看</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 三维乐器模型展示 -->
+<section class="py-16 bg-white">
+<div class="container mx-auto px-6">
+<h2 class="text-2xl font-bold text-gray-900 mb-8">三维乐器模型</h2>
+<div class="bg-white rounded-lg shadow-md overflow-hidden">
+<div class="relative h-[500px] bg-gray-50">
+<img src="https://readdy.ai/api/search-image?query=3D%2520model%2520of%2520Chinese%2520guzheng%2520instrument%2520with%2520detailed%2520textures%2520and%2520parts%252C%2520professional%25203D%2520rendering%2520on%2520neutral%2520background%252C%2520showing%2520strings%2520and%2520wooden%2520body%2520details%252C%2520high%2520quality%2520visualization&width=1200&height=800&seq=24&orientation=landscape" alt="古筝3D模型" class="w-full h-full object-contain">
+<!-- 控制按钮 -->
+<div class="absolute bottom-4 right-4 flex items-center gap-2">
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-700 rounded-full shadow-md hover:bg-gray-100">
+<i class="ri-restart-line"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-700 rounded-full shadow-md hover:bg-gray-100">
+<i class="ri-camera-line"></i>
+</button>
+<button class="w-10 h-10 flex items-center justify-center bg-white text-gray-700 rounded-full shadow-md hover:bg-gray-100">
+<i class="ri-fullscreen-line"></i>
+</button>
+</div>
+<!-- 标记点 -->
+<div class="absolute top-[30%] left-[25%] w-6 h-6 flex items-center justify-center bg-primary text-white rounded-full cursor-pointer shadow-md">
+<span>1</span>
+</div>
+<div class="absolute top-[40%] left-[60%] w-6 h-6 flex items-center justify-center bg-primary text-white rounded-full cursor-pointer shadow-md">
+<span>2</span>
+</div>
+<div class="absolute top-[60%] left-[40%] w-6 h-6 flex items-center justify-center bg-primary text-white rounded-full cursor-pointer shadow-md">
+<span>3</span>
+</div>
+<!-- 信息提示框 -->
+<div class="absolute top-[25%] left-[28%] bg-white p-3 rounded-lg shadow-lg max-w-xs">
+<h4 class="font-medium text-gray-900 mb-1">琴头</h4>
+<p class="text-xs text-gray-600">古筝的左侧部分，安装有琴码和弦轴，用于调节琴弦的松紧度。</p>
+</div>
+</div>
+<div class="p-6">
+<div class="flex flex-col md:flex-row gap-6">
+<div class="md:w-2/3">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">古筝结构详解</h3>
+<p class="text-gray-600 mb-4">古筝是中国传统弹拨乐器，由琴体、琴弦、琴码、弦轴等部分组成。通过3D模型，您可以全方位了解古筝的结构特点和演奏原理。</p>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-2">琴体</h4>
+<p class="text-sm text-gray-600">古筝的主体部分，通常由梧桐木制成，具有良好的共鸣效果。</p>
+</div>
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-2">琴弦</h4>
+<p class="text-sm text-gray-600">现代古筝通常有21根尼龙钢丝弦，按五度相生律调音。</p>
+</div>
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-2">琴码</h4>
+<p class="text-sm text-gray-600">支撑琴弦的小木块，可以移动位置来改变音高。</p>
+</div>
+<div class="bg-gray-50 p-3 rounded-lg">
+<h4 class="font-medium text-gray-800 mb-2">弦轴</h4>
+<p class="text-sm text-gray-600">位于琴头部分，用于调节琴弦的松紧度和音高。</p>
+</div>
+</div>
+</div>
+<div class="md:w-1/3">
+<h3 class="text-lg font-semibold text-gray-800 mb-4">操作指南</h3>
+<ul class="space-y-3 text-sm text-gray-600">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-drag-move-line"></i>
+</div>
+<span>鼠标拖拽可旋转查看不同角度</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-zoom-in-line"></i>
+</div>
+<span>滚轮或双指缩放可放大查看细节</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-restart-line"></i>
+</div>
+<span>点击重置按钮返回初始视角</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-primary mr-2 mt-0.5">
+<i class="ri-information-line"></i>
+</div>
+<span>点击标记点查看部位详细信息</span>
+</li>
+</ul>
+<div class="mt-6">
+<button class="w-full bg-primary text-white hover:bg-primary/90 py-2.5 rounded-button text-sm font-medium whitespace-nowrap">进入全屏模式</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white py-12">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+<div>
+<a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-3xl font-['Pacifico'] text-white mb-4 inline-block">logo</a>
+<p class="text-gray-400 mb-4">传统民乐与人工智能的创新融合，开启音乐创作与学习的全新可能。</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-wechat-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-weibo-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-bilibili-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary/90 transition-colors">
+<i class="ri-douyin-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">快速链接</h4>
+<ul class="space-y-2">
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/9a62676d-726d-44a9-9c54-b60e4fd1db78" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">首页</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">AI学习系统</a></li>
+<li><a href="https://readdy.ai/home/380881eb-b42c-44d5-a43e-2e96ed718084/b93f3abb-0281-4fe6-b5c1-463486fa618c" data-readdy="true" class="text-gray-400 hover:text-white transition-colors">AI编曲工坊</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">音乐社区</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">商业服务</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">支持与帮助</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">使用教程</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系我们</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4">联系我们</h4>
+<ul class="space-y-2">
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-map-pin-line"></i>
+</div>
+<span class="text-gray-400">北京市海淀区中关村南大街5号</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-mail-line"></i>
+</div>
+<span class="text-gray-400">contact@aimingyue.com</span>
+</li>
+<li class="flex items-start">
+<div class="w-5 h-5 flex items-center justify-center text-gray-400 mr-2 mt-0.5">
+<i class="ri-phone-line"></i>
+</div>
+<span class="text-gray-400">400-888-7766</span>
+</li>
+</ul>
+</div>
+</div>
+<div class="pt-8 border-t border-gray-800 text-center text-gray-500 text-sm">
+<p>© 2025 AI民乐创新平台. 保留所有权利.</p>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// 进度曲线图表
+const progressChart = echarts.init(document.getElementById('progress-chart'));
+const progressOption = {
+animation: false,
+grid: {
+left: 30,
+right: 20,
+top: 20,
+bottom: 30
+},
+tooltip: {
+trigger: 'axis',
+backgroundColor: 'rgba(255, 255, 255, 0.8)',
+borderColor: '#e5e7eb',
+textStyle: {
+color: '#1f2937'
+}
+},
+xAxis: {
+type: 'category',
+data: ['4/1', '4/5', '4/10', '4/15', '4/20', '4/25', '今天'],
+axisLine: {
+lineStyle: {
+color: '#e5e7eb'
+}
+},
+axisLabel: {
+color: '#6b7280'
+}
+},
+yAxis: {
+type: 'value',
+min: 40,
+max: 100,
+axisLine: {
+show: false
+},
+axisLabel: {
+color: '#6b7280'
+},
+splitLine: {
+lineStyle: {
+color: '#f3f4f6'
+}
+}
+},
+series: [
+{
+name: '准确率',
+data: [55, 60, 58, 65, 70, 75, 82],
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(87, 181, 231, 1)',
+width: 3
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(87, 181, 231, 0.2)'
+}, {
+offset: 1, color: 'rgba(87, 181, 231, 0.05)'
+}]
+}
+}
+},
+{
+name: '速度',
+data: [50, 52, 55, 60, 65, 68, 76],
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(141, 211, 199, 1)',
+width: 3
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(141, 211, 199, 0.2)'
+}, {
+offset: 1, color: 'rgba(141, 211, 199, 0.05)'
+}]
+}
+}
+},
+{
+name: '表现力',
+data: [45, 48, 50, 55, 60, 65, 68],
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(251, 191, 114, 1)',
+width: 3
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(251, 191, 114, 0.2)'
+}, {
+offset: 1, color: 'rgba(251, 191, 114, 0.05)'
+}]
+}
+}
+}
+]
+};
+progressChart.setOption(progressOption);
+// 技能雷达图
+const skillsRadar = echarts.init(document.getElementById('skills-radar'));
+const skillsOption = {
+animation: false,
+radar: {
+indicator: [
+{ name: '基础指法', max: 100 },
+{ name: '音色控制', max: 100 },
+{ name: '节奏感', max: 100 },
+{ name: '表现力', max: 100 },
+{ name: '曲目掌握', max: 100 },
+{ name: '姿势规范', max: 100 }
+],
+radius: 80,
+axisName: {
+color: '#6b7280',
+fontSize: 12
+},
+splitLine: {
+lineStyle: {
+color: '#e5e7eb'
+}
+},
+splitArea: {
+show: true,
+areaStyle: {
+color: ['#fff', '#f9fafb']
+}
+}
+},
+series: [{
+type: 'radar',
+data: [
+{
+value: [85, 65, 72, 68, 40, 80],
+name: '当前水平',
+areaStyle: {
+color: 'rgba(87, 181, 231, 0.2)'
+},
+lineStyle: {
+color: 'rgba(87, 181, 231, 1)'
+},
+itemStyle: {
+color: 'rgba(87, 181, 231, 1)'
+}
+}
+]
+}]
+};
+skillsRadar.setOption(skillsOption);
+// 音频波形图表
+const audioWaveform = echarts.init(document.getElementById('audio-waveform'));
+const waveformOption = {
+animation: false,
+grid: {
+left: 0,
+right: 0,
+top: 0,
+bottom: 0
+},
+xAxis: {
+type: 'category',
+show: false,
+data: Array.from({length: 100}, (_, i) => i)
+},
+yAxis: {
+type: 'value',
+show: false
+},
+series: [{
+data: Array.from({length: 100}, () => Math.random() * 100 - 50),
+type: 'bar',
+barWidth: 2,
+itemStyle: {
+color: function(params) {
+const value = Math.abs(params.data);
+if (value > 40) {
+return 'rgba(252, 141, 98, 0.8)';
+} else if (value > 20) {
+return 'rgba(251, 191, 114, 0.8)';
+} else {
+return 'rgba(141, 211, 199, 0.8)';
+}
+}
+}
+}]
+};
+audioWaveform.setOption(waveformOption);
+// 音色分析图表
+const timbreChart = echarts.init(document.getElementById('timbre-chart'));
+const timbreOption = {
+animation: false,
+grid: {
+left: 10,
+right: 10,
+top: 10,
+bottom: 10
+},
+xAxis: {
+type: 'category',
+show: false,
+data: Array.from({length: 20}, (_, i) => i)
+},
+yAxis: {
+type: 'value',
+show: false
+},
+series: [{
+data: [20, 30, 40, 60, 70, 80, 65, 55, 50, 45, 40, 35, 30, 25, 20, 15, 10, 5, 2, 1],
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(87, 181, 231, 1)',
+width: 3
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(87, 181, 231, 0.2)'
+}, {
+offset: 1, color: 'rgba(87, 181, 231, 0.05)'
+}]
+}
+}
+}]
+};
+timbreChart.setOption(timbreOption);
+// 节奏稳定性图表
+const rhythmChart = echarts.init(document.getElementById('rhythm-chart'));
+const rhythmOption = {
+animation: false,
+grid: {
+left: 10,
+right: 10,
+top: 10,
+bottom: 10
+},
+xAxis: {
+type: 'category',
+show: false,
+data: Array.from({length: 20}, (_, i) => i)
+},
+yAxis: {
+type: 'value',
+show: false
+},
+series: [{
+data: [10, 12, 15, 13, 16, 14, 17, 15, 18, 16, 19, 17, 20, 18, 21, 19, 22, 20, 23, 21],
+type: 'line',
+smooth: true,
+symbol: 'none',
+lineStyle: {
+color: 'rgba(141, 211, 199, 1)',
+width: 3
+},
+areaStyle: {
+color: {
+type: 'linear',
+x: 0,
+y: 0,
+x2: 0,
+y2: 1,
+colorStops: [{
+offset: 0, color: 'rgba(141, 211, 199, 0.2)'
+}, {
+offset: 1, color: 'rgba(141, 211, 199, 0.05)'
+}]
+}
+}
+}]
+};
+rhythmChart.setOption(rhythmOption);
+// 窗口大小变化时重新调整图表大小
+window.addEventListener('resize', function() {
+progressChart.resize();
+skillsRadar.resize();
+audioWaveform.resize();
+timbreChart.resize();
+rhythmChart.resize();
+});
+// 标签页切换
+const tabButtons = document.querySelectorAll('.tab-button');
+const tabContents = document.querySelectorAll('.tab-content');
+tabButtons.forEach((button, index) => {
+button.addEventListener('click', () => {
+// 移除所有活动状态
+tabButtons.forEach(btn => btn.classList.remove('active'));
+tabContents.forEach(content => content.classList.remove('active'));
+// 添加当前活动状态
+button.classList.add('active');
+tabContents[index].classList.add('active');
+// 重新渲染图表
+if (index === 2) {
+audioWaveform.resize();
+timbreChart.resize();
+rhythmChart.resize();
+}
+});
+});
+});
+</script>
+</body>
+</html>
