@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>政策 - 全国校外教育培训监管与服务综合平台</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="../js/tailwindcss.js"></script>
+    <script src="../js/tailwind.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <!-- 顶部导航栏 -->
+    <header class="w-full bg-primary text-white">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-bold">全国校外教育培训监管与服务综合平台</h1>
+        <div class="flex space-x-4 text-sm">
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              机构查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              课程查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              接入银行 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <button class="whitespace-nowrap !rounded-button">登录</button>
+          <button class="whitespace-nowrap !rounded-button">APP下载</button>
+        </div>
+      </div>
+    </header>
+    <!-- 主导航菜单 -->
+    <nav class="bg-blue-600 text-white">
+      <div class="container mx-auto">
+        <ul class="flex">
+          <li class="flex-1">
+            <a
+              href="../一级-首页.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-home-line"></i>
+              </div>
+              首页
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../zhengce/一级-政策.html"
+              class="flex items-center justify-center py-4 px-6 bg-blue-700 hover:bg-blue-800 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-list-line"></i>
+              </div>
+              政策
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../dongtai/一级-动态.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              动态
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../baoguang/一级-曝光.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-alert-line"></i>
+              </div>
+              曝光
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../piyao/一级-辟谣.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-error-warning-line"></i>
+              </div>
+              辟谣
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="../bangzhu/一级-帮助.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-question-line"></i>
+              </div>
+              帮助
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- 主体内容 -->
+    <main class="container mx-auto px-4 py-6">
+      <!-- 面包屑导航 -->
+      <div class="mb-6 text-sm text-gray-600 flex items-center">
+        <a href="../一级-首页.html" class="hover:text-primary">首页</a>
+        <div class="w-4 h-4 flex items-center justify-center mx-1">
+          <i class="ri-arrow-right-s-line"></i>
+        </div>
+        <span class="text-primary">政策</span>
+      </div>
+      <!-- 政策页面标题 -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div class="flex items-center justify-between">
+          <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+            <div
+              class="w-8 h-8 flex items-center justify-center mr-3 text-primary"
+            >
+              <i class="ri-government-line ri-lg"></i>
+            </div>
+            教育政策专题
+          </h2>
+          <div class="relative">
+            <input
+              type="text"
+              placeholder="搜索政策文件..."
+              class="pl-10 pr-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent w-64 text-sm"
+            />
+            <div
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+            >
+              <i class="ri-search-line"></i>
+            </div>
+            <button
+              class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center"
+            >
+              <i class="ri-arrow-right-line text-xs"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 政策分类导航 -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        <div
+          class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center justify-center hover:shadow-md transition-shadow cursor-pointer"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mb-3 text-primary"
+          >
+            <i class="ri-government-line ri-lg"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">国家政策</h3>
+          <p class="text-sm text-gray-500 text-center">
+            教育部、国务院等国家级政策文件
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center justify-center hover:shadow-md transition-shadow cursor-pointer"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-green-100 rounded-full mb-3 text-green-600"
+          >
+            <i class="ri-map-pin-line ri-lg"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">地方政策</h3>
+          <p class="text-sm text-gray-500 text-center">
+            各省市地方教育政策法规文件
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center justify-center hover:shadow-md transition-shadow cursor-pointer"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-orange-100 rounded-full mb-3 text-orange-600"
+          >
+            <i class="ri-building-line ri-lg"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">行业规范</h3>
+          <p class="text-sm text-gray-500 text-center">
+            教育培训行业标准与规范文件
+          </p>
+        </div>
+        <div
+          class="bg-white rounded-lg shadow-sm p-5 flex flex-col items-center justify-center hover:shadow-md transition-shadow cursor-pointer"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-purple-100 rounded-full mb-3 text-purple-600"
+          >
+            <i class="ri-file-text-line ri-lg"></i>
+          </div>
+          <h3 class="font-bold text-gray-800 mb-1">政策解读</h3>
+          <p class="text-sm text-gray-500 text-center">
+            权威专家解读重要教育政策
+          </p>
+        </div>
+      </div>
+      <!-- 政策内容区 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 左侧：政策分类 -->
+        <div class="md:col-span-1">
+          <!-- 政策分类标签 -->
+          <div class="bg-white rounded-lg shadow-sm mb-6">
+            <div class="px-5 py-4 border-b border-gray-100">
+              <h3 class="font-bold text-gray-800 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-price-tag-3-line"></i>
+                </div>
+                政策分类
+              </h3>
+            </div>
+            <div class="p-4">
+              <ul class="space-y-1">
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center justify-between p-3 bg-blue-50 text-primary rounded"
+                  >
+                    <span class="flex items-center">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center mr-2"
+                      >
+                        <i class="ri-government-line"></i>
+                      </div>
+                      国家政策
+                    </span>
+                    <span
+                      class="text-xs bg-primary text-white px-2 py-1 rounded-full"
+                      >24</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center justify-between p-3 hover:bg-gray-50 rounded"
+                  >
+                    <span class="flex items-center">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center mr-2 text-gray-500"
+                      >
+                        <i class="ri-map-pin-line"></i>
+                      </div>
+                      地方政策
+                    </span>
+                    <span
+                      class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+                      >36</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center justify-between p-3 hover:bg-gray-50 rounded"
+                  >
+                    <span class="flex items-center">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center mr-2 text-gray-500"
+                      >
+                        <i class="ri-building-line"></i>
+                      </div>
+                      行业规范
+                    </span>
+                    <span
+                      class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+                      >18</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center justify-between p-3 hover:bg-gray-50 rounded"
+                  >
+                    <span class="flex items-center">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center mr-2 text-gray-500"
+                      >
+                        <i class="ri-file-text-line"></i>
+                      </div>
+                      政策解读
+                    </span>
+                    <span
+                      class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+                      >42</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center justify-between p-3 hover:bg-gray-50 rounded"
+                  >
+                    <span class="flex items-center">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center mr-2 text-gray-500"
+                      >
+                        <i class="ri-calendar-check-line"></i>
+                      </div>
+                      年度计划
+                    </span>
+                    <span
+                      class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+                      >15</span
+                    >
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#"
+                    class="flex items-center justify-between p-3 hover:bg-gray-50 rounded"
+                  >
+                    <span class="flex items-center">
+                      <div
+                        class="w-5 h-5 flex items-center justify-center mr-2 text-gray-500"
+                      >
+                        <i class="ri-article-line"></i>
+                      </div>
+                      通知公告
+                    </span>
+                    <span
+                      class="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded-full"
+                      >29</span
+                    >
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 重要政策解读 -->
+          <div class="bg-white rounded-lg shadow-sm mb-6">
+            <div class="px-5 py-4 border-b border-gray-100">
+              <h3 class="font-bold text-gray-800 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-file-search-line"></i>
+                </div>
+                重要政策解读
+              </h3>
+            </div>
+            <div class="p-4">
+              <div class="mb-4 pb-4 border-b border-gray-100">
+                <div class="bg-gray-50 rounded overflow-hidden mb-3">
+                  <!-- 使用公共图片资源替代 -->
+                  <img
+                    src="./image/574ccfc69ee3d5980fe8d5469287b011.png"
+                    alt="政策解读会议"
+                    class="w-full h-36 object-cover object-center"
+                  />
+                </div>
+                <h4 class="font-bold text-gray-800 mb-2">
+                  《教育强国建设规划纲要（2024-2035年）》解读
+                </h4>
+                <p class="text-sm text-gray-600 mb-2 line-clamp-2">
+                  本文对《教育强国建设规划纲要》进行全面解读，阐明未来十年我国教育发展的总体目标、战略任务和重大举措。
+                </p>
+                <div class="flex items-center text-xs text-gray-500">
+                  <span>教育部政策法规司</span>
+                  <span class="mx-2">·</span>
+                  <span>2025-01-19</span>
+                </div>
+              </div>
+              <ul class="space-y-3">
+                <li>
+                  <a href="#" class="flex items-start hover:text-primary">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5 text-primary"
+                    >
+                      <i class="ri-file-list-line"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-700 line-clamp-2">
+                        《中小学课后延时服务评估》政策解读与实施指南
+                      </p>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>2025-05-25</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="flex items-start hover:text-primary">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5 text-primary"
+                    >
+                      <i class="ri-file-list-line"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-700 line-clamp-2">
+                        《校外培训机构设置标准（2024版）》政策解读
+                      </p>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>2025-04-18</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+                <li>
+                  <a href="#" class="flex items-start hover:text-primary">
+                    <div
+                      class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5 text-primary"
+                    >
+                      <i class="ri-file-list-line"></i>
+                    </div>
+                    <div>
+                      <p class="text-sm text-gray-700 line-clamp-2">
+                        《"双减"政策实施三年成效评估报告》要点解读
+                      </p>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>2025-03-10</span>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 政策宣传图 -->
+          <div class="bg-white rounded-lg shadow-sm overflow-hidden">
+            <!-- 使用公共图片资源替代 -->
+            <img
+              src="https://via.placeholder.com/400x500?text=Education+Policy+Infographic"
+              alt="教育政策宣传"
+              class="w-full h-auto"
+            />
+          </div>
+        </div>
+        <!-- 右侧：政策列表 -->
+        <div class="md:col-span-2">
+          <!-- 政策筛选 -->
+          <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="flex flex-wrap items-center gap-4">
+              <div class="flex items-center">
+                <span class="text-sm text-gray-600 mr-2">发布时间：</span>
+                <div class="flex p-1 bg-gray-100 rounded-full">
+                  <button
+                    class="px-3 py-1 text-xs bg-primary text-white rounded-full whitespace-nowrap !rounded-button"
+                  >
+                    全部
+                  </button>
+                  <button
+                    class="px-3 py-1 text-xs text-gray-600 hover:bg-gray-200 rounded-full whitespace-nowrap !rounded-button"
+                  >
+                    2025年
+                  </button>
+                  <button
+                    class="px-3 py-1 text-xs text-gray-600 hover:bg-gray-200 rounded-full whitespace-nowrap !rounded-button"
+                  >
+                    2024年
+                  </button>
+                  <button
+                    class="px-3 py-1 text-xs text-gray-600 hover:bg-gray-200 rounded-full whitespace-nowrap !rounded-button"
+                  >
+                    2023年
+                  </button>
+                </div>
+              </div>
+              <div class="flex items-center">
+                <span class="text-sm text-gray-600 mr-2">发布部门：</span>
+                <div class="relative">
+                  <button
+                    class="flex items-center px-3 py-1.5 text-sm border border-gray-300 rounded bg-white whitespace-nowrap !rounded-button"
+                  >
+                    <span>全部部门</span>
+                    <div class="w-4 h-4 flex items-center justify-center ml-2">
+                      <i class="ri-arrow-down-s-line"></i>
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div class="flex items-center ml-auto">
+                <button
+                  class="flex items-center px-3 py-1.5 text-sm text-primary border border-primary rounded bg-blue-50 whitespace-nowrap !rounded-button"
+                >
+                  <div class="w-4 h-4 flex items-center justify-center mr-1">
+                    <i class="ri-filter-3-line"></i>
+                  </div>
+                  <span>筛选</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- 最新政策 -->
+          <div class="bg-white rounded-lg shadow-sm mb-6">
+            <div class="px-5 py-4 border-b border-gray-100">
+              <h3 class="font-bold text-gray-800 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-file-list-3-line"></i>
+                </div>
+                最新政策
+              </h3>
+            </div>
+            <div class="p-4">
+              <ul class="divide-y divide-gray-100">
+                <li class="py-4">
+                  <a href="#" class="block hover:bg-gray-50 rounded p-2 -mx-2">
+                    <h4 class="font-medium text-gray-800 mb-2">
+                      教育部关于印发《全国校外教育培训监管与服务综合平台运用管理办法》的通知
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-2 line-clamp-2">
+                      为规范全国校外教育培训监管与服务综合平台管理，提高平台运行效率，确保平台安全稳定运行，特制定本办法。本办法适用于各级教育行政部门、校外教育培训机构及其他相关单位和个人使用全国校外教育培训监管与服务综合平台的行为管理。
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                      <div class="flex items-center text-gray-500">
+                        <div
+                          class="w-4 h-4 flex items-center justify-center mr-1 text-primary"
+                        >
+                          <i class="ri-government-line"></i>
+                        </div>
+                        <span>教育部办公厅</span>
+                        <span class="mx-2">·</span>
+                        <span>教培〔2025〕15号</span>
+                      </div>
+                      <span class="text-primary">2025-03-26</span>
+                    </div>
+                  </a>
+                </li>
+                <li class="py-4">
+                  <a href="#" class="block hover:bg-gray-50 rounded p-2 -mx-2">
+                    <h4 class="font-medium text-gray-800 mb-2">
+                      中共中央 国务院印发《教育强国建设规划纲要（2024-2035年）》
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-2 line-clamp-2">
+                      《教育强国建设规划纲要（2024-2035年）》是指导未来一个时期我国教育改革发展的纲领性文件，是建设教育强国的行动指南。《规划纲要》明确了到2035年建成教育强国的战略目标，提出了一系列重大改革任务和重点建设项目。
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                      <div class="flex items-center text-gray-500">
+                        <div
+                          class="w-4 h-4 flex items-center justify-center mr-1 text-primary"
+                        >
+                          <i class="ri-government-line"></i>
+                        </div>
+                        <span>中共中央 国务院</span>
+                        <span class="mx-2">·</span>
+                        <span>中发〔2025〕3号</span>
+                      </div>
+                      <span class="text-primary">2025-01-19</span>
+                    </div>
+                  </a>
+                </li>
+                <li class="py-4">
+                  <a href="#" class="block hover:bg-gray-50 rounded p-2 -mx-2">
+                    <h4 class="font-medium text-gray-800 mb-2">
+                      中国民办教育协会发布《中小学课后延时服务指引》（试行）
+                    </h4>
+                    <p class="text-sm text-gray-600 mb-2 line-clamp-2">
+                      为贯彻落实"双减"政策，进一步规范中小学课后延时服务工作，提高服务质量，中国民办教育协会组织专家研制了《中小学课后延时服务指引》（试行）。《指引》明确了课后延时服务的基本原则、内容要求、组织实施和保障措施等。
+                    </p>
+                    <div class="flex items-center justify-between text-sm">
+                      <div class="flex items-center text-gray-500">
+                        <div
+                          class="w-4 h-4 flex items-center justify-center mr-1 text-primary"
+                        >
+                          <i class="ri-building-line"></i>
+                        </div>
+                        <span>中国民办教育协会</span>
+                        <span class="mx-2">·</span>
+                        <span>民教发〔2024〕8号</span>
+                      </div>
+                      <span class="text-primary">2024-02-03</span>
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 国家政策 -->
+          <div class="bg-white rounded-lg shadow-sm mb-6">
+            <div
+              class="px-5 py-4 border-b border-gray-100 flex justify-between items-center"
+            >
+              <h3 class="font-bold text-gray-800 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-government-line"></i>
+                </div>
+                国家政策
+              </h3>
+              <a href="#" class="text-sm text-gray-500 hover:text-primary"
+                >更多 ></a
+              >
+            </div>
+            <div class="p-4">
+              <ul class="divide-y divide-gray-100">
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        教育部关于印发《全国校外教育培训监管与服务综合平台运用管理办法》的通知
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>教育部办公厅</span>
+                        <span class="mx-2">·</span>
+                        <span>教培〔2025〕15号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2025-03-26
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        中共中央
+                        国务院印发《教育强国建设规划纲要（2024-2035年）》
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>中共中央 国务院</span>
+                        <span class="mx-2">·</span>
+                        <span>中发〔2025〕3号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2025-01-19
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        中国民办教育协会发布《中小学课后延时服务指引》（试行）
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>中国民办教育协会</span>
+                        <span class="mx-2">·</span>
+                        <span>民教发〔2024〕8号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2024-02-03
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        中国民办教育协会、中国青少年科技教育工作者协会共同发布《中小学生综合实践活动行动指引》（试行）
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>中国民办教育协会</span>
+                        <span class="mx-2">·</span>
+                        <span>民教发〔2024〕7号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2024-02-03
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        教育部办公厅 公安部办公厅
+                        市场监防办公厅关于开展中小学校外培训"安全守护"专项行动的通知
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>教育部办公厅等</span>
+                        <span class="mx-2">·</span>
+                        <span>教监管厅函〔2023〕14号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2023-10-19
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">校外培训行为处罚暂行办法</h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>教育部</span>
+                        <span class="mx-2">·</span>
+                        <span>教监管〔2023〕5号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2023-09-12
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        教育部办公厅有关部门关于在京沪粤等地开展中小学生校外培训机构综合治理试点工作的通知
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>教育部办公厅</span>
+                        <span class="mx-2">·</span>
+                        <span>教监管厅函〔2023〕9号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2023-07-12
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 地方政策 -->
+          <div class="bg-white rounded-lg shadow-sm mb-6">
+            <div
+              class="px-5 py-4 border-b border-gray-100 flex justify-between items-center"
+            >
+              <h3 class="font-bold text-gray-800 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-green-600"
+                >
+                  <i class="ri-map-pin-line"></i>
+                </div>
+                地方政策
+              </h3>
+              <a href="#" class="text-sm text-gray-500 hover:text-primary"
+                >更多 ></a
+              >
+            </div>
+            <div class="p-4">
+              <ul class="divide-y divide-gray-100">
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        北京市教育委员会关于进一步规范校外培训机构收费管理的实施细则
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>北京市教育委员会</span>
+                        <span class="mx-2">·</span>
+                        <span>京教规〔2025〕2号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2025-03-15
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        上海市教育委员会关于加强中小学生课后服务工作的指导意见
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>上海市教育委员会</span>
+                        <span class="mx-2">·</span>
+                        <span>沪教委基〔2025〕3号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2025-02-28
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        广东省教育厅关于印发《广东省校外培训机构管理实施细则》的通知
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>广东省教育厅</span>
+                        <span class="mx-2">·</span>
+                        <span>粤教规〔2025〕1号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2025-01-10
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        浙江省教育厅关于进一步完善中小学生课后服务工作的指导意见
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>浙江省教育厅</span>
+                        <span class="mx-2">·</span>
+                        <span>浙教基〔2024〕15号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2024-12-20
+                    </div>
+                  </a>
+                </li>
+                <li class="py-3">
+                  <a
+                    href="#"
+                    class="flex justify-between hover:bg-gray-50 rounded p-2 -mx-2"
+                  >
+                    <div class="flex-1 pr-4">
+                      <h4 class="text-gray-800">
+                        江苏省教育厅关于印发《江苏省校外培训机构设置标准（2024版）》的通知
+                      </h4>
+                      <div class="flex items-center text-xs text-gray-500 mt-1">
+                        <span>江苏省教育厅</span>
+                        <span class="mx-2">·</span>
+                        <span>苏教规〔2024〕8号</span>
+                      </div>
+                    </div>
+                    <div
+                      class="text-right text-sm text-primary whitespace-nowrap"
+                    >
+                      2024-11-15
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <!-- 分页 -->
+          <div class="flex justify-center items-center space-x-2 mt-8">
+            <a
+              href="#"
+              class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap !rounded-button"
+            >
+              <div class="w-4 h-4 flex items-center justify-center mr-1">
+                <i class="ri-arrow-left-s-line"></i>
+              </div>
+              上一页
+            </a>
+            <a
+              href="#"
+              class="flex items-center justify-center w-10 h-10 border border-gray-300 rounded text-sm hover:bg-gray-50"
+              >1</a
+            >
+            <a
+              href="#"
+              class="flex items-center justify-center w-10 h-10 bg-primary text-white border border-primary rounded text-sm"
+              >2</a
+            >
+            <a
+              href="#"
+              class="flex items-center justify-center w-10 h-10 border border-gray-300 rounded text-sm hover:bg-gray-50"
+              >3</a
+            >
+            <a
+              href="#"
+              class="flex items-center justify-center w-10 h-10 border border-gray-300 rounded text-sm hover:bg-gray-50"
+              >4</a
+            >
+            <a
+              href="#"
+              class="flex items-center justify-center w-10 h-10 border border-gray-300 rounded text-sm hover:bg-gray-50"
+              >5</a
+            >
+            <span class="text-gray-500">...</span>
+            <a
+              href="#"
+              class="flex items-center justify-center w-10 h-10 border border-gray-300 rounded text-sm hover:bg-gray-50"
+              >12</a
+            >
+            <a
+              href="#"
+              class="flex items-center justify-center px-4 py-2 border border-gray-300 rounded text-sm text-gray-700 hover:bg-gray-50 whitespace-nowrap !rounded-button"
+            >
+              下一页
+              <div class="w-4 h-4 flex items-center justify-center ml-1">
+                <i class="ri-arrow-right-s-line"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- 页脚 -->
+    <footer class="bg-primary text-white mt-12 wave-bg pt-20">
+      <div class="container mx-auto px-4 py-8">
+        <div class="text-center text-sm">
+          <p>版权所有 © 全国校外教育培训监管与服务综合平台</p>
+          <p class="mt-2">教育部 · 国家教育行政学院 · 中国教育科学研究院</p>
+          <p class="mt-2">
+            联系电话：010-12345678 · 电子邮箱：info@edu-platform.gov.cn
+          </p>
+          <p class="mt-2">京ICP备12345678号-1 · 京公网安备11010502030185号</p>
+          <p class="mt-2">网站地图 · 隐私政策</p>
+        </div>
+      </div>
+    </footer>
+    <script src="./index.js"></script>
+  </body>
+</html>
