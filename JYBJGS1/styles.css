@@ -1,0 +1,1847 @@
+/* 全局样式 Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* 容器通用样式 Container Styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* 顶部工具栏 */
+.top-toolbar {
+  background-color: #f8f9fa;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.top-toolbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.left-tools a,
+.right-tools a {
+  color: #666;
+  text-decoration: none;
+  margin-right: 20px;
+  font-size: 14px;
+}
+
+.right-tools .register {
+  color: #1890ff;
+}
+
+/* 导航栏样式 Navigation Styles */
+.daohang {
+  background-color: #1890ff;
+  padding: 15px 0;
+}
+
+.daohang-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.daohang-lianjie {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
+.daohang-lianjie a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+  padding: 5px 15px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.daohang-lianjie a:hover,
+.daohang-lianjie a.active {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 服务入口 */
+.service-banners {
+  padding: 30px 0;
+  background-color: white;
+}
+
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  padding: 20px 0;
+}
+
+.service-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: #333;
+  padding: 20px;
+  border-radius: 8px;
+  transition: transform 0.3s;
+  background-color: #f8f9fa;
+}
+
+.service-item:hover {
+  transform: translateY(-5px);
+}
+
+.service-item i {
+  font-size: 32px;
+  color: #1890ff;
+  margin-bottom: 10px;
+}
+
+/* 轮播图样式 Carousel Styles */
+.lunbo {
+  position: relative;
+  margin: 20px 0;
+}
+
+.lunbo-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.lunbo-item {
+  display: none;
+}
+
+.lunbo-item.active {
+  display: block;
+}
+
+.lunbo-item img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/* 内容区域 */
+.content-section {
+  padding: 30px 0;
+  background-color: white;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.section-title {
+  font-size: 20px;
+  color: #333;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #1890ff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.more {
+  font-size: 14px;
+  color: #666;
+  text-decoration: none;
+}
+
+.news-list {
+  list-style: none;
+}
+
+.news-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.news-list li a {
+  color: #333;
+  text-decoration: none;
+  flex: 1;
+  margin-right: 15px;
+}
+
+.news-list .date {
+  color: #999;
+  font-size: 14px;
+}
+
+/* 服务指南 */
+.service-guide {
+  padding: 30px 0;
+  background-color: white;
+}
+
+.guide-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.guide-column {
+  padding: 20px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+
+.guide-title {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+.guide-list,
+.download-list {
+  list-style: none;
+}
+
+.guide-list li,
+.download-list li {
+  padding: 8px 0;
+  color: #666;
+}
+
+.download-list a {
+  color: #1890ff;
+  text-decoration: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* 页脚样式 Footer Styles */
+.dibu {
+  background-color: #333;
+  color: #fff;
+  padding: 30px 0;
+}
+
+.dibu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.dibu-xinxi {
+  margin-bottom: 20px;
+}
+
+.dibu-xinxi p {
+  margin: 5px 0;
+  color: #999;
+}
+
+.banquan {
+  border-top: 1px solid #444;
+  padding-top: 20px;
+  color: #666;
+}
+
+/* 响应式设计 Responsive Design */
+@media (max-width: 768px) {
+  .daohang-lianjie {
+    display: none;
+  }
+
+  .lunbo-item img {
+    height: 250px;
+  }
+
+  .news-list,
+  .guide-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 政策页面样式 Policy Page Styles */
+.zhengce-main {
+  margin-top: 80px;
+  padding: 2rem 0;
+  min-height: calc(100vh - 80px - 200px);
+  background: #f5f5f5;
+}
+
+.zhengce-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 搜索区域样式 Search Area Styles */
+.sousuo-qu {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sousuo-box {
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  gap: 1rem;
+}
+
+.sousuo-shuru {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.sousuo-anniu {
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sousuo-anniu:hover {
+  background: #40a9ff;
+}
+
+.shaixuan-qu {
+  display: flex;
+  gap: 1rem;
+}
+
+.shaixuan-xuanze {
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+/* 政策列表样式 Policy List Styles */
+.zhengce-liebiao {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.zhengce-item {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+  cursor: pointer;
+}
+
+.zhengce-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.zhengce-biaoti {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.zhengce-biaoti h3 {
+  flex: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  color: #1890ff;
+}
+
+.zhengce-riqi {
+  color: #666;
+  font-size: 0.9rem;
+  white-space: nowrap;
+  margin-left: 1rem;
+}
+
+.zhengce-laiyuan {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 分页样式 Pagination Styles */
+.fenye {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.fenye-anniu {
+  padding: 0.5rem 1rem;
+  border: 1px solid #1890ff;
+  background: #fff;
+  color: #1890ff;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fenye-anniu:hover:not([disabled]) {
+  background: #1890ff;
+  color: #fff;
+}
+
+.fenye-anniu[disabled] {
+  border-color: #d9d9d9;
+  color: #d9d9d9;
+  cursor: not-allowed;
+}
+
+.fenye-shuzi {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.fenye-shuzi span {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.fenye-shuzi span:hover:not(.active) {
+  color: #1890ff;
+}
+
+.fenye-shuzi span.active {
+  background: #1890ff;
+  color: #fff;
+}
+
+/* 响应式适配 Responsive Styles */
+@media (max-width: 768px) {
+  .sousuo-qu {
+    flex-direction: column;
+  }
+
+  .sousuo-box {
+    width: 100%;
+  }
+
+  .shaixuan-qu {
+    width: 100%;
+    flex-wrap: wrap;
+  }
+
+  .shaixuan-xuanze {
+    flex: 1;
+    min-width: 140px;
+  }
+
+  .zhengce-biaoti {
+    flex-direction: column;
+  }
+
+  .zhengce-riqi {
+    margin: 0.5rem 0 0 0;
+  }
+}
+
+/* 曝光台页面样式 Exposure Platform Styles */
+.baoguang-main {
+  margin-top: 80px;
+  padding: 2rem 0;
+  background: #f5f5f5;
+}
+
+.baoguang-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.baoguang-biaoti {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: #333;
+}
+
+/* 列表样式 List Styles */
+.liebiao-biaotou {
+  display: grid;
+  grid-template-columns: 60px 2fr 3fr 2fr 1fr 1fr 80px;
+  gap: 1rem;
+  padding: 1rem;
+  background: #fff;
+  border-radius: 8px 8px 0 0;
+  font-weight: bold;
+  color: #333;
+}
+
+.liebiao-neirong {
+  background: #fff;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 1rem;
+}
+
+.liebiao-item {
+  display: grid;
+  grid-template-columns: 60px 2fr 3fr 2fr 1fr 1fr 80px;
+  gap: 1rem;
+  padding: 1rem;
+  border-top: 1px solid #f0f0f0;
+  align-items: center;
+}
+
+.liebiao-item:hover {
+  background: #f8f8f8;
+}
+
+.xuhao {
+  text-align: center;
+}
+
+.jigou,
+.weigui,
+.jieguo,
+.danwei {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.riqi {
+  color: #666;
+}
+
+.chakan-anniu {
+  padding: 0.3rem 0.8rem;
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.chakan-anniu:hover {
+  background: #40a9ff;
+}
+
+/* 统计区域样式 Statistics Area Styles */
+.tongji-qu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.tongji-zuo,
+.tongji-you {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tongji-tu {
+  height: 300px;
+  margin-top: 1rem;
+}
+
+/* 举报区域样式 Report Area Styles */
+.jubao-qu {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.jubao-box,
+.fagui-box {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.jubao-xinxi {
+  margin: 1rem 0;
+  color: #666;
+}
+
+.lianxi-fangshi {
+  margin-top: 1rem;
+}
+
+.lianxi-fangshi p {
+  margin: 0.5rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.jubao-anniu {
+  width: 100%;
+  padding: 0.8rem;
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+.jubao-anniu:hover {
+  background: #40a9ff;
+}
+
+.fagui-liebiao {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+
+.fagui-liebiao li {
+  margin: 0.8rem 0;
+}
+
+.fagui-liebiao a {
+  color: #1890ff;
+  text-decoration: none;
+  display: block;
+  padding: 0.5rem 0;
+  transition: color 0.3s;
+}
+
+.fagui-liebiao a:hover {
+  color: #40a9ff;
+}
+
+/* 分页跳转样式 Pagination Jump Styles */
+.fenye-tiaozhuan {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #666;
+}
+
+.tiaozhuan-shuru {
+  width: 50px;
+  padding: 0.3rem;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  text-align: center;
+}
+
+/* 响应式适配 Responsive Styles */
+@media (max-width: 1024px) {
+  .tongji-qu,
+  .jubao-qu {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .liebiao-biaotou,
+  .liebiao-item {
+    grid-template-columns: 60px 1fr 2fr 1fr;
+  }
+
+  .danwei,
+  .riqi {
+    display: none;
+  }
+
+  .weigui {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  .liebiao-biaotou,
+  .liebiao-item {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .xuhao {
+    display: none;
+  }
+
+  .jigou,
+  .weigui,
+  .jieguo {
+    white-space: normal;
+  }
+}
+
+/* 辟谣专题页面样式 Rumor Refutation Page Styles */
+.piyao-main {
+  margin-top: 80px;
+  padding: 2rem 0;
+  background: #f5f5f5;
+}
+
+.piyao-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 专题标题样式 Topic Title Styles */
+.zhuanti-biaoti {
+  position: relative;
+  text-align: center;
+  padding: 2rem 0;
+  margin-bottom: 2rem;
+}
+
+.zhuanti-biaoti h1 {
+  color: #1890ff;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.biaoti-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%231890ff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,160C1248,160,1344,128,1392,112L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+  background-size: cover;
+  background-position: center;
+}
+
+/* 主页内容布局 Main Content Layout */
+.zhuye-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* 最新辟谣内容样式 Latest Refutations Styles */
+.zuixin-piyao {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mokuai-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.mokuai-title h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+}
+
+.more {
+  color: #1890ff;
+  text-decoration: none;
+}
+
+.xinwen-item {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.xinwen-tag {
+  padding: 0.3rem 0.8rem;
+  background: #1890ff;
+  color: #fff;
+  border-radius: 4px;
+  height: fit-content;
+}
+
+.xinwen-content h3 {
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+.xinwen-content p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.xinwen-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #999;
+}
+
+.caozuo {
+  display: flex;
+  gap: 1rem;
+}
+
+.caozuo span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  cursor: pointer;
+}
+
+/* 通报平台样式 Report Platform Styles */
+.tongbao-pingtai {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.tongbao-form {
+  margin-top: 1rem;
+}
+
+.form-item {
+  margin-bottom: 1rem;
+}
+
+.form-item label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.form-item textarea,
+.form-item input {
+  width: 100%;
+  padding: 0.8rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.tijiao-anniu {
+  width: 100%;
+  padding: 0.8rem;
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.tijiao-anniu:hover {
+  background: #40a9ff;
+}
+
+/* 热门通报排行样式 Hot Reports Styles */
+.remen-tongbao {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.paihang-list {
+  margin-top: 1rem;
+}
+
+.paihang-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.8rem 0;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.paihang-num {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.paihang-num.hot {
+  background: #ff4d4f;
+  color: #fff;
+}
+
+/* 通报专题分类样式 Report Categories Styles */
+.tongbao-fenlei {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.fenlei-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.fenlei-item {
+  text-align: center;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: #f8f8f8;
+  transition: transform 0.3s;
+}
+
+.fenlei-item:hover {
+  transform: translateY(-5px);
+}
+
+.fenlei-item i {
+  font-size: 2.5rem;
+  color: #1890ff;
+  margin-bottom: 1rem;
+}
+
+.fenlei-item h4 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.fenlei-item p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 权威渠道样式 Official Channels Styles */
+.quanwei-qudao {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.qudao-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 1.5rem;
+}
+
+.qudao-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  border-radius: 8px;
+  background: #f8f8f8;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s;
+}
+
+.qudao-item:hover {
+  transform: translateY(-5px);
+}
+
+.qudao-icon {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.qudao-icon.blue {
+  background: #1890ff;
+}
+.qudao-icon.green {
+  background: #52c41a;
+}
+.qudao-icon.purple {
+  background: #722ed1;
+}
+.qudao-icon.orange {
+  background: #fa8c16;
+}
+
+.qudao-info h4 {
+  margin-bottom: 0.3rem;
+}
+
+.qudao-info p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 响应式适配 Responsive Styles */
+@media (max-width: 1024px) {
+  .zhuye-content {
+    grid-template-columns: 1fr;
+  }
+
+  .qudao-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .fenlei-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .qudao-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .fenlei-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .xinwen-item {
+    flex-direction: column;
+  }
+
+  .xinwen-tag {
+    width: fit-content;
+  }
+}
+
+/* 动态页面样式 Updates Page Styles */
+.dongtai-main {
+  margin-top: 80px;
+  padding: 2rem 0;
+  background: #f5f5f5;
+  min-height: calc(100vh - 80px - 200px);
+}
+
+.dongtai-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+}
+
+/* 左侧导航样式 Left Navigation Styles */
+.cebian-nav {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.nav-title {
+  padding: 1rem 1.5rem;
+  background: #1890ff;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.nav-list {
+  padding: 1rem 0;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 0.8rem 1.5rem;
+  color: #333;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.nav-item:hover {
+  background: #f0f7ff;
+  color: #1890ff;
+}
+
+.nav-item.active {
+  background: #e6f7ff;
+  color: #1890ff;
+  border-right: 3px solid #1890ff;
+}
+
+.nav-item i {
+  font-size: 1.2rem;
+}
+
+/* 搜索区域样式 Search Area Styles */
+.sousuo-qu {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.sousuo-box {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.sousuo-shuru {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.shaixuan-anniu {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.shaixuan-anniu button {
+  padding: 0.8rem 1rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  background: #fff;
+  color: #666;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
+}
+
+.shaixuan-anniu button:hover {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+.sousuo-anniu {
+  padding: 0.8rem 2rem;
+  background: #1890ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sousuo-anniu:hover {
+  background: #40a9ff;
+}
+
+/* 动态列表样式 Updates List Styles */
+.zuixin-dongtai {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.mokuai-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.title-tags {
+  display: flex;
+  gap: 1rem;
+}
+
+.tag-item {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tag-item:hover {
+  color: #1890ff;
+}
+
+.tag-item.active {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
+.dongtai-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.dongtai-item {
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.item-tag {
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  height: fit-content;
+  font-size: 0.9rem;
+  white-space: nowrap;
+}
+
+.item-tag.gongzuo {
+  background: #e6f7ff;
+  color: #1890ff;
+}
+
+.item-tag.tongzhi {
+  background: #f6ffed;
+  color: #52c41a;
+}
+
+.item-content {
+  flex: 1;
+}
+
+.item-content h3 {
+  margin-bottom: 0.8rem;
+  color: #333;
+}
+
+.item-content p {
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  color: #999;
+  font-size: 0.9rem;
+}
+
+.caozuo {
+  margin-left: auto;
+  display: flex;
+  gap: 1rem;
+}
+
+.caozuo span {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+/* 响应式适配 Responsive Styles */
+@media (max-width: 1024px) {
+  .dongtai-container {
+    grid-template-columns: 1fr;
+  }
+
+  .cebian-nav {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .sousuo-box {
+    flex-direction: column;
+  }
+
+  .shaixuan-anniu {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .sousuo-anniu {
+    width: 100%;
+  }
+
+  .dongtai-item {
+    flex-direction: column;
+  }
+
+  .item-tag {
+    width: fit-content;
+  }
+
+  .item-info {
+    flex-wrap: wrap;
+  }
+}
+
+/* 帮助中心页面样式 Help Center Styles */
+.bangzhu-main {
+  padding: 2rem 0;
+  background-color: #f5f7fa;
+  min-height: calc(100vh - 60px - 120px);
+}
+
+.bangzhu-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* 欢迎区域样式 Welcome Area Styles */
+.huanying-qu {
+  background: #fff;
+  padding: 2rem;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.huanying-qu h1 {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.huanying-qu p {
+  color: #666;
+  margin-bottom: 1.5rem;
+}
+
+/* 搜索框样式 Search Box Styles */
+.sousuo-box {
+  display: flex;
+  max-width: 600px;
+  margin: 0 auto;
+  gap: 1rem;
+}
+
+.sousuo-shuru {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.sousuo-shuru:focus {
+  border-color: #1890ff;
+  outline: none;
+}
+
+.sousuo-anniu {
+  padding: 0.8rem 2rem;
+  background-color: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.sousuo-anniu:hover {
+  background-color: #40a9ff;
+}
+
+/* 热门问题样式 Hot Questions Styles */
+.remen-wenti {
+  margin-bottom: 2rem;
+}
+
+.wenti-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.wenti-item {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  text-decoration: none;
+  color: #333;
+  transition: transform 0.3s, box-shadow 0.3s;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wenti-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.wenti-item i {
+  font-size: 1.5rem;
+  color: #1890ff;
+  margin-right: 1rem;
+}
+
+/* 内容区布局 Content Area Layout */
+.neirong-qu {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+  background: white;
+  border-radius: 8px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* 左侧导航样式 Left Navigation Styles */
+.cebian-nav {
+  background: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 8px;
+}
+
+.cebian-nav h3 {
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.wenti-daohang {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  padding: 0.8rem;
+  color: #666;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-item i {
+  margin-right: 0.8rem;
+  font-size: 1.2rem;
+}
+
+.nav-item:hover {
+  background-color: #e6f7ff;
+  color: #1890ff;
+}
+
+.nav-item.active {
+  background-color: #e6f7ff;
+  color: #1890ff;
+  font-weight: 500;
+}
+
+/* 主要内容样式 Main Content Styles */
+.zhuyao-neirong {
+  padding: 0 1rem;
+}
+
+.zhinan-mokuai {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.zhinan-mokuai:last-child {
+  border-bottom: none;
+}
+
+.zhinan-mokuai h3 {
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+.leixing-list {
+  list-style: none;
+  padding: 0;
+}
+
+.leixing-list li {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.leixing-list li::before {
+  content: "•";
+  color: #1890ff;
+  position: absolute;
+  left: 0;
+  font-size: 1.2rem;
+}
+
+/* 功能模块网格 Feature Grid */
+.gongneng-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.gongneng-item {
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.gongneng-item i {
+  font-size: 2rem;
+  color: #1890ff;
+  margin-bottom: 1rem;
+}
+
+.gongneng-item h4 {
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.gongneng-item p {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 访问方式列表 Access Methods List */
+.fangshi-list {
+  list-style: none;
+  padding: 0;
+}
+
+.fangshi-list li {
+  margin-bottom: 0.8rem;
+  padding-left: 1.5rem;
+  position: relative;
+}
+
+.fangshi-list li::before {
+  content: "→";
+  color: #1890ff;
+  position: absolute;
+  left: 0;
+}
+
+/* 注册流程样式 Registration Process Styles */
+.zhuce-liucheng {
+  margin-top: 3rem;
+}
+
+.liucheng-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.step-item {
+  text-align: center;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+  position: relative;
+}
+
+.step-num {
+  width: 40px;
+  height: 40px;
+  background: #1890ff;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin: 0 auto 1rem;
+}
+
+.step-item h4 {
+  color: #333;
+  margin-bottom: 0.8rem;
+}
+
+.step-item p {
+  color: #666;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* 响应式布局 Responsive Layout */
+@media (max-width: 768px) {
+  .neirong-qu {
+    grid-template-columns: 1fr;
+  }
+
+  .cebian-nav {
+    margin-bottom: 2rem;
+  }
+
+  .wenti-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .gongneng-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .liucheng-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 曝光页面样式 Exposure Page Styles */
+.filter-bar {
+  background: #fff;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-box {
+  display: flex;
+  gap: 0.5rem;
+  flex: 1;
+  min-width: 280px;
+}
+
+.search-box input {
+  flex: 1;
+  padding: 0.8rem 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.search-box input:focus {
+  border-color: #1890ff;
+  outline: none;
+}
+
+.search-box .btn {
+  padding: 0.8rem 1.5rem;
+  background: #1890ff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-box .btn:hover {
+  background: #40a9ff;
+}
+
+.filter-group {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.filter-group select {
+  padding: 0.8rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 4px;
+  background: white;
+  min-width: 120px;
+  cursor: pointer;
+  transition: border-color 0.3s;
+}
+
+.filter-group select:focus {
+  border-color: #1890ff;
+  outline: none;
+}
+
+/* 曝光列表样式 Exposure List Styles */
+.exposure-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  transition: opacity 0.3s;
+}
+
+.exposure-item {
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.exposure-content {
+  flex: 1;
+}
+
+.exposure-content h3 {
+  color: #333;
+  font-size: 1.2rem;
+  margin-bottom: 0.8rem;
+}
+
+.exposure-content .meta {
+  color: #666;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.exposure-content .summary {
+  color: #444;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.tags {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tag {
+  background: #e6f7ff;
+  color: #1890ff;
+  padding: 0.3rem 0.8rem;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.exposure-item .btn {
+  padding: 0.6rem 1.2rem;
+  background: #f0f0f0;
+  color: #666;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.3s;
+  white-space: nowrap;
+}
+
+.exposure-item .btn:hover {
+  background: #1890ff;
+  color: white;
+}
+
+/* 分页样式 Pagination Styles */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 0;
+}
+
+.page-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  color: #666;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.page-btn:hover {
+  border-color: #1890ff;
+  color: #1890ff;
+}
+
+.page-btn.active {
+  background: #1890ff;
+  border-color: #1890ff;
+  color: white;
+}
+
+.pagination span {
+  color: #666;
+  margin: 0 0.3rem;
+}
+
+/* 响应式布局 Responsive Layout */
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    flex-direction: column;
+  }
+
+  .exposure-item {
+    flex-direction: column;
+  }
+
+  .exposure-item .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
