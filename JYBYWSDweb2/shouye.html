@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>全国校外教育培训监管与服务综合平台</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="./js/tailwindcss.js"></script>
+    <script src="./js/tailwind.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <!-- 顶部导航栏 -->
+    <header class="w-full bg-primary text-white">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-bold">全国校外教育培训监管与服务综合平台</h1>
+        <div class="flex space-x-4 text-sm">
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              机构查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              课程查询 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <div class="relative group">
+            <button class="flex items-center whitespace-nowrap !rounded-button">
+              接入银行 <i class="ri-arrow-down-s-line ml-1"></i>
+            </button>
+          </div>
+          <button class="whitespace-nowrap !rounded-button">登录</button>
+          <button class="whitespace-nowrap !rounded-button">APP下载</button>
+        </div>
+      </div>
+    </header>
+    <!-- 主导航菜单 -->
+    <nav class="bg-blue-600 text-white">
+      <div class="container mx-auto">
+        <ul class="flex">
+          <li class="flex-1">
+            <a
+              href="./一级-首页.html"
+              class="flex items-center justify-center py-4 px-6 bg-blue-700 hover:bg-blue-800 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-home-line"></i>
+              </div>
+              首页
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="./zhengce/一级-政策.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-list-line"></i>
+              </div>
+              政策
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="./dongtai/一级-动态.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              动态
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="./baoguang/一级-曝光.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-alert-line"></i>
+              </div>
+              曝光
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="./piyao/一级-辟谣.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-error-warning-line"></i>
+              </div>
+              辟谣
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="./bangzhu/一级-帮助.html"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-question-line"></i>
+              </div>
+              帮助
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- 主体内容 -->
+    <main class="container mx-auto px-4 py-6">
+      <!-- 功能快捷入口 -->
+      <div class="bg-white rounded shadow-sm mb-6 p-4 flex">
+        <a
+          href="./jiazhang/二-1-家长.html"
+          class="flex-1 flex flex-col items-center justify-center p-4 hover:bg-blue-50 transition-colors rounded"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mb-2 text-primary"
+          >
+            <i class="ri-team-line ri-xl"></i>
+          </div>
+          <span class="text-gray-700">家长服务</span>
+        </a>
+        <a
+          href="./jigou/二-2-1机构.html"
+          class="flex-1 flex flex-col items-center justify-center p-4 hover:bg-blue-50 transition-colors rounded"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mb-2 text-primary"
+          >
+            <i class="ri-building-line ri-xl"></i>
+          </div>
+          <span class="text-gray-700">机构服务</span>
+        </a>
+        <a
+          href="./bumen/二-2-2机构管理.html"
+          class="flex-1 flex flex-col items-center justify-center p-4 hover:bg-blue-50 transition-colors rounded"
+        >
+          <div
+            class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full mb-2 text-primary"
+          >
+            <i class="ri-government-line ri-xl"></i>
+          </div>
+          <span class="text-gray-700">主管部门服务</span>
+        </a>
+      </div>
+      <!-- 轮播图展示区 -->
+      <div class="carousel-container mb-6 relative">
+        <div class="carousel-slides">
+          <div class="carousel-slide">
+            <img
+              src="./image/轮播图片（可以随意排序）/0c1dd4ede0ec170d8a104fcffdf8e4c.jpg"
+              alt="教育培训活动"
+            />
+            <div
+              class="absolute bottom-4 right-4 bg-white bg-opacity-80 px-3 py-1 rounded text-xs text-gray-700"
+            >
+              学生户外教育活动 | 全国校外教育培训活动展示
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="./image/轮播图片（可以随意排序）/103309e8ad37bf16b66e165cc6bb2c2.png"
+              alt="教育培训课程"
+            />
+            <div
+              class="absolute bottom-4 right-4 bg-white bg-opacity-80 px-3 py-1 rounded text-xs text-gray-700"
+            >
+              在线教育课程 | 优质教育资源共享平台
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="./image/轮播图片（可以随意排序）/ac3e206a2a86e4feb72cbc5507642fa.jpg"
+              alt="教育监管服务"
+            />
+            <div
+              class="absolute bottom-4 right-4 bg-white bg-opacity-80 px-3 py-1 rounded text-xs text-gray-700"
+            >
+              教育监管服务 | 保障培训质量安全
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="./image/轮播图片（可以随意排序）/c653c26979613f4e83fcdc6d039fa47.png"
+              alt="数字化教育"
+            />
+            <div
+              class="absolute bottom-4 right-4 bg-white bg-opacity-80 px-3 py-1 rounded text-xs text-gray-700"
+            >
+              数字化教育创新 | 智慧教育新发展
+            </div>
+          </div>
+          <div class="carousel-slide">
+            <img
+              src="./image/轮播图片（可以随意排序）/ebee7b653dd767b85ee7d0b08b683c1.jpg"
+              alt="教育政策解读"
+            />
+            <div
+              class="absolute bottom-4 right-4 bg-white bg-opacity-80 px-3 py-1 rounded text-xs text-gray-700"
+            >
+              教育政策解读 | 规范培训行业发展
+            </div>
+          </div>
+        </div>
+        <div class="carousel-dots">
+          <div class="carousel-dot active"></div>
+          <div class="carousel-dot"></div>
+          <div class="carousel-dot"></div>
+          <div class="carousel-dot"></div>
+          <div class="carousel-dot"></div>
+        </div>
+        <div
+          class="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white bg-opacity-80 p-2 rounded-l-lg"
+        >
+          <div class="w-8 h-8 flex items-center justify-center text-primary">
+            <i class="ri-customer-service-2-line ri-lg"></i>
+          </div>
+        </div>
+      </div>
+      <!-- 快捷导航 -->
+      <div class="flex items-center mb-6 space-x-4">
+        <div class="bg-blue-500 text-white px-4 py-2 rounded flex items-center">
+          <div class="w-6 h-6 flex items-center justify-center mr-2">
+            <i class="ri-menu-line"></i>
+          </div>
+          <span>导航</span>
+        </div>
+        <a
+          href="#"
+          class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded flex-1 text-center whitespace-nowrap !rounded-button"
+        >
+          "双减"网络专栏
+        </a>
+        <a
+          href="#"
+          class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded flex-1 text-center whitespace-nowrap !rounded-button"
+        >
+          校园安全与"双减"
+        </a>
+        <a
+          href="#"
+          class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded flex-1 text-center whitespace-nowrap !rounded-button"
+        >
+          政策解读
+        </a>
+        <a
+          href="#"
+          class="bg-yellow-100 text-yellow-800 px-4 py-2 rounded flex-1 text-center whitespace-nowrap !rounded-button"
+        >
+          提升学科教育质量
+        </a>
+        <a
+          href="#"
+          class="bg-blue-100 text-blue-800 px-2 py-2 rounded flex items-center justify-center"
+        >
+          <div class="w-6 h-6 flex items-center justify-center">
+            <i class="ri-arrow-up-line"></i>
+          </div>
+        </a>
+      </div>
+      <!-- 内容展示区 -->
+      <div class="grid grid-cols-2 gap-6">
+        <!-- 政策解读 -->
+        <div class="bg-white rounded shadow-sm p-4">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-list-3-line"></i>
+              </div>
+              政策解读
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >教育部关于印发《义务教育学校管理标准化建设评估指标体系（试行）》的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-02</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >中共中央
+                国务院关于《教育现代化2035》和《加快推进教育现代化实施方案（2024-2035年）》</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-28</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >中国校外教育发展报告《中小学课后延时服务评估》（征求意见稿）</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-25</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >中国校外教育协会：中国青少年科技创新工作指导方针和教育改革方向（2024年全国教育工作会议精神解读）</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-20</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >教育部办公厅关于做好2024年暑期中小学生校外活动安全工作的有关事项的通知（教基厅函〔2025〕6号）</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-15</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 工作动态 -->
+        <div class="bg-white rounded shadow-sm p-4">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-calendar-event-line"></i>
+              </div>
+              工作动态
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于开展2024-2025学年学前教育中小学校师德师风大会的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-05</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于开展2024-2025学年全省中小学教师资格证考试成绩发布通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-03</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于开展2024-2025学年全国青少年科技创新大赛（省级）的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-30</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >全国校外培训机构线上工作视频会议</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-27</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >行业规范与服务质量提升工作推进会</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-22</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 通知公告 -->
+        <div class="bg-white rounded shadow-sm p-4">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-notification-3-line"></i>
+              </div>
+              通知公告
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >北京市东城区：新区"十四五"教师队伍建设规划</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-04</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >教育部办公厅："双减"工作全面深化教育综合改革实施方案</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-01</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >浙江省教育厅："双减"实施效果评估会议公告</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-29</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >福建省：校外培训机构"双减"成效</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-26</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >江苏省教育厅关于开展暑期"安全教育"专项活动通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-23</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 典型案例 -->
+        <div class="bg-white rounded shadow-sm p-4">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-paper-2-line"></i>
+              </div>
+              典型案例
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >浙江省杭州市：创新"双减"——四位一体的课后服务保障体系构建</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-03</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于"规范管理"促进校外教育培训高质量发展的典型做法</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-31</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >【北京海淀】"课后三点半"多元化课程建设典型案例</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-28</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >重庆市：推动校园足球高质量发展的"双引擎"！</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-25</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >首批一百所校园体育典范学校27万名学生的体育课怎么上？</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-22</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 视频专区 -->
+        <div class="bg-white rounded shadow-sm p-4">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-video-line"></i>
+              </div>
+              视频专区
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于教育部《课后三点半》政策解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-06-04</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >最新通知：《校外培训管理条例》（征求意见稿）</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-30</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >教育部：《中国校外教育公益化发展与服务体系建设》政策解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-26</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >解读：《课后服务质量标准与实施细则解析》政策解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-22</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于2024年校外培训机构年度评估工作通知解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025-05-18</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 视频展示 -->
+        <div class="bg-white rounded shadow-sm p-4">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-film-line"></i>
+              </div>
+              视频展示
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="relative rounded overflow-hidden">
+              <img
+                src="./image/视频图片（可以随意排序）/171c7c327204930672c423521e9acd7.png"
+                alt="教育政策解读"
+                class="w-full h-32 object-cover object-top"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
+              >
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-80 rounded-full text-primary"
+                >
+                  <i class="ri-play-fill ri-lg"></i>
+                </div>
+              </div>
+              <p class="text-sm mt-2 text-gray-700 truncate">
+                全国教育大会主要精神解读
+              </p>
+            </div>
+            <div class="relative rounded overflow-hidden">
+              <img
+                src="./image/视频图片（可以随意排序）/55931ab283d870d5d7eba12a09c3fd5.png"
+                alt="在线教育平台"
+                class="w-full h-32 object-cover object-top"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
+              >
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-80 rounded-full text-primary"
+                >
+                  <i class="ri-play-fill ri-lg"></i>
+                </div>
+              </div>
+              <p class="text-sm mt-2 text-gray-700 truncate">
+                校外培训机构管理系统使用指南
+              </p>
+            </div>
+            <div class="relative rounded overflow-hidden">
+              <img
+                src="./image/视频图片（可以随意排序）/8f4bf1a71a26cec14ce25435392ff30.png"
+                alt="教育动画"
+                class="w-full h-32 object-cover object-top"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
+              >
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-80 rounded-full text-primary"
+                >
+                  <i class="ri-play-fill ri-lg"></i>
+                </div>
+              </div>
+              <p class="text-sm mt-2 text-gray-700 truncate">
+                青少年科技创新能力培养指南
+              </p>
+            </div>
+            <div class="relative rounded overflow-hidden">
+              <img
+                src="./image/视频图片（可以随意排序）/a798721c8a7749faa0b3dcbd41146fa.png"
+                alt="教师培训"
+                class="w-full h-32 object-cover object-top"
+              />
+              <div
+                class="absolute inset-0 bg-black bg-opacity-20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity"
+              >
+                <div
+                  class="w-12 h-12 flex items-center justify-center bg-white bg-opacity-80 rounded-full text-primary"
+                >
+                  <i class="ri-play-fill ri-lg"></i>
+                </div>
+              </div>
+              <p class="text-sm mt-2 text-gray-700 truncate">
+                课后服务优质案例展示
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 服务指南 -->
+      <div class="bg-blue-50 rounded p-6 mt-6">
+        <div class="flex justify-between items-center mb-4">
+          <h3 class="text-lg font-bold text-primary flex items-center">
+            <div class="w-6 h-6 flex items-center justify-center mr-2">
+              <i class="ri-guide-line"></i>
+            </div>
+            服务指南
+          </h3>
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h4 class="font-bold text-gray-800 mb-4">培训机构办理入口</h4>
+            <div class="text-gray-600 text-sm space-y-2">
+              <p>您是培训机构负责人？</p>
+              <p>需要办理资质审核、备案？</p>
+              <p>需要提交年检材料？</p>
+              <p>需要变更机构信息？</p>
+              <p>需要申请新增培训项目？</p>
+              <p>以上所有事项，请点击下方按钮进入办理。</p>
+              <button
+                class="mt-2 bg-primary text-white px-6 py-2 rounded whitespace-nowrap !rounded-button"
+              >
+                立即办理
+              </button>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg p-4 shadow-sm">
+            <h4 class="font-bold text-gray-800 mb-4">APP下载</h4>
+            <div class="flex justify-between">
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-24 h-24 bg-gray-100 rounded flex items-center justify-center mb-2"
+                >
+                  <img
+                    src="./image/二维码（要对应）/培训端.png"
+                    alt="培训端"
+                    class="w-20 h-20"
+                  />
+                </div>
+                <span class="text-sm text-gray-700">培训端</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-24 h-24 bg-gray-100 rounded flex items-center justify-center mb-2"
+                >
+                  <img
+                    src="./image/二维码（要对应）/机构端.png"
+                    alt="机构端"
+                    class="w-20 h-20"
+                  />
+                </div>
+                <span class="text-sm text-gray-700">机构端</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-24 h-24 bg-gray-100 rounded flex items-center justify-center mb-2"
+                >
+                  <img
+                    src="./image/二维码（要对应）/家长端.png"
+                    alt="家长端"
+                    class="w-20 h-20"
+                  />
+                </div>
+                <span class="text-sm text-gray-700">家长端</span>
+              </div>
+              <div class="flex flex-col items-center">
+                <div
+                  class="w-24 h-24 bg-gray-100 rounded flex items-center justify-center mb-2"
+                >
+                  <img
+                    src="./image/二维码（要对应）/支付宝.png"
+                    alt="支付宝"
+                    class="w-20 h-20"
+                  />
+                </div>
+                <span class="text-sm text-gray-700">支付宝</span>
+              </div>
+            </div>
+            <h4 class="font-bold text-gray-800 mt-6 mb-2">文件下载</h4>
+            <div class="grid grid-cols-2 gap-2">
+              <a
+                href="#"
+                class="flex items-center text-sm text-gray-700 hover:text-primary"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-file-download-line"></i>
+                </div>
+                教育部培训机构申请表
+                <div
+                  class="w-5 h-5 flex items-center justify-center ml-1 text-gray-400"
+                >
+                  <i class="ri-download-line"></i>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="flex items-center text-sm text-gray-700 hover:text-primary"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-file-download-line"></i>
+                </div>
+                机构年检材料清单
+                <div
+                  class="w-5 h-5 flex items-center justify-center ml-1 text-gray-400"
+                >
+                  <i class="ri-download-line"></i>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="flex items-center text-sm text-gray-700 hover:text-primary"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-file-download-line"></i>
+                </div>
+                课程内容审核标准
+                <div
+                  class="w-5 h-5 flex items-center justify-center ml-1 text-gray-400"
+                >
+                  <i class="ri-download-line"></i>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="flex items-center text-sm text-gray-700 hover:text-primary"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-file-download-line"></i>
+                </div>
+                教师资格证明材料
+                <div
+                  class="w-5 h-5 flex items-center justify-center ml-1 text-gray-400"
+                >
+                  <i class="ri-download-line"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- 页脚 -->
+    <footer class="bg-primary text-white mt-6">
+      <div class="container mx-auto px-4 py-8">
+        <div class="text-center text-sm">
+          <p>版权所有 © 全国校外教育培训监管与服务综合平台</p>
+          <p class="mt-2">教育部 · 国家教育行政学院 · 中国教育科学研究院</p>
+          <p class="mt-2">
+            联系电话：010-12345678 · 电子邮箱：info@edu-platform.gov.cn
+          </p>
+          <p class="mt-2">京ICP备12345678号-1 · 京公网安备11010502030185号</p>
+          <p class="mt-2">网站地图 · 隐私政策</p>
+        </div>
+      </div>
+    </footer>
+    <script src="index.js"></script>
+  </body>
+</html>

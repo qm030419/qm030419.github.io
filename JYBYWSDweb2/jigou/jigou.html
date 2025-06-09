@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>管理后台 - 全国校外教育培训监管与服务综合平台</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="../js/tailwindcss.js"></script>
+    <script src="../js/tailwind.js"></script>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+
+  <body>
+    <!-- 顶部导航栏 -->
+    <header class="w-full bg-primary text-white">
+      <div
+        class="container mx-auto px-4 py-3 flex justify-between items-center"
+      >
+        <h1 class="text-xl font-bold">全国校外教育培训监管与服务综合平台</h1>
+        <div class="flex space-x-4 text-sm items-center">
+          <div class="flex items-center mr-4">
+            <div
+              class="w-8 h-8 flex items-center justify-center bg-blue-700 rounded-full mr-2"
+            >
+              <i class="ri-user-line"></i>
+            </div>
+            <span>张教育培训机构</span>
+          </div>
+          <div class="h-5 w-px bg-blue-400 mx-2"></div>
+          <button
+            class="flex items-center whitespace-nowrap !rounded-button hover:text-blue-200"
+          >
+            <i class="ri-notification-3-line mr-1"></i>
+            消息
+          </button>
+          <button
+            class="flex items-center whitespace-nowrap !rounded-button hover:text-blue-200"
+          >
+            <i class="ri-settings-3-line mr-1"></i>
+            设置
+          </button>
+          <button
+            class="flex items-center whitespace-nowrap !rounded-button hover:text-blue-200"
+          >
+            <i class="ri-logout-box-r-line mr-1"></i>
+            退出
+          </button>
+        </div>
+      </div>
+    </header>
+    <!-- 主导航菜单 -->
+    <nav class="bg-blue-600 text-white">
+      <div class="container mx-auto">
+        <ul class="flex">
+          <li class="flex-1">
+            <a
+              href="#"
+              class="flex items-center justify-center py-4 px-6 bg-blue-700 hover:bg-blue-800 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-home-line"></i>
+              </div>
+              后台首页
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="#"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-building-line"></i>
+              </div>
+              机构管理
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="#"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-store-line"></i>
+              </div>
+              经营管理
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="#"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-settings-line"></i>
+              </div>
+              基础管理
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="#"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-alert-line"></i>
+              </div>
+              风险预警
+            </a>
+          </li>
+          <li class="flex-1">
+            <a
+              href="#"
+              class="flex items-center justify-center py-4 px-6 hover:bg-blue-700 transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-question-line"></i>
+              </div>
+              帮助中心
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+    <!-- 主体内容 -->
+    <main class="container mx-auto px-4 py-6">
+      <!-- 页面标题 -->
+      <div class="flex items-center justify-between mb-6">
+        <h2 class="text-2xl font-bold text-gray-800 flex items-center">
+          <div
+            class="w-8 h-8 flex items-center justify-center mr-2 text-primary"
+          >
+            <i class="ri-building-line ri-lg"></i>
+          </div>
+          机构服务平台
+        </h2>
+        <div class="flex items-center space-x-4">
+          <a
+            href="../一级-首页.html"
+            class="flex items-center text-gray-600 hover:text-primary"
+          >
+            <div class="w-5 h-5 flex items-center justify-center mr-1">
+              <i class="ri-arrow-left-line"></i>
+            </div>
+            返回首页
+          </a>
+          <div class="text-gray-400">|</div>
+          <a
+            href="#"
+            class="flex items-center text-gray-600 hover:text-primary"
+          >
+            <div class="w-5 h-5 flex items-center justify-center mr-1">
+              <i class="ri-question-line"></i>
+            </div>
+            帮助
+          </a>
+        </div>
+      </div>
+      <!-- 登录注册区域 -->
+      <div class="bg-white rounded-lg shadow-sm mb-6 overflow-hidden">
+        <div class="flex">
+          <!-- 左侧登录表单 -->
+          <div class="w-1/2 p-8 border-r border-gray-100">
+            <div class="mb-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">机构登录</h3>
+              <p class="text-gray-500 text-sm">已有账号的培训机构请直接登录</p>
+            </div>
+            <form class="space-y-4">
+              <div>
+                <label
+                  for="username"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >统一社会信用代码</label
+                >
+                <input
+                  type="text"
+                  id="username"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="请输入统一社会信用代码"
+                />
+              </div>
+              <div>
+                <label
+                  for="password"
+                  class="block text-sm font-medium text-gray-700 mb-1"
+                  >密码</label
+                >
+                <input
+                  type="password"
+                  id="password"
+                  class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  placeholder="请输入密码"
+                />
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <input
+                    type="checkbox"
+                    id="remember"
+                    class="custom-checkbox"
+                  />
+                  <label for="remember" class="ml-2 text-sm text-gray-600"
+                    >记住我</label
+                  >
+                </div>
+                <a href="#" class="text-sm text-primary hover:underline"
+                  >忘记密码？</a
+                >
+              </div>
+              <button
+                type="submit"
+                class="w-full bg-primary text-white py-2 px-4 rounded hover:bg-blue-600 transition-colors whitespace-nowrap !rounded-button"
+              >
+                登录
+              </button>
+            </form>
+          </div>
+          <!-- 右侧注册引导 -->
+          <div class="w-1/2 p-8 bg-blue-50">
+            <div class="mb-6">
+              <h3 class="text-xl font-bold text-gray-800 mb-2">机构注册</h3>
+              <p class="text-gray-500 text-sm">
+                新机构请先完成注册，获取平台账号
+              </p>
+            </div>
+            <div class="space-y-4">
+              <div class="bg-white p-4 rounded border border-blue-100">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-3 mt-1"
+                  >
+                    <i class="ri-file-list-3-line"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-800 mb-1">准备材料</h4>
+                    <p class="text-sm text-gray-600">
+                      营业执照、办学许可证、法人身份证等基本材料
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-blue-100">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-3 mt-1"
+                  >
+                    <i class="ri-user-add-line"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-800 mb-1">提交注册</h4>
+                    <p class="text-sm text-gray-600">
+                      填写机构基本信息，上传相关证明材料
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="bg-white p-4 rounded border border-blue-100">
+                <div class="flex items-start">
+                  <div
+                    class="w-8 h-8 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-3 mt-1"
+                  >
+                    <i class="ri-shield-check-line"></i>
+                  </div>
+                  <div>
+                    <h4 class="font-medium text-gray-800 mb-1">等待审核</h4>
+                    <p class="text-sm text-gray-600">
+                      提交后等待1 - 3个工作日完成审核
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <button
+                class="w-full bg-white text-primary border border-primary py-2 px-4 rounded hover:bg-blue-50 transition-colors whitespace-nowrap !rounded-button"
+              >
+                立即注册
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 机构服务功能区 -->
+      <div class="grid grid-cols-3 gap-6 mb-6">
+        <!-- 资质审核申请 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-verified-badge-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">资质审核申请</h3>
+              <p class="text-sm text-gray-500">办理培训资质认证</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              提交机构资质材料，申请培训资格认证。包括办学许可证申请、从业人员资格认证等。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full"
+              >审核周期：5 - 7工作日</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              申请办理
+            </button>
+          </div>
+        </div>
+        <!-- 备案管理 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-file-list-3-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">备案管理</h3>
+              <p class="text-sm text-gray-500">机构信息备案登记</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              按照规定提交机构基本信息、场地信息、人员信息等进行备案登记，完成监管部门备案要求。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full"
+              >常年开放</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              进入备案
+            </button>
+          </div>
+        </div>
+        <!-- 年检材料提交 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-calendar-check-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">年检材料提交</h3>
+              <p class="text-sm text-gray-500">年度检查材料提交</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              按照年度要求提交机构运营情况、财务状况、人员变动等年检材料，保持资质有效性。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full"
+              >截止日期：2025 - 08 - 31</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              提交年检
+            </button>
+          </div>
+        </div>
+        <!-- 信息变更 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-edit-2-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">信息变更</h3>
+              <p class="text-sm text-gray-500">机构信息变更申请</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              当机构名称、地址、法人、经营范围等信息发生变化时，及时申请变更登记，保持信息准确性。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-purple-100 text-purple-800 rounded-full"
+              >变更后15日内申请</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              申请变更
+            </button>
+          </div>
+        </div>
+        <!-- 课程管理 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-book-open-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">课程管理</h3>
+              <p class="text-sm text-gray-500">课程备案与管理</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              管理机构开设的课程信息，包括课程内容、教材、课时、收费等信息的备案与更新。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full"
+              >新课程需提前备案</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              课程管理
+            </button>
+          </div>
+        </div>
+        <!-- 教师管理 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-user-star-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">教师管理</h3>
+              <p class="text-sm text-gray-500">教师资质与信息管理</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              管理机构教师信息，包括教师资格证、学历、教学经验等资质信息的登记与更新。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full"
+              >教师变动需及时更新</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              教师管理
+            </button>
+          </div>
+        </div>
+        <!-- 收费标准备案 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-money-cny-box-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">收费标准备案</h3>
+              <p class="text-sm text-gray-500">课程收费标准备案</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              按照规定提交各类课程的收费标准，包括课时费、教材费、活动费等，进行透明化管理。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-orange-100 text-orange-800 rounded-full"
+              >调价需提前30天备案</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              收费备案
+            </button>
+          </div>
+        </div>
+        <!-- 投诉处理 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-customer-service-2-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">投诉处理</h3>
+              <p class="text-sm text-gray-500">投诉与反馈处理</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              查看和处理家长、学生对机构的投诉和建议，及时回应并改进服务质量。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span class="text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full"
+              >需在3个工作日内回复</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              投诉管理
+            </button>
+          </div>
+        </div>
+        <!-- 数据统计 -->
+        <div class="bg-white rounded-lg shadow-sm p-6 flex flex-col">
+          <div class="flex items-center mb-4">
+            <div
+              class="w-12 h-12 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-4"
+            >
+              <i class="ri-bar-chart-line ri-xl"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-gray-800">数据统计</h3>
+              <p class="text-sm text-gray-500">运营数据分析</p>
+            </div>
+          </div>
+          <div class="flex-1 text-sm text-gray-600 mb-4">
+            <p>
+              查看机构运营数据统计，包括学生数量、课程情况、收费情况等多维度分析报表。
+            </p>
+          </div>
+          <div class="flex justify-between items-center">
+            <span
+              class="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full"
+              >每月更新</span
+            >
+            <button
+              class="bg-primary text-white px-4 py-1.5 rounded hover:bg-blue-600 transition-colors text-sm whitespace-nowrap !rounded-button"
+            >
+              查看统计
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- 政策解读与操作指南 -->
+      <div class="grid grid-cols-2 gap-6 mb-6">
+        <!-- 政策解读 -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-file-list-3-line"></i>
+              </div>
+              政策解读
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >《校外培训机构设置标准（2025年修订版）》政策解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 06 - 01</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >《关于进一步规范校外培训机构收费行为的通知》要点分析</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 25</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >《培训机构从业人员资格认证管理办法》解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 18</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >《校外培训机构预收费管理实施细则》重点说明</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 10</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >《校外培训机构年检工作指南（2025版）》解读</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 03</span>
+            </li>
+          </ul>
+        </div>
+        <!-- 操作指南 -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-guide-line"></i>
+              </div>
+              操作指南
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >机构注册与资质申请流程详解</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 06 - 05</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >课程备案与管理系统使用指南</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 28</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >教师资质信息录入与更新操作指南</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 20</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >收费标准备案系统使用说明</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 15</span>
+            </li>
+            <li class="flex">
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >年检材料准备与提交流程详解</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 08</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 常见问题与通知公告 -->
+      <div class="grid grid-cols-2 gap-6 mb-6">
+        <!-- 常见问题 -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-question-answer-line"></i>
+              </div>
+              常见问题
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <div class="space-y-4">
+            <div class="border border-gray-100 rounded-lg p-4">
+              <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-question-line"></i>
+                </div>
+                机构备案需要哪些材料？
+              </h4>
+              <p class="text-sm text-gray-600">
+                机构备案需要提供营业执照、办学许可证、法人身份证明、场地证明、教师资质证明、消防安全检查合格证明等材料。具体要求可查看《备案材料清单》。
+              </p>
+            </div>
+            <div class="border border-gray-100 rounded-lg p-4">
+              <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-question-line"></i>
+                </div>
+                如何申请课程内容备案？
+              </h4>
+              <p class="text-sm text-gray-600">
+                登录机构账号后，进入"课程管理"模块，点击"新增课程"，填写课程基本信息、教学大纲、教材信息、师资配置等内容，上传相关佐证材料后提交审核。
+              </p>
+            </div>
+            <div class="border border-gray-100 rounded-lg p-4">
+              <h4 class="font-medium text-gray-800 mb-2 flex items-center">
+                <div
+                  class="w-5 h-5 flex items-center justify-center mr-2 text-primary"
+                >
+                  <i class="ri-question-line"></i>
+                </div>
+                年检材料提交时间是什么时候？
+              </h4>
+              <p class="text-sm text-gray-600">
+                机构年检材料提交时间为每年的6月1日至8月31日。请在此期间登录平台，进入"年检材料提交"模块，按要求填写并上传相关材料。
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- 通知公告 -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+          <div
+            class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+          >
+            <h3 class="text-lg font-bold text-primary flex items-center">
+              <div class="w-6 h-6 flex items-center justify-center mr-2">
+                <i class="ri-notification-3-line"></i>
+              </div>
+              通知公告
+            </h3>
+            <a href="#" class="text-sm text-gray-500 hover:text-primary"
+              >更多 ></a
+            >
+          </div>
+          <ul class="space-y-3">
+            <li class="flex">
+              <div
+                class="px-2 py-1 bg-red-100 text-red-800 text-xs rounded mr-3 whitespace-nowrap"
+              >
+                重要
+              </div>
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于2025年度校外培训机构年检工作的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 06 - 01</span>
+            </li>
+            <li class="flex">
+              <div
+                class="px-2 py-1 bg-orange-100 text-orange-800 text-xs rounded mr-3 whitespace-nowrap"
+              >
+                新规
+              </div>
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于调整校外培训机构收费管理办法的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 25</span>
+            </li>
+            <li class="flex">
+              <div
+                class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded mr-3 whitespace-nowrap"
+              >
+                培训
+              </div>
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于举办2025年校外培训机构管理系统使用培训的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 20</span>
+            </li>
+            <li class="flex">
+              <div
+                class="px-2 py-1 bg-green-100 text-green-800 text-xs rounded mr-3 whitespace-nowrap"
+              >
+                提醒
+              </div>
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于做好暑期校外培训机构安全管理工作的提醒</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 15</span>
+            </li>
+            <li class="flex">
+              <div
+                class="px-2 py-1 bg-purple-100 text-purple-800 text-xs rounded mr-3 whitespace-nowrap"
+              >
+                会议
+              </div>
+              <a
+                href="#"
+                class="text-gray-700 hover:text-primary flex-1 truncate"
+                >关于召开2025年第二季度校外培训机构管理工作会议的通知</a
+              >
+              <span class="text-gray-400 text-sm ml-4">2025 - 05 - 10</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <!-- 文件下载 -->
+      <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+        <div
+          class="flex justify-between items-center mb-4 pb-2 border-b border-gray-200"
+        >
+          <h3 class="text-lg font-bold text-primary flex items-center">
+            <div class="w-6 h-6 flex items-center justify-center mr-2">
+              <i class="ri-file-download-line"></i>
+            </div>
+            文件下载
+          </h3>
+          <a href="#" class="text-sm text-gray-500 hover:text-primary"
+            >更多 ></a
+          >
+        </div>
+        <div class="grid grid-cols-2 gap-6">
+          <div class="space-y-3">
+            <a
+              href="#"
+              class="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg text-primary mr-3"
+              >
+                <i class="ri-file-word-2-line ri-lg"></i>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">机构备案申请表</h4>
+                <p class="text-xs text-gray-500">
+                  DOCX文件 | 更新于2025 - 05 - 01
+                </p>
+              </div>
+              <div
+                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary"
+              >
+                <i class="ri-download-line"></i>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg text-primary mr-3"
+              >
+                <i class="ri-file-excel-2-line ri-lg"></i>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">教师资质信息采集表</h4>
+                <p class="text-xs text-gray-500">
+                  XLSX文件 | 更新于2025 - 05 - 10
+                </p>
+              </div>
+              <div
+                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary"
+              >
+                <i class="ri-download-line"></i>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg text-primary mr-3"
+              >
+                <i class="ri-file-pdf-line ri-lg"></i>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">校外培训机构设置标准</h4>
+                <p class="text-xs text-gray-500">
+                  PDF文件 | 更新于2025 - 04 - 15
+                </p>
+              </div>
+              <div
+                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary"
+              >
+                <i class="ri-download-line"></i>
+              </div>
+            </a>
+          </div>
+          <div class="space-y-3">
+            <a
+              href="#"
+              class="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg text-primary mr-3"
+              >
+                <i class="ri-file-excel-2-line ri-lg"></i>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">课程信息登记表</h4>
+                <p class="text-xs text-gray-500">
+                  XLSX文件 | 更新于2025 - 05 - 15
+                </p>
+              </div>
+              <div
+                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary"
+              >
+                <i class="ri-download-line"></i>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg text-primary mr-3"
+              >
+                <i class="ri-file-word-2-line ri-lg"></i>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">年检材料清单</h4>
+                <p class="text-xs text-gray-500">
+                  DOCX文件 | 更新于2025 - 05 - 20
+                </p>
+              </div>
+              <div
+                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary"
+              >
+                <i class="ri-download-line"></i>
+              </div>
+            </a>
+            <a
+              href="#"
+              class="flex items-center p-3 border border-gray-100 rounded-lg hover:bg-blue-50 transition-colors"
+            >
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-lg text-primary mr-3"
+              >
+                <i class="ri-file-pdf-line ri-lg"></i>
+              </div>
+              <div class="flex-1">
+                <h4 class="font-medium text-gray-800">收费标准备案指南</h4>
+                <p class="text-xs text-gray-500">
+                  PDF文件 | 更新于2025 - 04 - 25
+                </p>
+              </div>
+              <div
+                class="w-8 h-8 flex items-center justify-center text-gray-400 hover:text-primary"
+              >
+                <i class="ri-download-line"></i>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- 联系与帮助 -->
+      <div class="bg-blue-50 rounded-lg p-6">
+        <div
+          class="flex justify-between items-center mb-4 pb-2 border-b border-blue-100"
+        >
+          <h3 class="text-lg font-bold text-primary flex items-center">
+            <div class="w-6 h-6 flex items-center justify-center mr-2">
+              <i class="ri-customer-service-2-line"></i>
+            </div>
+            联系与帮助
+          </h3>
+        </div>
+        <div class="grid grid-cols-3 gap-6">
+          <div class="bg-white rounded-lg p-5 shadow-sm">
+            <div class="flex items-center mb-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-3"
+              >
+                <i class="ri-phone-line ri-lg"></i>
+              </div>
+              <h4 class="font-bold text-gray-800">电话咨询</h4>
+            </div>
+            <div class="space-y-2 text-sm text-gray-600">
+              <p>工作日：9:00 - 17:00</p>
+              <p>技术支持：010 - 12345678</p>
+              <p>政策咨询：010 - 87654321</p>
+              <p>投诉建议：010 - 13579246</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg p-5 shadow-sm">
+            <div class="flex items-center mb-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-3"
+              >
+                <i class="ri-mail-line ri-lg"></i>
+              </div>
+              <h4 class="font-bold text-gray-800">邮件联系</h4>
+            </div>
+            <div class="space-y-2 text-sm text-gray-600">
+              <p>技术问题：support@edu - platform.gov.cn</p>
+              <p>政策咨询：policy@edu - platform.gov.cn</p>
+              <p>备案咨询：record@edu - platform.gov.cn</p>
+              <p>投诉建议：feedback@edu - platform.gov.cn</p>
+            </div>
+          </div>
+          <div class="bg-white rounded-lg p-5 shadow-sm">
+            <div class="flex items-center mb-3">
+              <div
+                class="w-10 h-10 flex items-center justify-center bg-blue-100 rounded-full text-primary mr-3"
+              >
+                <i class="ri-question-line ri-lg"></i>
+              </div>
+              <h4 class="font-bold text-gray-800">常见问题</h4>
+            </div>
+            <div class="space-y-2 text-sm text-gray-600">
+              <a href="#" class="block text-gray-700 hover:text-primary"
+                >· 如何重置账号密码？</a
+              >
+              <a href="#" class="block text-gray-700 hover:text-primary"
+                >· 备案材料有哪些要求？</a
+              >
+              <a href="#" class="block text-gray-700 hover:text-primary"
+                >· 年检未通过如何处理？</a
+              >
+              <a href="#" class="block text-gray-700 hover:text-primary"
+                >· 查看更多问题 ></a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- 页脚 -->
+    <footer class="bg-primary text-white mt-6">
+      <div class="container mx-auto px-4 py-8">
+        <div class="text-center text-sm">
+          <p>版权所有 © 全国校外教育培训监管与服务综合平台</p>
+          <p class="mt-2">教育部 · 国家教育行政学院 · 中国教育科学研究院</p>
+          <p class="mt-2">
+            联系电话：010 - 12345678 · 电子邮箱：info@edu - platform.gov.cn
+          </p>
+          <p class="mt-2">京ICP备12345678号 - 1 · 京公网安备11010502030185号</p>
+          <p class="mt-2">网站地图 · 隐私政策</p>
+        </div>
+      </div>
+    </footer>
+    <script src="./index.js"></script>
+  </body>
+</html>
